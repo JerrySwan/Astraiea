@@ -1,0 +1,24 @@
+Objectives = 
+
+1) VD with generic "generatorOutput" object.
+2) Remove repeated code in Layer2 (repeated between datapoint and timeseries, removed because now both are just "generatorOutput")
+3) Artefacts more generic as Jerry instructed
+4) Generators more generic so people can use complex structures
+
+Stress to Jerry - how can we improve this !!!!!!WITH MINIMAL REFACTORING!!!!!!!
+
+
+
+Generics = 
+
+SetOfExperiments: T extends GeneratorOutput because it is required for Generator
+	SetOfMultiArtefactExperiments, SetOf1ArtefactExperiments inherits from SetOfExperiments
+SetOfComparisons: T extends GeneratorOutput because required for SetOfExperiments
+Layer2: T extends GeneratorOutput because otherwise can't require some methods to have timeseries or artefact
+		The T in Layer2 methods is to ensure timeseries methods use timseries, artefact methods use artefacts
+CensoringStrategy uses T because Layer2 does
+Layer1 has to use it because Layer2 does! 
+Same with incrementingStrategy! This is endless!
+Vargha Delaney due to Layer1
+
+QUESTION - replace e.g. SetOfExperiments, SetOfComparisons with class or 

@@ -1,0 +1,57 @@
+package astraiea.layer2.generators;
+
+import java.util.List;
+import java.util.ListIterator;
+
+public class Timeseries<T extends GeneratorOutput> extends GeneratorOutput {
+	
+	private final List<T> list;
+	
+	public Timeseries(List<T> list){
+		this.list = list;
+	}
+
+	/**By default just get the result at the final time interval.
+	 * 
+	 */
+	@Override
+	public boolean getPassed(){
+		return list.get(list.size() - 1).getPassed();
+	}
+	
+	@Override
+	public double getValue(){
+		return list.get(list.size() - 1).getValue();
+	}
+
+	/**Gets the length of time taken to pass.
+	 * 
+	 * @return
+	 */
+	public int getTimeToPass(){
+		ListIterator<T> iter = list.listIterator();
+		int i = 0;
+		while(iter.hasNext()){
+			GeneratorOutput next = iter.next();
+			if(next.getPassed()){
+				return i;
+			}
+			i++;
+		}
+		return -1;
+	}
+	
+	public boolean getIntermediatePassed(int index){
+		return list.get(index).getPassed();
+	}
+	
+	@Override
+	public String toString(){
+		ListIterator<T> iter = list.listIterator();
+		String out = "";
+		while(iter.hasNext()){
+			out = out + iter.next().toString() + ",";
+		}
+		return out;
+	}
+}
