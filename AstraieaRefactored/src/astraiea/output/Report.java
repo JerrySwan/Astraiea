@@ -11,6 +11,12 @@ import java.util.logging.Logger;
 import astraiea.Result;
 import astraiea.layer2.strategies.CensoringStrategy;
 
+/**FIXME Refactoring 27/11 - new class. Just a minor change - seperates out printing output to log file from
+ * layer 2 as it was getting too complicated when stored just in layer2.
+ * 
+ * @author Geoffrey Neumann
+ *
+ */
 public class Report {
 
 	

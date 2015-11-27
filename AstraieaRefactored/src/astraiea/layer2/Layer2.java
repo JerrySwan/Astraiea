@@ -53,6 +53,7 @@ public final class Layer2 {
 
 	/**
 	 * Running without censoring with datapoint or timeseries generators without multiple artefacts.
+	 * FIXME Refactoring 27/11 - (without censoring makes no difference if datapoint or timeseries)
 	 * See runAllImpl for an explanation of the parameters.
 	 * 
 	 * @param gens
@@ -74,11 +75,15 @@ public final class Layer2 {
 	}
 	
 	/** Running with or without censoring with datapoint or timeseries generators with multiple artefacts.
+	 * FIXME Refactoring 27/11 - When using multiple artefacts paired tests are a requirement.
+	 * This means that options such as Brunnermunzel which would otherwise (and in the case of datapoint)
+	 * be optional with no censoring are now never allowed anyway. The same method call is therefore 
+	 * used for both datapoint and timeseries censoring and no censoring- no difference in options.
+	 * 
 	 * See runAllImpl for an explanation of the parameters.
 	 * 
 	 * @param gens
 	 * @param significanceThreshold
-	 * @param brunnerMunzel
 	 * @param incr
 	 * @param artefactRepeats
 	 * @param random
@@ -96,7 +101,7 @@ public final class Layer2 {
 
 	/**
 	 * Running with timeseries without multiple artefacts.
-	 * See runAllImpl for an explanation of the parameters.
+	 * See runAllImpl for an explanation of the parameters.	 * 
 	 * 
 	 * @param gens
 	 * @param significanceThreshold
@@ -117,30 +122,7 @@ public final class Layer2 {
 			Random random) {
 		return runAllImpl(gens,significanceThreshold,brunnerMunzel,paired,cens,incr,random,null);
 	}
-	
-	/**
-	 * Running with timeseries with multiple artefacts.
-	 * See runAllImpl for an explanation of the parameters.
-	 * 
-	 * @param gens
-	 * @param significanceThreshold
-	 * @param brunnerMunzel
-	 * @param paired
-	 * @param cens
-	 * @param incr
-	 * @param random
-	 * @return
-	 */
-	public static<T extends GeneratorOutput> List<ResultSet> runArtefacts(
-			SetOfComparisons<MultipleArtefactOutput<Timeseries<T>>> gens,
-			double significanceThreshold, 
-			boolean brunnerMunzel, 
-			boolean paired,
-			CensoringStrategy cens,
-			IncrementingStrategy incr,
-			Random random) {
-		return runAllImpl(gens,significanceThreshold,brunnerMunzel,paired,cens,incr,random,null);
-	}
+
 
 	
 	//WITH VDMod
@@ -189,8 +171,6 @@ public final class Layer2 {
 	
 	/** Running with or without censoring with datapoint generators with multiple artefacts.
 	 * See runAllImpl for an explanation of the parameters.
-	 * TODO MultipleArtefacts don't have brunnermunzel etc. and all the extra things that are used only with timeseries because 
-	 * they have to of paired.
 	 * 
 	 * @param gens
 	 * @param significanceThreshold
@@ -235,34 +215,9 @@ public final class Layer2 {
 			VDmod vdmod) {
 		return runAllImpl(gens,significanceThreshold,brunnerMunzel,paired,cens,incr,random,vdmod);
 	}
-	
-	/**
-	 * Running with timeseries with multiple artefacts.
-	 * See runAllImpl for an explanation of the parameters.
-	 * 
-	 * @param gens
-	 * @param significanceThreshold
-	 * @param brunnerMunzel
-	 * @param paired
-	 * @param cens
-	 * @param incr
-	 * @param random
-	 * @return
-	 */
-	public static<T extends GeneratorOutput> List<ResultSet> runArtefacts(
-			SetOfComparisons<MultipleArtefactOutput<Timeseries<T>>> gens,
-			double significanceThreshold, 
-			boolean brunnerMunzel, 
-			boolean paired,
-			CensoringStrategy cens,
-			IncrementingStrategy incr,
-			Random random,
-			VDmod vdmod) {
-		return runAllImpl(gens,significanceThreshold,brunnerMunzel,paired,cens,incr,random,vdmod);
-	}
 
 	
-	/**Compares a set of data point generators.
+	/**FIXME Refactoring 27/11 - Performs main comparison in Layer2. Now just one method with some changes.
 	 * @param <T>
 	 * 
 	 * @param gens set of generators being compared
@@ -404,7 +359,7 @@ public final class Layer2 {
 
 			results.add(new ResultSet(gen1Name,gen2Name,res));
 			
-			//FIXME - as above, runsSoFar[0] is with assumption both samples are the same size
+			//FIXME The printing out is with the assumption that both samples are the same size
 			rep.printPostTestOutput(runsSoFar[0] > incr.getMinRuns() || runsSoFar[1] > incr.getMinRuns(), 
 					runsSoFar[0], res, cens, gen1Name, gen2Name, censCounter);
 		}

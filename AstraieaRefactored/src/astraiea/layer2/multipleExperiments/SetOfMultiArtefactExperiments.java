@@ -9,7 +9,7 @@ import astraiea.layer2.generators.GeneratorOutput;
 import astraiea.layer2.generators.MultipleArtefactOutput;
 import astraiea.util.MersenneTwister;
 
-/**Encapsulates repetitions on running one generator on multiple artefacts.
+/**FIXME Refactoring 27/11 - new class. Encapsulates repetitions on running one generator on multiple artefacts.
  * 
  * @author Geoffrey Neumann
  *
@@ -30,7 +30,8 @@ public class SetOfMultiArtefactExperiments<T extends GeneratorOutput> extends Se
 	
 		List<MultipleArtefactOutput<T>> results = new ArrayList<MultipleArtefactOutput<T>>();
 		
-		//run each generator once
+		//run each generator once. any repeats within an artefact will be handled by client code in the Generator subclass.
+		//see MultipleArtefactOutput
 		for(int i =0; i < num; i++){
 			results.add(gens.get(i).generate(new MersenneTwister(seeds[i])));
 		}

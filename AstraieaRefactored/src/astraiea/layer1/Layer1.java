@@ -64,6 +64,9 @@ public final class Layer1 {
 	}
 
 
+	/**	//FIXME Refactoring 27/11 - new method. Wraps doubles in a simple subclass of GeneratorOutput.
+		Layer1 is now based on GeneratorOutput but this allows support for using it just with arrays of doubles.
+	 */
 	private static List<GeneratorOutput> wrap(double[] dA) {
 		List<GeneratorOutput> list = new ArrayList<GeneratorOutput>();
 		int num = dA.length;
@@ -917,7 +920,7 @@ public final class Layer1 {
 		LOGGER.info(resultIntroPhrase);
 		LOGGER.fine("Running The 1 Sample Wilcoxon Test");
 		double pVal = MannWhitney.evaluate(dataA, dataB);
-		//FIXME - what effect size test should be used? Place holders for effect size and order for now 
+		//FIXME What effect size test should be used? Place holders for effect size and order for now 
 		Result res = new Result(0, pVal, pVal < significanceThreshold, 0, null);
 		LOGGER.info("Results:\n");
 		LOGGER.info( LaTeXLogFormatter.itemizeFormat( Result.describe(res, dataAName, dataBName ) ) );		
@@ -985,6 +988,19 @@ public final class Layer1 {
 		LOGGER.addHandler( fileHandler );
 	}	
 
+	/**FIXME Refactoring 27/11 - compare lists of GeneratorOutputs.
+	 * 
+	 * @param dataA
+	 * @param dataB
+	 * @param significanceThreshold
+	 * @param brunnerMunzel
+	 * @param paired
+	 * @param gen1Name
+	 * @param gen2Name
+	 * @param random
+	 * @param vdmod
+	 * @return
+	 */
 	public static<T extends GeneratorOutput> Result compare(
 			List<T> dataA, 
 			List<T> dataB, 

@@ -1,5 +1,5 @@
 package astraiea.test.layer2;
-//TODO - the description in each assert
+//TODO The description in each assert
 import static org.junit.Assert.*;
 
 import java.io.IOException;
@@ -169,9 +169,9 @@ public class TestLayer2MultiGens {
 			
 			//Result resTest2 = Layer1.comparePaired(mediansIncr, mediansIncrB, 0.05);
 			Result resTest3 = Layer1.comparePaired(mediansT, mediansTB, 0.05);
-			//Result resTest4 = Layer1.compare(mediansT20, mediansT20B, 0.05, false, true); TODO - incrementing
+			//Result resTest4 = Layer1.compare(mediansT20, mediansT20B, 0.05, false, true); TODO Incrementing
 
-			//TODO - sort out incrementing after we have sequential sampling of implemented
+			//TODO Sort out incrementing after we have sequential sampling implemented
 			
 			/////////////////////////////////////
 

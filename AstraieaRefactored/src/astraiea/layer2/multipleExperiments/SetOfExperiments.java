@@ -5,7 +5,7 @@ import java.util.List;
 import astraiea.layer2.generators.Generator;
 import astraiea.layer2.generators.GeneratorOutput;
 
-/**Encapsulates repetitions on running one generator
+/**FIXME Refactoring 27/11 - new class. Encapsulates repetitions on running one generator
  * 
  * @author Geoffrey Neumann
  *

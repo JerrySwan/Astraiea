@@ -1,9 +1,6 @@
 package astraiea.layer2;
 
-import org.apache.commons.math3.util.Pair;
-
 import astraiea.Result;
-import astraiea.layer2.generators.Generator;
 
 public class ResultSet {
 	private final String gen1;
@@ -20,7 +17,6 @@ public class ResultSet {
 		return res;
 	}
 	
-	//TODO - Result.toString()
 	@Override
 	public String toString(){
 		return "Result of comparing " + gen1 + " with " + gen2 + ":" + res.toString();

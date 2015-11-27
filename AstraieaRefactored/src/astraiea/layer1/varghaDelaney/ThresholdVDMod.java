@@ -37,6 +37,7 @@ public class ThresholdVDMod extends VDmod {
 		this.thresholdDown = thresholdDown;
 	}
 	
+	//FIXME Refactoring 27/11 - now with GeneratorOutput
 	@Override
 	public Ordering compare(GeneratorOutput tVal, GeneratorOutput cVal) {
 		double tDouble = tVal.getValue();

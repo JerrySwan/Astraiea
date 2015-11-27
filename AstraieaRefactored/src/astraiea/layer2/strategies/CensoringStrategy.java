@@ -9,6 +9,10 @@ import astraiea.layer2.generators.Timeseries;
 /** 
  * Stores information about what approach should be taken if censored tests are used
  * but the first one does not return significance.
+ * FIXME Refactoring 27/11 - Now non stateful. 
+ * Censoring is a multi step process that has to separately execute and return each step as the outcome of 
+ * other parts of Astraiea (tests in layer1, incrementing etc.) determines whether the next step is carried out.
+ * This was previously done with a stateful counter. Now the counter is a parameter each step.
  * 
  * @author Geoffrey Neumann
  *
@@ -85,7 +89,6 @@ public class CensoringStrategy {
 
 
 	/**Returns a textual description of strategy which has just been used.
-	 * FOR OUTPUT
 	 * @return
 	 */
 	public String describeLastStrategy(int lastCounter) {
@@ -111,6 +114,11 @@ public class CensoringStrategy {
 	}
 
 
+	/**Returns how long a test takes to achieve a passing result.
+	 * 
+	 * @param results
+	 * @return
+	 */
 	public<T extends GeneratorOutput> double[] getTimesToPass(List<T> results) {
 		double[] times = new double[results.size()];
 		ListIterator<T> resultsIter = results.listIterator();
@@ -124,6 +132,14 @@ public class CensoringStrategy {
 	}
 
 
+	/**Returns either the final result if this is first (or default) censoring or an intermediate result
+	 * (from an intermediate interval in a time series)
+	 * if relevant and required by subsequent steps.
+	 * 
+	 * @param results
+	 * @param counter
+	 * @return
+	 */
 	public<T extends GeneratorOutput> boolean[] censor(List<T> results, int counter) {
 		boolean[] resArr = new boolean[results.size()];
 		ListIterator<T> resultsIter = results.listIterator();
@@ -140,6 +156,12 @@ public class CensoringStrategy {
 		return resArr;
 	}
 
+	/**Returns which interval in the time series was used for this step
+	 * (or -1 if not relevant or just default final interval used)
+	 * 
+	 * @param counter the step
+	 * @return
+	 */
 	public int getCensoringPoint(int counter) {
 		if(counter == 0)
 			return -1;

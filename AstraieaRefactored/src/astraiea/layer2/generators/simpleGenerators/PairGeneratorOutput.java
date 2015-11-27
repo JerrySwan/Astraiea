@@ -2,6 +2,11 @@ package astraiea.layer2.generators.simpleGenerators;
 
 import astraiea.layer2.generators.GeneratorOutput;
 
+/**	FIXME Refactoring 27/11 - new class. Just encapsulates a GeneratorOutput that is a double boolean pair.
+ * 
+ * @author Geoffrey Neumann
+ *
+ */
 public class PairGeneratorOutput extends GeneratorOutput {
 	private double val;
 	private boolean passed;

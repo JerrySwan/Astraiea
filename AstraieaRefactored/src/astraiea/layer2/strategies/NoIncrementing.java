@@ -25,7 +25,6 @@ public class NoIncrementing extends IncrementingStrategy {
 	@Override
 	public<T extends GeneratorOutput> int[] getNextIncrement(List<T> results1, List<T> results2, double pVal,
 			double threshold) {
-		// TODO Auto-generated method stub
 		return new int[]{0,0};
 	}
 

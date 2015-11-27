@@ -9,6 +9,7 @@ import astraiea.util.Ordering;
 
 import org.apache.commons.math3.stat.descriptive.rank.Percentile;
 
+//FIXME Refactoring 27/11 - in all methods replaced lists of doubles with lists of GeneratorOutput
 
 /**
  * Vargha Delaney effect-size test.
@@ -18,7 +19,7 @@ import org.apache.commons.math3.stat.descriptive.rank.Percentile;
  */
 public final class VarghaDelaney {
 	
-	//FIXME should probably be passed in but the number of parameters passed to Layer1 is getting excessive. Will explain.
+	//FIXME Should probably be passed in but the number of parameters passed to Layer1 is getting excessive. Will explain.
 	private static final int numCISamples = 1000;
 
 	/**Interpret the effect size

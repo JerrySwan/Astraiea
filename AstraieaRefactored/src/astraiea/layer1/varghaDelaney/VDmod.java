@@ -12,6 +12,7 @@ import astraiea.util.Ordering;
  */
 public abstract class VDmod {
 
+	//FIXME Refactoring 27/11 - now with GeneratorOutput allows more complex comparisons.
 	/**Will be called every time a result from one dataset is compared to one from another dataset 
 	 * as part of the Vargha Delaney comparison. Compares the two results to indicate which one is greater. 
 	 * Overwrite this method for a problem specific comparison.

@@ -3,6 +3,12 @@ package astraiea.layer2.generators;
 import java.util.List;
 import java.util.ListIterator;
 
+/**FIXME Refactoring 27/11 - new class. Encapsulates a time series. Is a list of GeneratorOutputs.
+ * 
+ * @author Geoffrey Neumann
+ *
+ * @param <T>
+ */
 public class Timeseries<T extends GeneratorOutput> extends GeneratorOutput {
 	
 	private final List<T> list;
@@ -41,6 +47,9 @@ public class Timeseries<T extends GeneratorOutput> extends GeneratorOutput {
 		return -1;
 	}
 	
+	/**Gets time at a given generation/time index
+	 * 
+	 */
 	public boolean getIntermediatePassed(int index){
 		return list.get(index).getPassed();
 	}
