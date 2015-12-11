@@ -8,16 +8,17 @@ import java.util.Random;
 import org.apache.commons.math3.util.Pair;
 
 import astraiea.layer2.generators.Generator;
-import astraiea.layer2.generators.Timeseries;
 import astraiea.layer2.generators.simpleGenerators.PairGeneratorOutput;
+import astraiea.layer2.generators.timeseries.Timeseries;
+import astraiea.layer2.generators.timeseries.TimeseriesGenerator;
 import astraiea.util.MersenneTwister;
 
-/**The Example used in the JUnit tests.
+/**The Example timeseries generator used in the JUnit tests.
  * 
  * @author Geoffrey Neumann
  *
  */
-public class ExampleTimeseriesGenerator implements Generator<Timeseries<PairGeneratorOutput>>{
+public class ExampleTimeseriesGenerator implements TimeseriesGenerator<PairGeneratorOutput>{
 
 	private double bias;
 	private double gap;

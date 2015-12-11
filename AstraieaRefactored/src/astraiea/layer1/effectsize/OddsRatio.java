@@ -1,4 +1,4 @@
-package astraiea.layer1;
+package astraiea.layer1.effectsize;
 
 import astraiea.util.Ordering;
 

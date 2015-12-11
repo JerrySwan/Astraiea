@@ -11,10 +11,10 @@ import org.apache.commons.math3.util.Pair;
 
 import astraiea.Result;
 import astraiea.layer1.Layer1;
-import astraiea.layer1.varghaDelaney.VDmod;
+import astraiea.layer1.effectsize.varghaDelaney.VDmod;
 import astraiea.layer2.generators.GeneratorOutput;
-import astraiea.layer2.generators.MultipleArtefactOutput;
-import astraiea.layer2.generators.Timeseries;
+import astraiea.layer2.generators.multipleArtefacts.MultipleArtefactOutput;
+import astraiea.layer2.generators.timeseries.Timeseries;
 import astraiea.layer2.multipleExperiments.SetOfComparisons;
 import astraiea.layer2.multipleExperiments.SetOfExperiments;
 import astraiea.layer2.strategies.*;
@@ -42,7 +42,7 @@ public final class Layer2 {
 	 * @param random
 	 * @return
 	 */
-	public static<T extends GeneratorOutput> List<ResultSet> runCensored(
+	public static<T extends GeneratorOutput> List<Result> runCensored(
 			SetOfComparisons<T> gens,
 			double significanceThreshold,
 			boolean paired,
@@ -64,7 +64,7 @@ public final class Layer2 {
 	 * @param random
 	 * @return
 	 */
-	public static<T extends GeneratorOutput> List<ResultSet> run(
+	public static<T extends GeneratorOutput> List<Result> run(
 			SetOfComparisons<T> gens,
 			double significanceThreshold, 
 			boolean brunnerMunzel, 
@@ -89,7 +89,7 @@ public final class Layer2 {
 	 * @param random
 	 * @return
 	 */
-	public static<T extends GeneratorOutput> List<ResultSet> runArtefacts(
+	public static<T extends GeneratorOutput> List<Result> runArtefacts(
 			SetOfComparisons<MultipleArtefactOutput<T>> gens,
 			double significanceThreshold, 
 			IncrementingStrategy incr,
@@ -112,7 +112,7 @@ public final class Layer2 {
 	 * @param random
 	 * @return
 	 */
-	public static<T extends GeneratorOutput> List<ResultSet> run(
+	public static<T extends GeneratorOutput> List<Result> run(
 			SetOfComparisons<Timeseries<T>> gens,
 			double significanceThreshold, 
 			boolean brunnerMunzel, 
@@ -138,7 +138,7 @@ public final class Layer2 {
 	 * @param random
 	 * @return
 	 */
-	public static<T extends GeneratorOutput> List<ResultSet> runCensored(
+	public static<T extends GeneratorOutput> List<Result> runCensored(
 			SetOfComparisons<T> gens,
 			double significanceThreshold,
 			boolean paired,
@@ -159,7 +159,7 @@ public final class Layer2 {
 	 * @param random
 	 * @return
 	 */
-	public static<T extends GeneratorOutput> List<ResultSet> runArtefacts(
+	public static<T extends GeneratorOutput> List<Result> runArtefacts(
 			SetOfComparisons<MultipleArtefactOutput<T>> gens,
 			double significanceThreshold, 
 			boolean brunnerMunzel, 
@@ -180,7 +180,7 @@ public final class Layer2 {
 	 * @param random
 	 * @return
 	 */
-	public static<T extends GeneratorOutput> List<ResultSet> runArtefacts(
+	public static<T extends GeneratorOutput> List<Result> runArtefacts(
 			SetOfComparisons<MultipleArtefactOutput<T>> gens,
 			double significanceThreshold, 
 			IncrementingStrategy incr,
@@ -204,7 +204,7 @@ public final class Layer2 {
 	 * @param random
 	 * @return
 	 */
-	public static<T extends GeneratorOutput> List<ResultSet> run(
+	public static<T extends GeneratorOutput> List<Result> run(
 			SetOfComparisons<Timeseries<T>> gens,
 			double significanceThreshold, 
 			boolean brunnerMunzel, 
@@ -231,7 +231,7 @@ public final class Layer2 {
 	 * @param vdmod allows modification of the comparison function used in Vargha Delaney
 	 * @return object holding p value, effect size etc. for every comparison for which results are required
 	 */
-	private static <T extends GeneratorOutput> List<ResultSet> runAllImpl(
+	private static <T extends GeneratorOutput> List<Result> runAllImpl(
 			SetOfComparisons<T> gens,
 			double significanceThreshold, 
 			boolean brunnerMunzel, 
@@ -244,14 +244,14 @@ public final class Layer2 {
 		Report rep = new Report();
 		
 		//get a set of generators - one for each algorithm compared
-		List<SetOfExperiments<T>> gensList = gens.getAllGenerators();
+		List<SetOfExperiments<T>> gensList = gens.getExperiments();
 		int numGens = gensList.size();
 		
 		//maps a name (String) identifying the generator against the results (List<...>)
 		Hashtable<SetOfExperiments<T>,List<T>> resultHash = new Hashtable<SetOfExperiments<T>,List<T>>();
 		
 		//get a different set of seeds for each generator unless paired
-		long[][] seeds = generateSeeds(incr.getMaxRuns(),paired,random,numGens);
+		long[][] seeds = generateSeeds(incr.getMax(),paired,random,numGens);
 		
 		//run each generator for the initial amount of runs and put the results into the hash
 		ListIterator<SetOfExperiments<T>> gensIter = gensList.listIterator();
@@ -263,9 +263,10 @@ public final class Layer2 {
 		int censCounter = 0;
 		//end output
 		
+		//generate initial results for every generator
 		while(gensIter.hasNext()){
 			SetOfExperiments<T> nextGen = gensIter.next();
-			List<T> listOfRes = nextGen.run(incr.getMinRuns(), seeds[gen]);
+			List<T> listOfRes = nextGen.run(incr.getMin(), seeds[gen]);
 			
 			//For Output to LOGGER
 			if(listOfRes.get(0) instanceof MultipleArtefactOutput)
@@ -281,12 +282,13 @@ public final class Layer2 {
 		//depending on how gens is set up this may mean every generator compared to each other or one generator compared to all
 		List<Pair<SetOfExperiments<T>, SetOfExperiments<T>>> testPairs = gens.getTestPairs();
 		ListIterator<Pair<SetOfExperiments<T>, SetOfExperiments<T>>> pairIter = testPairs.listIterator();
-		List<ResultSet> results = new ArrayList<ResultSet>();
+		List<Result> results = new ArrayList<Result>();
 		
-		rep.printPreTestOutput(significanceThreshold,brunnerMunzel,paired,incr.getMinRuns(),incr.getMaxRuns(),cens,timeSeries,numArts);			
+		rep.printPreTestOutput(significanceThreshold,brunnerMunzel,paired,incr.getMin(),incr.getMax(),cens,timeSeries,numArts, gens, vdmod);			
 		
 		//compare every pair
 		while(pairIter.hasNext()){
+			
 			//get results and details of each member of the next pair
 			Pair<SetOfExperiments<T>, SetOfExperiments<T>> pair = pairIter.next();
 			SetOfExperiments<T> gen1 = pair.getFirst();
@@ -295,26 +297,15 @@ public final class Layer2 {
 			String gen2Name = gen2.getName();
 			List<T> results1 = resultHash.get(gen1);
 			List<T> results2 = resultHash.get(gen2);
+						
+			rep.printPrePairOutput(gen1Name,gen2Name, cens, incr.getMin(),incr.getMax());
+
+			Result res = compare(results1, results2, cens, null, paired, significanceThreshold, brunnerMunzel, gen1Name, gen2Name, random, vdmod);
 			
-			Result res = null;
-			if(cens.isCensoring()){
-				censCounter = 0;
-				while(res == null || !res.isSignificant() && cens.hasMoreSteps(censCounter)){
-					if(cens.usingTimesToPass(censCounter)){
-						if(paired)
-							res = Layer1.comparePaired(cens.getTimesToPass(results1), cens.getTimesToPass(results2), significanceThreshold, gen1Name, gen2Name, vdmod);
-						else
-							res = Layer1.compare(cens.getTimesToPass(results1), cens.getTimesToPass(results2), significanceThreshold, brunnerMunzel, random, gen1Name, gen2Name, vdmod);
-					}
-					else
-						res = Layer1.compareCensored(cens.censor(results1, censCounter), cens.censor(results2, censCounter), significanceThreshold, gen1Name, gen2Name, paired);
-					censCounter++;
-				}
-				censCounter--;
-			}
-			else
-				res = Layer1.compare(results1, results2, significanceThreshold, brunnerMunzel, paired, gen1Name,gen2Name,random, vdmod);
-			
+			//Output - if incrementing then first entry in incrementing results table is just the standard minimum/initial number of runs
+			if(incr.getMax() > incr.getMin())
+				Report.addToTable(new String[]{"" + incr.getMin(), "" + incr.getMin(), "Incrementing", "" + res.getPValue()});
+
 			//use incrementing strategy to obtain number of runs to add (if any)
 			int[] incrNum;
 			int[] runsSoFar = new int[]{results1.size(), results2.size()};
@@ -323,53 +314,101 @@ public final class Layer2 {
 				finished = true;
 				incrNum = incr.getNextIncrement(results1, results2, res.getPValue(), significanceThreshold);
 				
-				if((incrNum[0] > 0 || incrNum[1] > 0) && runsSoFar[0] + incrNum[0] <= incr.getMaxRuns() && runsSoFar[1] + incrNum[1] <= incr.getMaxRuns()){
+				if((incrNum[0] > 0 || incrNum[1] > 0) && runsSoFar[0] + incrNum[0] <= incr.getMax() && runsSoFar[1] + incrNum[1] <= incr.getMax()){
 					//carry out and store results from extra n runs using seeds from the next n slots in our seed array
 					long[] curSeeds1 = Arrays.copyOfRange(seeds[gens.getIndexOf(gen1)],runsSoFar[0],runsSoFar[0] + incrNum[0]);
 					long[] curSeeds2 = Arrays.copyOfRange(seeds[gens.getIndexOf(gen2)],runsSoFar[1],runsSoFar[1] + incrNum[1]);
 					results1.addAll(gen1.run(incrNum[0], curSeeds1));
 					results2.addAll(gen2.run(incrNum[1], curSeeds2));
 					
-					if(incr.runPVal()){ //if should run the p value test again. some incrementing strategies use alternatives to simple p value tests so might not be needed
-						if(cens.isCensoring()){
-							censCounter = 0;
-							while(res == null || !res.isSignificant() && cens.hasMoreSteps(censCounter)){
-								if(cens.usingTimesToPass(censCounter)){
-									if(paired)
-										res = Layer1.comparePaired(cens.getTimesToPass(results1), cens.getTimesToPass(results2), significanceThreshold, gen1Name, gen2Name, vdmod);
-									else
-										res = Layer1.compare(cens.getTimesToPass(results1), cens.getTimesToPass(results2), significanceThreshold, brunnerMunzel, random, gen1Name, gen2Name, vdmod);
-								}
-								else
-									res = Layer1.compareCensored(cens.censor(results1, censCounter), cens.censor(results2, censCounter), significanceThreshold, gen1Name, gen2Name, paired);
-								censCounter++;
-							}
-							censCounter--;
-						}	
-						else
-							res = Layer1.compare(results1, results2, significanceThreshold, brunnerMunzel, paired, gen1Name,gen2Name,random, vdmod);
-					}
+					if(incr.runPVal()) //if should run the p value test again. some incrementing strategies use alternatives to simple p value tests so might not be needed
+						res = compare(results1, results2, cens, res, paired, significanceThreshold, brunnerMunzel, gen1Name, gen2Name, random, vdmod);
 					finished = false;
 					runsSoFar[0] += incrNum[0];
 					runsSoFar[1] += incrNum[1];
 
-				}
-			}while(!finished);
-			//as incrNum == 0 now we've either won or lost or incrementing isn't happening, so report results
+					//Output
+					Report.addToTable(new String[]{"" + runsSoFar[0], "" + runsSoFar[1], "Incrementing", "" + res.getPValue()});
 
-			results.add(new ResultSet(gen1Name,gen2Name,res));
+				}
+
+			}while(!finished);
+			
+			//as incrNum == 0 now we've either won or lost or incrementing isn't happening, so report results
+			results.add(res);
 			
 			//FIXME The printing out is with the assumption that both samples are the same size
-			rep.printPostTestOutput(runsSoFar[0] > incr.getMinRuns() || runsSoFar[1] > incr.getMinRuns(), 
+			rep.printPostTestOutput(incr.getMin(), incr.getMax(),
 					runsSoFar[0], res, cens, gen1Name, gen2Name, censCounter);
-		}
-
+		}		
 		return gens.multipleTestAdjustment(results);
 	}
 
+	//FIXME refactoring 9/12 - just extracted this from runAllImpl to avoid repeated code
+	/**Carries out the comparison between the two data sets.
+	 * This includes any additional censored comparisons.
+	 * 
+	 * @param results1 first data set
+	 * @param results2 second data set
+	 * @param cens
+	 * @param res the result of any previous comparisons
+	 * @param paired
+	 * @param significanceThreshold
+	 * @param brunnerMunzel
+	 * @param gen1Name
+	 * @param gen2Name
+	 * @param random
+	 * @param vdmod
+	 * @return
+	 */
+	private static <T extends GeneratorOutput>Result compare(
+			List<T> results1, 
+			List<T> results2, 
+			CensoringStrategy cens, 
+			Result res, 
+			boolean paired, 
+			double significanceThreshold, 
+			boolean brunnerMunzel, 
+			String gen1Name, 
+			String gen2Name, 
+			Random random, 
+			VDmod vdmod) {
+		if(cens.isCensoring()){
+			int censCounter = 0;
+			while(res == null || !res.isSignificant() && cens.hasMoreSteps(censCounter)){
+				if(cens.usingTimesToPass(censCounter)){
+					double[] timesToPass1 = cens.getTimesToPass(results1);
+					double[] timesToPass2 = cens.getTimesToPass(results2);
 
+					//non dichotomous comparisons as the times to pass are numeric values
+					//(normally censored is synonymous with dichotomous) 
+					if(paired)
+						res = Layer1.comparePaired(timesToPass1, timesToPass2, significanceThreshold, gen1Name, gen2Name, vdmod);
+					else
+						res = Layer1.compare(timesToPass1, timesToPass2, significanceThreshold, brunnerMunzel, random, gen1Name, gen2Name, vdmod);
+					
+					//for output
+					Report.addToTable(new String[]{"" + timesToPass1.length, "" + timesToPass2.length,"Times To Pass", "" + res.getPValue()});
 
-
+				}
+				else{
+					res = Layer1.compareCensored(cens.censor(results1, censCounter), cens.censor(results2, censCounter), significanceThreshold, gen1Name, gen2Name, paired);
+					
+					//for output
+					if(cens.complexStrategy()){
+						String censorPoint = cens.getCensoringPoint(censCounter) == -1 ? "end of run" : "" + cens.getCensoringPoint(censCounter);
+						Report.addToTable(new String[]{"" + results1.size(), "" + results2.size(), "Censoring Point: " + censorPoint, "" + res.getPValue()});
+					}
+					
+				}
+				censCounter++;
+			}
+			censCounter--;
+		}	
+		else //not censored
+			res = Layer1.compare(results1, results2, significanceThreshold, brunnerMunzel, paired, gen1Name,gen2Name,random, vdmod);
+		return res;
+	}
 
 	/**Generate random seeds.
 	 * 

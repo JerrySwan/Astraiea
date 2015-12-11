@@ -9,6 +9,11 @@ import java.util.logging.Handler;
 import java.util.logging.Logger;
 
 import astraiea.Result;
+import astraiea.layer1.Layer1;
+import astraiea.layer1.effectsize.varghaDelaney.VDmod;
+import astraiea.layer2.MultiTestAdjustment;
+import astraiea.layer2.generators.GeneratorOutput;
+import astraiea.layer2.multipleExperiments.SetOfComparisons;
 import astraiea.layer2.strategies.CensoringStrategy;
 
 /**FIXME Refactoring 27/11 - new class. Just a minor change - seperates out printing output to log file from
@@ -19,8 +24,6 @@ import astraiea.layer2.strategies.CensoringStrategy;
  */
 public class Report {
 
-	
-	
 	public static Logger LOGGER = Logger.getLogger( Report.class.getName() );
 
 	/**
@@ -58,32 +61,28 @@ public class Report {
 			int maxRuns, 
 			CensoringStrategy cens, 
 			boolean timeseries, 
-			int artefactRepeats) {
+			int artefactRepeats,
+			SetOfComparisons<? extends GeneratorOutput> gens,
+			VDmod vdmod) {
 		
 		if(initialRuns < 10)
-			LOGGER.warning("The number of runs ($n$) is low, at only " + initialRuns 
+			warning("The number of runs ($n$) is low, at only " + initialRuns 
 					+ " To ensure reliability of results the number of runs should be at least 10");
-		LOGGER.info( "Statistical testing was carried out as follows: \n" );
+		LOGGER.info( "\n\nStatistical testing was carried out as follows: \n" );
 		LOGGER.info( LaTeXLogFormatter.itemizeFormat( describeOptions(significanceThreshold, brunnerMunzel, paired, 
-				initialRuns, maxRuns, cens, timeseries, artefactRepeats) ) );
-		if(cens.complexStrategy() || maxRuns > initialRuns) //if there will be a table then add this line to introduce it
-			LOGGER.info("A complete list of p value tests carried out is shown in table~\\ref{p value tests}, with $n$ corresponding to the number of samples in each data set.\n");
-		
-		//start table for intermediate results
-		if(cens.complexStrategy())//start table with additional notes column for complex censoring strategies
-			LOGGER.info(LaTeXLogFormatter.startTable(new String[]{"n","Notes","P-Value"}, "P Value Tests", "p value tests"));
-		else if(maxRuns > initialRuns)
-			LOGGER.info(LaTeXLogFormatter.startTable(new String[]{"n","P-Value"}, "P Value Tests", "p value tests"));
-	}
+				initialRuns, maxRuns, cens, timeseries, artefactRepeats, gens, vdmod) ) );
+	} 
 
-	public void printPostTestOutput(boolean incremented, 
+	public void printPostTestOutput(int minRuns, 
+			int maxRuns,
 			int runsSoFar, 
 			Result res, 
 			CensoringStrategy cens, 
 			String dataAName, 
 			String dataBName, 
 			int censCounter) {
-		if(cens.complexStrategy() || incremented){
+
+		if(cens.complexStrategy() || maxRuns > minRuns){
 			LOGGER.info(LaTeXLogFormatter.endTable());
 			LOGGER.info( "\nThe final test, and the test on which effect size was calculated, "
 					+ "was carried out using an $n$ of " + runsSoFar + ". " + 
@@ -104,6 +103,8 @@ public class Report {
 	 * @param cens censoring strategies
 	 * @param timeSeries whether the data is of the time series, instead of the dataset variety
 	 * @param artefactRepeats number of times each artefact was run
+	 * @param vdmod 
+	 * @param gens 
 	 * @return
 	 */
 	private List<String> describeOptions(
@@ -114,9 +115,9 @@ public class Report {
 			int maxRuns, 
 			CensoringStrategy cens, 
 			boolean timeSeries, 
-			int artefactRepeats) {
+			int artefactRepeats, SetOfComparisons<? extends GeneratorOutput> gens, VDmod vdmod) {
 
-		if(artefactRepeats > 0){ 
+		if(artefactRepeats > 1){ 
 			LOGGER.info("This data was obtained from runs on multiple artefacts. Each artefact is treated as a single run "
 					+ "for the purpose of statistical comparison and so, the experimental description below, "
 					+ " the number of runs refers to the number of artefacts. "
@@ -126,14 +127,6 @@ public class Report {
 		}
 		
 		List< String > result = new ArrayList< String >();
-		
-		
-		if(brunnerMunzel && cens.isCensoring())
-			LOGGER.warning("The Brunner Munzel test has been requested. "
-					+ "This is not relevant for dichotomous tests and will only be used if a non dichotomous test is carried out.");
-		if(brunnerMunzel && paired)
-			LOGGER.warning("Both a Brunner Munzel test and paired data has been specified. "
-					+ "Brunner Munzel is not a paired test and so the request to use it has been ignored.");
 
 		if(maxRuns > initialRuns){
 			result.add("Using the process of incrementing the number of runs until the difference is statistically significant. "
@@ -149,8 +142,6 @@ public class Report {
 			result.add("All experiments were repeated " + initialRuns + " times ($n$=" + initialRuns + ")");
 		}
 		
-		
-		
 		boolean useNoncensoredInCensoredTests = false;
 		if(cens.isCensoring()){//censoring
 			StringBuffer censBuf = new StringBuffer();
@@ -165,7 +156,7 @@ public class Report {
 			if(timeSeries){
 					censBuf.append("These tests compare boolean values, denoting a pass or a fail, "
 							+ "from the final point in the result time series. " );//initial standard censoring strategy
-				if(cens.hasMoreSteps(0)){//are more censoring strategies
+				if(cens.complexStrategy()){//are more censoring strategies
 					censBuf.append("\n\nThis data is censored, that is to say the point at which results are obtained is the "
 							+ "arbitrary point at which the test stopped running. "
 							+ "This may not accurately reflect the true difference between the two datasets. "
@@ -175,14 +166,14 @@ public class Report {
 					int i =0;
 					while(cens.hasMoreSteps(i)){
 						if(cens.usingTimesToPass(i)){
-							censItems.add((i + 1) + ": Tests were run using a non dichotomous P Value test "
+							censItems.add(i + ": Tests were run using a non dichotomous P Value test "
 									+ "in which the length of time taken to reach a successful result is compared"
 									+ "(\"Time to Pass\" test).");
 							useNoncensoredInCensoredTests = true;
 						}
 						else{
-							censItems.add(i + ": Tests were run using an artificial censoring point at point " + 
-							cens.getCensoringPoint(i) + " in the time series.");
+							censItems.add(i + ": Tests were run using a censoring point at " + 
+							(cens.getCensoringPoint(i) == -1 ? "the final point": "point " + cens.getCensoringPoint(i)) + " in the time series.");
 							
 						}
 						i++;
@@ -217,8 +208,44 @@ public class Report {
 					+ "Effect size testing is essential in addition to significance testing as it demonstrates the magnitude of the difference between two samples. "
 					+ "With a large enough number of experiments (large enough $n$), the results of two different generating techniques are likely to be different to a statistically significant extent. "
 					+ "Effect size testing is needed to show that this difference is useful.");
+			if(vdmod != null)
+				result.add("According to the principles of Transformed Vargha Delaney~\\cite{Neumann2015}, "
+						+ "Vargha Delaney results are adjusted as follows:\n " + vdmod.describe());
 		}
+		
+		MultiTestAdjustment adjust = gens.getAdjust();
+		if(adjust != null)
+			result.add("As there are multiple comparisons, p values are adjusted using the " + adjust.getName() + " adjustment.");
+
+		
 		return result;
 	}
+
+
+	public static void addToTable(String[] strings) {
+		LOGGER.info(LaTeXLogFormatter.tabulateItems(strings));
+		
+	}
+
+
+	public void endTable() {
+		LOGGER.info(LaTeXLogFormatter.endTable());
+		
+	}
+
+
+	public void printPrePairOutput(String gen1Name, String gen2Name, CensoringStrategy cens, int initialRuns, int maxRuns) {
+		if(cens.complexStrategy() || maxRuns > initialRuns){ //if there will be a table then add this line to introduce it
+			LOGGER.info("A complete list of p values for generators " + gen1Name + " and " + gen2Name + " is shown in table~\\ref{p value tests}, with $n$ corresponding to the number of samples in each data set.\n");
+			LOGGER.info(LaTeXLogFormatter.startTable(new String[]{"n for " + gen1Name, "n for " + gen2Name, "Notes", "P-Value"}, "P Value Tests", "p value tests"));
+		}
+	}
+
+
+	public static void warning(String warning) {
+		LOGGER.warning(warning + "\n");
+		Layer1.LOGGER.warning(warning + "\n");
+	}
+
 	
 }

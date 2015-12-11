@@ -1,4 +1,4 @@
-package astraiea.layer1;
+package astraiea.layer1.pvalue;
 
 import jsc.contingencytables.ContingencyTable2x2;
 import jsc.contingencytables.McNemarTest;

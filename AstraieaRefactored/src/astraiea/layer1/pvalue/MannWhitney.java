@@ -1,4 +1,4 @@
-package astraiea.layer1;
+package astraiea.layer1.pvalue;
 
 import java.util.List;
 
@@ -7,6 +7,7 @@ import jsc.onesample.WilcoxonTest;
 import org.apache.commons.math3.distribution.NormalDistribution;
 import org.apache.commons.math3.stat.inference.MannWhitneyUTest;
 
+import astraiea.output.Report;
 import astraiea.util.DataUtil;
 import astraiea.util.RankCalculator;
 
@@ -30,7 +31,7 @@ public final class MannWhitney {
 		//also conforming to the default behavior of r, carry out an exact test only if n < 50, important because wilcoxonSignedRankTest can become very slow otherwise.
 		if(DataUtil.hasTiesOrZeros(dataA,dataB) || dataA.length > 30){
 			// out.printWarning("Because the data contains ties or zeros, a non exact version of the Mann Whitney U test was used");
-			Layer1.LOGGER.warning( "Since the data contains ties or zeros, a non exact version of the Mann Whitney U test was used" );
+			Report.warning( "Since the data contains ties or zeros, a non exact version of the Mann Whitney U test was used" );
 			return nonExactTest(dataA, dataB);
 		}
 		else {

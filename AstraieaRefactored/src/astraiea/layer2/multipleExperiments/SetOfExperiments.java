@@ -2,37 +2,42 @@ package astraiea.layer2.multipleExperiments;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ListIterator;
+
 import astraiea.layer2.generators.Generator;
 import astraiea.layer2.generators.GeneratorOutput;
 
-/**FIXME Refactoring 27/11 - new class. Encapsulates repetitions on running one generator
+/**FIXME Refactoring 27/11 - new class. Runs repetitions of one experiment.
  * 
  * @author Geoffrey Neumann
  *
  */
 public abstract class SetOfExperiments<T extends GeneratorOutput> {
-	protected final List<Generator<T>> gens;
+	protected final List<Generator<T>> gens = new ArrayList<Generator<T>>();
 	private final String name;
 	
-	protected SetOfExperiments(Generator<T> gen){
-		gens = new ArrayList<Generator<T>>();
-		gens.add(gen);
-		name = null;
-	}
-	
-	protected SetOfExperiments(List<Generator<T>> gens){
-		this.gens = gens;
-		name = null;
-	}
-	
+	/**Initialises where each repetition is just running the same generator repeatedly.
+	 * 
+	 * @param gen single generator
+	 * @param name
+	 */
 	protected SetOfExperiments(Generator<T> gen, String name){
-		gens = new ArrayList<Generator<T>>();
+		ListIterator<? extends Generator<T>> gensIter = gens.listIterator();
+		while(gensIter.hasNext())
+			this.gens.add(gensIter.next());
 		gens.add(gen);
 		this.name = name;
 	}
 	
-	protected SetOfExperiments(List<Generator<T>> gens, String name){
-		this.gens = gens;
+	/**Initialises where each repetition is running a different related experiment.
+	 * 
+	 * @param gens list of generators
+	 * @param name
+	 */
+	protected SetOfExperiments(List<? extends Generator<T>> gens, String name){
+		ListIterator<? extends Generator<T>> gensIter = gens.listIterator();
+		while(gensIter.hasNext())
+			this.gens.add(gensIter.next());		
 		this.name = name;
 	}
 	

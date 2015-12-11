@@ -14,7 +14,7 @@ import org.junit.Test;
 
 import astraiea.Result;
 import astraiea.layer1.Layer1;
-import astraiea.layer1.varghaDelaney.ThresholdVDMod;
+import astraiea.layer1.effectsize.varghaDelaney.ThresholdVDMod;
 import astraiea.layer2.generators.GeneratorOutput;
 import astraiea.layer2.generators.simpleGenerators.DoubleGeneratorOutput;
 import astraiea.util.MersenneTwister;
@@ -107,7 +107,7 @@ public class TestLayer1 {
 	 * @throws SecurityException 
 	 */
 	@Test
-	public void ModifiedVarghaDelaney() throws SecurityException, IOException {
+	public void modifiedVarghaDelaney() throws SecurityException, IOException {
 		//generate data for testing
 		
 		MersenneTwister ran = new MersenneTwister(12345);
@@ -145,16 +145,21 @@ public class TestLayer1 {
 		Result res = Layer1.compare(data1Combined, data2Combined, 0.05, false, ran, new ThresholdVDMod(2,true));
 
 		//remove all the values under 2 (which should have been ignored by the ThresholdVDMod)
+		data1CombList.clear();
+		data2CombList.clear();
 		for(int i =0; i < noisenum + validnum; i++){
 			if(data1Combined[i] < 2)
 				data1Combined[i] = 0;
+			data1CombList.add(new DoubleGeneratorOutput(data1Combined[i]));
 			if(data2Combined[i] < 2)
 				data2Combined[i] = 0;
+			data2CombList.add(new DoubleGeneratorOutput(data2Combined[i]));
+
 		}
 		
 		//get what the result should be (given that we've just manually removed all values which the VDmod should ignore)
-		double expEffSize = astraiea.layer1.varghaDelaney.VarghaDelaney.evaluate(data1CombList, data2CombList, false, null);
-		Ordering expOrder = astraiea.layer1.varghaDelaney.VarghaDelaney.getOrder(expEffSize);
+		double expEffSize = astraiea.layer1.effectsize.varghaDelaney.VarghaDelaney.evaluate(data1CombList, data2CombList, false, null);
+		Ordering expOrder = astraiea.layer1.effectsize.varghaDelaney.VarghaDelaney.getOrder(expEffSize);
 		
 		// unit testing
 		assertEquals("Effect size obtained using VDmod should match that obtained by manually transforming data", expEffSize, res.getEffectSize(), 0);
@@ -418,9 +423,8 @@ public class TestLayer1 {
 	 * @throws IOException 
 	 * @throws SecurityException 
 	 */
-	
 	@Test
-	public void VarghaDelaney() throws SecurityException, IOException {
+	public void varghaDelaney() throws SecurityException, IOException {
 		double[][] data = generateData(10, 10, 20, 20, false);
 		double[][] dataN50 = generateData(10, 10, 50, 50, false);
 		double[][] dataN2050 = generateData(10, 10, 20, 50, false);
@@ -473,6 +477,7 @@ public class TestLayer1 {
 		assertEquals("effect size must be accurately using Vargha Delaney, using R function effsize::VD.A as an oracle", expectedP, res.getEffectSize(),0.00001);
 		assertTrue("dataA must be greater than dataB, according to the 'ord' field in 'res'", res.getOrder() == Ordering.GREATER);
 	}
+	
 	
 	/**TODO description in asserts
 	 * Confirms that the effect sizes when the Vargha Delaney test is used 

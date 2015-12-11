@@ -2,10 +2,7 @@ package astraiea.layer2.strategies;
 
 import java.util.List;
 
-import org.apache.commons.math3.util.Pair;
-
 import astraiea.layer2.generators.GeneratorOutput;
-import astraiea.util.Distribution;
 
 /**Encodes strategies for adding more data if significance is not achieved after the first set
  * 
@@ -13,27 +10,43 @@ import astraiea.util.Distribution;
  *
  */
 public abstract class IncrementingStrategy {
+	/**initial number of runs*/
 	protected int min;
+	/**maximum number of runs that might increment to*/
 	protected int max;
+	/**p value at the end of the sequence of incrementing*/
 	protected double finalPVal;
+	/**if another p value is needed*/
 	protected boolean runPVal;
 
-	
+
 	public IncrementingStrategy(int min, int max){
 		this.min = min;
 		this.max = max;
 	}
 	
-	public int getMinRuns() {
+	public int getMin() {
 		return min;
 	}
 	
-	public int getMaxRuns() {
+	public int getMax() {
 		return max;
 	}
 
-	public abstract<T extends GeneratorOutput> int[] getNextIncrement(List<T> results1,
-			List<T> results2, double pVal, double threshold);
+	/**Gets the quantity of runs that should be performed for each
+	 * generator next increment (possibly 0).
+	 * 
+	 * @param results1 results from last run (generator 2)
+	 * @param results2 results from last run (generator 2)
+	 * @param pVal p value from last run
+	 * @param threshold below which significance is considered sufficient for stopping
+	 * @return
+	 */
+	public abstract<T extends GeneratorOutput> int[] getNextIncrement(
+			List<T> results1,
+			List<T> results2, 
+			double pVal, 
+			double threshold);
 
 	public abstract String report();
 

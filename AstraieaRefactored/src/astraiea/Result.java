@@ -5,8 +5,6 @@ import java.util.List;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
-
-import astraiea.layer2.generators.Generator;
 import astraiea.util.Ordering;
 
 /** 
@@ -27,10 +25,14 @@ public class Result {
 	/**threshold below which a p value is significant*/
 	private final double threshold;
 	private double[] cis;
+	private final String name1;
+	private final String name2;
 
 	///////////////////////////////
 
-	public Result(double effectSize, double pValue, boolean significant, double threshold, Ordering order, double[] cis) {
+	public Result(String name1, String name2, double effectSize, double pValue, boolean significant, double threshold, Ordering order, double[] cis) {
+		this.name1 = name1;
+		this.name2 = name2;
 		this.effectSize = effectSize;
 		this.pValue = pValue;
 		this.threshold = threshold;
@@ -39,18 +41,17 @@ public class Result {
 		this.cis = cis;
 	}
 	
-	public Result(double effectSize, double pValue, boolean significant, double threshold, Ordering order) {
+	public Result(String name1, String name2, double effectSize, double pValue, boolean significant, double threshold, Ordering order) {
+		this.name1 = name1;
+		this.name2 = name2;
 		this.effectSize = effectSize;
 		this.pValue = pValue;
 		this.threshold = threshold;
 		this.significant = significant;
 		this.order = order;	
 	}
-
 	
 	/////////////////////////
-
-
 
 	public boolean isSignificant() { return significant; }
 	public double getPValue() { return pValue; }
@@ -82,17 +83,20 @@ public class Result {
 		else {
 			// effect size has only been calculated if difference is significant
 			result.add( "difference is significant (p value of " + run.pValue + ", threshold of " + run.threshold + ")" );
-			String ciString = "";
-			double[] cis = run.getCIs();
-			if(cis != null)
-				ciString = ", confidence intervals (obtained by bootstrapping)= " + cis[0] + " - " + cis[1];
-			result.add( "the effect size is " + run.effectSize + ciString);
-			if( run.order == Ordering.LOWER )
-				result.add( data1Name + " is lower than " + data2Name  );
-			else if(run.order == Ordering.GREATER)
-				result.add( data1Name + " is greater than " + data2Name );
-			else
-				result.add( data1Name + " is the same as " + data2Name );
+			
+			if(!Double.isNaN(run.effectSize)){
+				String ciString = "";
+				double[] cis = run.getCIs();
+				if(cis != null)
+					ciString = ", confidence intervals (obtained by bootstrapping)= " + cis[0] + " - " + cis[1];
+				result.add( "the effect size is " + run.effectSize + ciString);
+				if( run.order == Ordering.LOWER )
+					result.add( data1Name + " is lower than " + data2Name  );
+				else if(run.order == Ordering.GREATER)
+					result.add( data1Name + " is greater than " + data2Name );
+				else
+					result.add( data1Name + " is the same as " + data2Name );
+			}
 		}
 		return result;
 	}
@@ -102,11 +106,16 @@ public class Result {
 		double effectSize = Double.NaN;
 		if(significant)
 			effectSize = this.effectSize;
-		return new Result(effectSize, newPVal, significant, threshold, order, cis);
+		return new Result(name1, name2, effectSize, newPVal, significant, threshold, order, cis);
 	}
 
 	public double[] getCIs() {
 		return cis;
+	}
+
+	public boolean isaComparisonOf(String name1, String name2) {
+		return (this.name1.equals(name1) && this.name2.equals(name2)) || 
+				(this.name1.equals(name2) && this.name2.equals(name1));
 	}
 
 }

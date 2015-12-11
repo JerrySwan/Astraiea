@@ -16,6 +16,10 @@ import java.util.logging.LogRecord;
  */
 public final class LaTeXLogFormatter extends Formatter {
 
+	/**FIXME changed 11/12.
+	 * No longer hard coded to allow users to add to the bibliography.
+	 * 
+	 */
 	private static final String bibliography = 
 	"\n\\begin{thebibliography}{99}\n" +
 		"\\bibitem{Neumann:2014:EET:2598394.2609850}\n" +
@@ -40,8 +44,16 @@ public final class LaTeXLogFormatter extends Formatter {
 				  "Nonparametric statistical inference \n" +
 				  "2011, \n" + 
 				   "Springer" +
+		"\\bibitem{Neumann2015}\n" +
+				  "Geoffrey Neumann, Mark Harman and Simon Poulding \n" +
+				  "Transformed Vargha Delaney Effect Size \n" +
+				  "Lecture Notes in Computer Science \n" + 
+				  "SSBSE \n" +
+				   "2015, \n" + 
+				   "pages 318--324\n" +  
 	"\\end{thebibliography}\n";
 	
+
 	private static String latexHeader( Date date ) { 
 		return "\\documentclass[]{article}\n" +
 		"\\usepackage[usenames,dvipsnames]{color}\n"

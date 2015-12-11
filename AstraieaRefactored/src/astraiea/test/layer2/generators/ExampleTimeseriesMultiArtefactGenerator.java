@@ -8,21 +8,25 @@ import java.util.Random;
 import org.apache.commons.math3.util.Pair;
 
 import astraiea.layer2.generators.Generator;
-import astraiea.layer2.generators.Timeseries;
+import astraiea.layer2.generators.multipleArtefacts.ArtefactTimeseriesGenerator;
+import astraiea.layer2.generators.multipleArtefacts.MultipleArtefactOutput;
 import astraiea.layer2.generators.simpleGenerators.PairGeneratorOutput;
+import astraiea.layer2.generators.timeseries.Timeseries;
 import astraiea.util.MersenneTwister;
 
-/**The Example used in the JUnit tests.
+/**The Example generator using multiple artefacts in which each artefact returns a time series
+ * used in the JUnit tests.
  * 
  * @author Geoffrey Neumann
  *
  */
-public class ExampleTimeseriesMultiArtefactGenerator implements Generator<Timeseries<PairGeneratorOutput>>{
+public class ExampleTimeseriesMultiArtefactGenerator implements ArtefactTimeseriesGenerator<PairGeneratorOutput>{
 
 	private double bias;
 	private double gap;
 	private int duration;
-	private int artefactNum;
+	private int index;
+	private int numRepeats;
 
 	/**
 	 * 
@@ -32,27 +36,33 @@ public class ExampleTimeseriesMultiArtefactGenerator implements Generator<Timese
 	 * @param duration for how many generations this generator should run for
 	 * @param artefactNum 
 	 */
-	public ExampleTimeseriesMultiArtefactGenerator(double bias, double gap, int duration, int artefactNum){
+	public ExampleTimeseriesMultiArtefactGenerator(double bias, double gap, int numRepeats, int index, int duration){
 		this.bias = bias;
 		this.gap = gap;
+		this.numRepeats = numRepeats;
 		this.duration = duration;
-		this.artefactNum = artefactNum;
+		this.index = index;
 	}
 	
 	@Override
-	public Timeseries<PairGeneratorOutput> generate(Random random) {
-		List<PairGeneratorOutput> results = new ArrayList<PairGeneratorOutput>();
-		for(int i =0; i < duration; i++){
-			double val = random.nextGaussian();
-			if(random.nextDouble() > bias)
-				val += gap;
-			//so that value increases during the course of the time series, 
-			//but with it's mean around the value generated when not time series, i.e. random.nextGaussian()(+gap)
-			val *= (((double)i/(double)duration)  * 2) + artefactNum;
-			boolean bool = (val > bias);
-			results.add(new PairGeneratorOutput(val,bool));
+	public MultipleArtefactOutput<Timeseries<PairGeneratorOutput>> generate(Random random) {
+		List<Timeseries<PairGeneratorOutput>> results = new ArrayList<Timeseries<PairGeneratorOutput>>();
+		for(int r = 0; r < numRepeats; r++){
+			List<PairGeneratorOutput> results2 = new ArrayList<PairGeneratorOutput>();
+			for(int i =0; i < duration; i++){
+				double val = random.nextGaussian();
+				//so that value increases during the course of the time series, 
+				//but with it's mean around the value generated when not time series, i.e. random.nextGaussian()(+gap)
+				val *= (((double)i/(double)duration)  * 2) + index + r;
+				if(random.nextDouble() > bias)
+					val += gap;
+				
+				boolean bool = (val > bias);
+				results2.add(new PairGeneratorOutput(val,bool));
+			}
+			results.add(new Timeseries<PairGeneratorOutput>(results2));
 		}
-		return new Timeseries<PairGeneratorOutput>(results);
+		return new MultipleArtefactOutput<Timeseries<PairGeneratorOutput>>(results);
 	}
 
 	

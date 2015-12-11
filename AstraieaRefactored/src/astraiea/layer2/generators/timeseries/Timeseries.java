@@ -1,7 +1,9 @@
-package astraiea.layer2.generators;
+package astraiea.layer2.generators.timeseries;
 
 import java.util.List;
 import java.util.ListIterator;
+
+import astraiea.layer2.generators.GeneratorOutput;
 
 /**FIXME Refactoring 27/11 - new class. Encapsulates a time series. Is a list of GeneratorOutputs.
  * 

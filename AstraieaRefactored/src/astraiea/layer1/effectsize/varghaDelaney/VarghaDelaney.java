@@ -1,4 +1,4 @@
-package astraiea.layer1.varghaDelaney;
+package astraiea.layer1.effectsize.varghaDelaney;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,6 +10,7 @@ import astraiea.util.Ordering;
 import org.apache.commons.math3.stat.descriptive.rank.Percentile;
 
 //FIXME Refactoring 27/11 - in all methods replaced lists of doubles with lists of GeneratorOutput
+
 
 /**
  * Vargha Delaney effect-size test.
@@ -60,7 +61,7 @@ public final class VarghaDelaney {
 			if(lenA != lenB)
 				throw new IllegalArgumentException("The length of the two datasets must be equal");
 			
-		    return wins + 0.5 * draws;
+		    return (wins + (0.5 * draws)) / lenA;
 		}
 		else{
 			double PSc = wins/product;

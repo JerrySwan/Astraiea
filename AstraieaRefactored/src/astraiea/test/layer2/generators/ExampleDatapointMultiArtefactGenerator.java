@@ -6,21 +6,28 @@ import java.util.Random;
 
 import astraiea.layer2.generators.Generator;
 import astraiea.layer2.generators.GeneratorOutput;
-import astraiea.layer2.generators.MultipleArtefactOutput;
+import astraiea.layer2.generators.multipleArtefacts.ArtefactGenerator;
+import astraiea.layer2.generators.multipleArtefacts.MultipleArtefactOutput;
 import astraiea.layer2.generators.simpleGenerators.PairGeneratorOutput;
 
-/**The Example used in the JUnit tests.
+/**The Example multiple artefact generator used in the JUnit tests.
  * 
  * @author Geoffrey Neumann
  *
  */
-public class ExampleDatapointMultiArtefactGenerator implements Generator<MultipleArtefactOutput<PairGeneratorOutput>> {
+public class ExampleDatapointMultiArtefactGenerator implements ArtefactGenerator<PairGeneratorOutput> {
 
 	private final double bias;
 	private final double gap;
 	private final int numRepeats;
 	private final int index;
 	
+	/**
+	 * @param bias with what probability this class should generate higher values
+	 * @param gap by how much, on average, the higher values 
+	 * @param numRepeats number of repeated runs should be performed with this artefact 
+	 * @param index the number of this artefact within the set of artefacts
+	 */
 	public ExampleDatapointMultiArtefactGenerator(double bias, double gap, int numRepeats, int index){
 		this.bias = bias;
 		this.gap = gap;

@@ -1,15 +1,15 @@
-package astraiea.layer2.generators;
+package astraiea.layer2.generators.multipleArtefacts;
 
 import java.util.List;
 import java.util.ListIterator;
-
 import astraiea.layer1.Layer1;
-import astraiea.layer2.Layer2;
+import astraiea.layer2.generators.GeneratorOutput;
 import astraiea.util.DataUtil;
-/**	FIXME Refactoring 27/11 - new class. Encapsulates the set of output 
- * produced by performing multiple runs carried out on one artefact.
- * Ensures compliance with Hitchhikers advice such as taking the average 
- * of these runs and performing a large number of repeats.
+
+/**	FIXME Refactoring 27/11 - new class. Encapsulates the output produced by 
+ * running multiple repeats on one artefact in problems which involve multiple artefacts.
+ * Ensures compliance with Hitchhikers advice for multiple artefact problems
+ * such as taking the average of these runs and performing a large number of repeats.
  * 
  * @author Geoffrey Neumann
  *
@@ -19,6 +19,11 @@ public class MultipleArtefactOutput<T extends GeneratorOutput> extends Generator
 	private static final int recommendedListSize = 1000;
 	private final List<T> list;
 	
+	/**Initialised with a list of GeneratorOutput's where each GeneratorOutput
+	 * is the output of running one test on this artefact.
+	 * 
+	 * @param list
+	 */
 	public MultipleArtefactOutput(List<T> list){
 		if(list.size() < recommendedListSize) //recommended number of repeats for Hitchhikers
 			Layer1.LOGGER.warning("Artefact is only repeated " + list.size() + " times. "

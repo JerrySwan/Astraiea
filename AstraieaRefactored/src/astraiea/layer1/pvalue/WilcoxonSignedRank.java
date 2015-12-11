@@ -1,4 +1,4 @@
-package astraiea.layer1;
+package astraiea.layer1.pvalue;
 
 import java.util.List;
 
@@ -10,6 +10,7 @@ import org.apache.commons.math3.distribution.NormalDistribution;
 import com.google.common.collect.HashMultiset;
 import com.google.common.collect.Multiset;
 
+import astraiea.output.Report;
 import astraiea.util.DataUtil;
 import astraiea.util.RankCalculator;
 
@@ -42,7 +43,7 @@ public final class WilcoxonSignedRank{
 		//return x2;
 		
 		if( DataUtil.hasTiesOrZeros(dataSub) || n > 30 ) {
-			Layer1.LOGGER.warning( "Since the data contains ties or zeros, "
+			Report.warning( "Since the data contains ties or zeros, "
 					+ "a non exact version of the Wilcoxon Signed Rank test was used" );
 			return nonExactTest(dataSub);
 		}

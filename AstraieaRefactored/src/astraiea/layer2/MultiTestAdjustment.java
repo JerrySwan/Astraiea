@@ -11,5 +11,16 @@ import astraiea.Result;
  */
 public interface MultiTestAdjustment {
 	
-	public List<ResultSet> adjust(List<ResultSet> results);
+	/**The adjustment
+	 * 
+	 * @param results
+	 * @return
+	 */
+	public List<Result> adjust(List<Result> results);
+
+	/**For human readable output
+	 * 
+	 * @return
+	 */
+	public String getName();
 }

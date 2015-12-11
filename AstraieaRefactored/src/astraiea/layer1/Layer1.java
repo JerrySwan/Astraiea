@@ -16,11 +16,18 @@ import com.google.common.primitives.Booleans;
 import com.google.common.primitives.Doubles;
 
 import astraiea.Result;
-import astraiea.layer1.varghaDelaney.VDmod;
-import astraiea.layer1.varghaDelaney.VarghaDelaney;
+import astraiea.layer1.effectsize.OddsRatio;
+import astraiea.layer1.effectsize.varghaDelaney.VDmod;
+import astraiea.layer1.effectsize.varghaDelaney.VarghaDelaney;
+import astraiea.layer1.pvalue.BrunnerMunzel;
+import astraiea.layer1.pvalue.Fisher;
+import astraiea.layer1.pvalue.MannWhitney;
+import astraiea.layer1.pvalue.McNemar;
+import astraiea.layer1.pvalue.WilcoxonSignedRank;
 import astraiea.layer2.generators.GeneratorOutput;
 import astraiea.layer2.generators.simpleGenerators.DoubleGeneratorOutput;
 import astraiea.output.LaTeXLogFormatter;
+import astraiea.output.Report;
 import astraiea.util.Ordering;
 
 /**
@@ -789,7 +796,7 @@ public final class Layer1 {
 		
 		//output the settings
 		LOGGER.info( resultIntroPhrase );
-		LOGGER.info( LaTeXLogFormatter.itemizeFormat( describeOptions(significanceThreshold, false, paired, dataA.length, dataB.length, dataAName, dataBName,true ) ) );
+		LOGGER.info( LaTeXLogFormatter.itemizeFormat( describeOptions(significanceThreshold, false, paired, dataA.length, dataB.length, dataAName, dataBName,true, null ) ) );
 		if(paired){
 			if(dataA.length != dataB.length)
 				throw new IllegalArgumentException("Unequal number of samples. For paired tests the number of samples in both datasets must be equal.");			
@@ -830,7 +837,7 @@ public final class Layer1 {
 		}
 		
 		//store results
-		Result res = new Result(effectSize,pValue,significant, significanceThreshold, order);
+		Result res = new Result(dataAName, dataBName, effectSize,pValue,significant, significanceThreshold, order);
 		//record results
 		LOGGER.info("Results:\n");
 		LOGGER.info( LaTeXLogFormatter.itemizeFormat( Result.describe(res, dataAName, dataBName ) ) );		
@@ -840,8 +847,10 @@ public final class Layer1 {
 	
 	/**The implementation for comparing non censored data.
 	 * 
-	 * @param results1 first data set
-	 * @param results2 second data set
+	 * @param results1 first data set, as a list of GeneratorOutput objects
+	 * @param results2 second data set, as a list of GeneratorOutput objects
+	 * @param results1Arr second data set, as an array of doubles
+	 * @param results2Arr second data set, as an array of doubles
 	 * @param significanceThreshold threshold above which data is considered to be significant
 	 * @param brunnerMunzel if the brunner munzel test is to be used
 	 * @param paired if the data is paired
@@ -872,7 +881,7 @@ public final class Layer1 {
 		double[] cis = null; //confidence intervals
 
 		LOGGER.info( "Statistical testing was carried out as follows: " );
-		LOGGER.info( LaTeXLogFormatter.itemizeFormat( describeOptions(significanceThreshold, brunnerMunzel, paired, results1Arr.length, results2Arr.length, dataAName, dataBName,false ) ) );
+		LOGGER.info( LaTeXLogFormatter.itemizeFormat( describeOptions(significanceThreshold, brunnerMunzel, paired, results1Arr.length, results2Arr.length, dataAName, dataBName,false, vdmod ) ) );
 		
 		if(paired){
 			LOGGER.fine( "Running Wilcoxon Signed Rank Test");
@@ -896,8 +905,9 @@ public final class Layer1 {
 			order = VarghaDelaney.getOrder(effectSize);
 		}
 		Result res = null;
-		res = new Result(effectSize,pValue,significant, significanceThreshold, order, cis);
+		res = new Result(dataAName, dataBName, effectSize,pValue,significant, significanceThreshold, order, cis);
 
+		
 		LOGGER.info("Results:\n");
 		LOGGER.info( LaTeXLogFormatter.itemizeFormat( Result.describe(res, dataAName, dataBName ) ) );		
 		return res;
@@ -915,13 +925,13 @@ public final class Layer1 {
 	private static Result compareOneSampleImpl( double[] dataA, double dataB, 
 			double significanceThreshold, String dataAName, String dataBName ) {
 		LOGGER.info( "Statistical testing was carried out as follows: " );
-		LOGGER.info( LaTeXLogFormatter.itemizeFormat( describeOptions(significanceThreshold, false, false, dataA.length, 1, dataAName, dataBName,false ) ) );
+		LOGGER.info( LaTeXLogFormatter.itemizeFormat( describeOptions(significanceThreshold, false, false, dataA.length, 1, dataAName, dataBName,false, null ) ) );
 		
 		LOGGER.info(resultIntroPhrase);
 		LOGGER.fine("Running The 1 Sample Wilcoxon Test");
 		double pVal = MannWhitney.evaluate(dataA, dataB);
-		//FIXME What effect size test should be used? Place holders for effect size and order for now 
-		Result res = new Result(0, pVal, pVal < significanceThreshold, 0, null);
+		Report.warning("Effect Size test not implemented in one sample case.");
+		Result res = new Result(dataAName, dataBName, Double.NaN, pVal, pVal < significanceThreshold, significanceThreshold, null);
 		LOGGER.info("Results:\n");
 		LOGGER.info( LaTeXLogFormatter.itemizeFormat( Result.describe(res, dataAName, dataBName ) ) );		
 
@@ -942,7 +952,15 @@ public final class Layer1 {
 	 * @param censored if the data is censored, dichotomous
 	 */
 	public static List< String > 
-	describeOptions( double significanceThreshold,boolean brunnerMunzel, boolean paired, int n1, int n2, String dataAName, String dataBName, boolean censored ) {
+	describeOptions( double significanceThreshold,
+						boolean brunnerMunzel, 
+						boolean paired, 
+						int n1, 
+						int n2, 
+						String dataAName, 
+						String dataBName, 
+						boolean censored,
+						VDmod vdmod) {
 		
 		List< String > result = new ArrayList< String >();
 		
@@ -967,6 +985,11 @@ public final class Layer1 {
 			result.add( "Using the default testing configuration: Wilcoxon/ Mann Whitney U Statistical Tests and Vargha Delaney Effect size tests." );
 		}
 		
+		if(vdmod != null){
+			result.add("According to the principles of Transformed Vargha Delaney~\\cite{Neumann2015}, "
+					+ "Vargha Delaney results are adjusted as follows:\n " + vdmod.describe());
+		}
+		
 		if( n1 == n2 )
 			result.add( "These results were obtained with " + n1 + " samples in each dataset" );
 		else
@@ -988,7 +1011,7 @@ public final class Layer1 {
 		LOGGER.addHandler( fileHandler );
 	}	
 
-	/**FIXME Refactoring 27/11 - compare lists of GeneratorOutputs.
+	/**FIXME Refactoring 27/11 - Called from Layer2 to compare lists of GeneratorOutputs.
 	 * 
 	 * @param dataA
 	 * @param dataB

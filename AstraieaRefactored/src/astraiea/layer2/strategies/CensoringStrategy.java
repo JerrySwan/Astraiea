@@ -1,10 +1,9 @@
 package astraiea.layer2.strategies;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
-
 import astraiea.layer2.generators.GeneratorOutput;
-import astraiea.layer2.generators.Timeseries;
 
 /** 
  * Stores information about what approach should be taken if censored tests are used
@@ -78,7 +77,6 @@ public class CensoringStrategy {
 		return counter <= maxCounter;
 	}
 
-
 	/**Gets whether the current strategy is to switch to the non censored test.
 	 * 
 	 * @return
@@ -110,9 +108,8 @@ public class CensoringStrategy {
 	 * @return
 	 */
 	public boolean complexStrategy() {
-		return points != null || switching;
+		return points.length > 0 || switching;
 	}
-
 
 	/**Returns how long a test takes to achieve a passing result.
 	 * 
@@ -120,15 +117,23 @@ public class CensoringStrategy {
 	 * @return
 	 */
 	public<T extends GeneratorOutput> double[] getTimesToPass(List<T> results) {
-		double[] times = new double[results.size()];
+		ArrayList<Integer> times = new ArrayList<Integer>();
 		ListIterator<T> resultsIter = results.listIterator();
 		
-		int i =0;
+		int count =0;
 		while(resultsIter.hasNext()){
-			times[i] = resultsIter.next().getTimeToPass();
-			i++;
+			int timeToPass = resultsIter.next().getTimeToPass();
+			if(timeToPass != -1){
+				times.add(timeToPass);
+				count++;
+			}
 		}
-		return times;
+		
+		double[] timesArr = new double[count];
+		for(int i =0 ; i < count; i++){
+			timesArr[i] = times.get(i);
+		}
+		return timesArr;
 	}
 
 

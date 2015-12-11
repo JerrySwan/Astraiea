@@ -2,7 +2,7 @@ package astraiea.util;
 
 /**Whether one data set has greater, equal or lower values than an other data set.
  * 
- * @author Geoffrey
+ * @author Geoffrey Neumann
  *
  */
 public enum Ordering {

@@ -1,4 +1,4 @@
-package astraiea.layer1.varghaDelaney;
+package astraiea.layer1.effectsize.varghaDelaney;
 
 import astraiea.layer2.generators.GeneratorOutput;
 import astraiea.util.Ordering;
@@ -50,6 +50,16 @@ public class ThresholdVDMod extends VDmod {
 		else if(tDouble > thresholdDown || cDouble < thresholdUp)
 			return Ordering.GREATER;
 		else return standardCompare(tVal,cVal);
+	}
+
+	@Override
+	public String describe() {
+		return (Double.isFinite(thresholdUp) ? 
+			"\nAll results below " + thresholdUp + " are converted to 0." :
+				"") + 
+			(Double.isFinite(thresholdDown) ? 
+			"\nAll results above " + thresholdDown + " are converted to infinity." :
+				"");
 	}
 
 }

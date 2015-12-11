@@ -7,7 +7,7 @@ import org.apache.commons.math3.util.Pair;
 import astraiea.layer2.generators.GeneratorOutput;
 
 /**
- * FIXME This is just a temporary method until SPRT can be implemented and so hasn't been thoroughly documented
+ * FIXME This is just a temporary method until SPRT can be implemented.
  * n runs are performed, if significance isn't achieved then n more runs are performed.
  * It stops when significance is achieved, either after a bon ferroni correction has been performed or just un adjusted.
  * It's safe but weak to stop after a bon ferroni correction and if this isn't used intermediate results are printed anyway so,
@@ -24,19 +24,37 @@ public class SimpleIncrementing extends IncrementingStrategy {
 	private double originalPVal;
 	private int numSets;
 
+	/**Run from min to max and stop if significance is achieved taking into account bon ferroni.
+	 * 
+	 * @param min
+	 * @param max
+	 * @param stopOnBonFerroni
+	 */
 	public SimpleIncrementing(int min, int max, boolean stopOnBonFerroni) {
 		super(min, max);
 		this.stopOnBonFerroni = stopOnBonFerroni;
 	}
 	
+	/**Run from min to max and stop if significance is achieved not taking into account bon ferroni.
+	 * 
+	 * @param min
+	 * @param max
+	 */
 	public SimpleIncrementing(int min, int max) {
 		super(min, max);
 		this.stopOnBonFerroni = false;
 	}
 
+	/**Returns instruction to simply run the same number experiments again if p value is less than a threshold.
+	 * May optionally correct with Bon Ferroni.
+	 * 
+	 */
 	@Override
-	public <T extends GeneratorOutput> int[] getNextIncrement(List<T> results1,
-			List<T> results2, double pVal, double threshold) {
+	public <T extends GeneratorOutput> int[] getNextIncrement(
+			List<T> results1,
+			List<T> results2, 
+			double pVal, 
+			double threshold) {
 		
 		if(results1.size() != results2.size())
 			throw new IllegalArgumentException("Both datasets must be the same size.");

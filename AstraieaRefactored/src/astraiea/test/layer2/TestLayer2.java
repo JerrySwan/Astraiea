@@ -13,8 +13,8 @@ import org.junit.Test;
 import astraiea.Result;
 import astraiea.layer1.Layer1;
 import astraiea.layer2.Layer2;
-import astraiea.layer2.generators.Timeseries;
 import astraiea.layer2.generators.simpleGenerators.PairGeneratorOutput;
+import astraiea.layer2.generators.timeseries.Timeseries;
 import astraiea.layer2.multipleExperiments.SetOf1ArtefactExperiments;
 import astraiea.layer2.multipleExperiments.SetOfComparisons;
 import astraiea.layer2.strategies.CensoringStrategy;
@@ -26,8 +26,10 @@ import astraiea.test.layer2.generators.ExampleTimeseriesGenerator;
 import astraiea.util.MersenneTwister;
 
 /**
- * JUnit tests for all layer 2 configurations. Carried out by comparing the outcome of carrying out experimentation through layer 2
- * with the outcome of independently generating data and carrying out experimentation directly through layer 1 
+ * JUnit tests for all layer 2 configurations involving multiple artefacts or 
+ * comparison between more than two generators. 
+ * Carried out by comparing the outcome of invoking layer 2
+ * with the outcome of independently generating data and directly invoking layer 1 
  * (which is known to be correct because it is tested in Layer1JUnit class).
  * If retesting this class Layer1JUnit should also be retested. 
  * Layer2Junit assumes that Layer1Junit is correct as it uses Layer1 as an oracle.
@@ -35,7 +37,6 @@ import astraiea.util.MersenneTwister;
  * @author Geoffrey Neumann
  *
  */
-
 public class TestLayer2 {
 
 	/**Test 1 = Runs tests with the data point generator, with and without paired data, censoring and brunner munzel.
@@ -59,22 +60,22 @@ public class TestLayer2 {
 		ExampleDatapointGenerator gen4 = new ExampleDatapointGenerator(0.5, 1);
 		
 		//setup sets of experiments
-		SetOf1ArtefactExperiments<PairGeneratorOutput> gen1Exp = new SetOf1ArtefactExperiments<PairGeneratorOutput>(gen1);
-		SetOf1ArtefactExperiments<PairGeneratorOutput> gen2Exp = new SetOf1ArtefactExperiments<PairGeneratorOutput>(gen2);
-		SetOf1ArtefactExperiments<PairGeneratorOutput> gen3Exp = new SetOf1ArtefactExperiments<PairGeneratorOutput>(gen3);
-		SetOf1ArtefactExperiments<PairGeneratorOutput> gen4Exp = new SetOf1ArtefactExperiments<PairGeneratorOutput>(gen4);
+		SetOf1ArtefactExperiments<PairGeneratorOutput> gen1Exp = new SetOf1ArtefactExperiments<PairGeneratorOutput>(gen1, "test1");
+		SetOf1ArtefactExperiments<PairGeneratorOutput> gen2Exp = new SetOf1ArtefactExperiments<PairGeneratorOutput>(gen2, "test2");
+		SetOf1ArtefactExperiments<PairGeneratorOutput> gen3Exp = new SetOf1ArtefactExperiments<PairGeneratorOutput>(gen3, "test3");
+		SetOf1ArtefactExperiments<PairGeneratorOutput> gen4Exp = new SetOf1ArtefactExperiments<PairGeneratorOutput>(gen4, "test4");
 
 		SetOfComparisons<PairGeneratorOutput> gen1gen2Comp = new SetOfComparisons<PairGeneratorOutput>(gen1Exp,gen2Exp);
 		SetOfComparisons<PairGeneratorOutput> gen3gen4Comp = new SetOfComparisons<PairGeneratorOutput>(gen3Exp,gen4Exp);
 
 			//check the two way comparison of generators works
 			
-			Result res = Layer2.run(gen1gen2Comp, 0.05, false, false, new NoIncrementing(30), new MersenneTwister(0)).get(0).getRes();
-			Result res2 = Layer2.run(gen1gen2Comp, 0.05, true, false, new NoIncrementing(30), new MersenneTwister(1)).get(0).getRes();//brunner munzel
-			Result res3 = Layer2.run(gen1gen2Comp, 0.05, false, true, new NoIncrementing(30), new MersenneTwister(2)).get(0).getRes();//paired
-			Result res4 = Layer2.runCensored(gen1gen2Comp, 0.05, false, new NoIncrementing(30), new MersenneTwister(3)).get(0).getRes();//censored and unpaired
-			Result res5 = Layer2.runCensored(gen1gen2Comp, 0.05, true, new NoIncrementing(30), new MersenneTwister(4)).get(0).getRes();//censored and paired
-			Result res6 = Layer2.run(gen3gen4Comp, 0.05, false, false, new NoIncrementing(30), new MersenneTwister(5)).get(0).getRes();//not significant
+			Result res = Layer2.run(gen1gen2Comp, 0.05, false, false, new NoIncrementing(30), new MersenneTwister(0)).get(0);
+			Result res2 = Layer2.run(gen1gen2Comp, 0.05, true, false, new NoIncrementing(30), new MersenneTwister(1)).get(0);//brunner munzel
+			Result res3 = Layer2.run(gen1gen2Comp, 0.05, false, true, new NoIncrementing(30), new MersenneTwister(2)).get(0);//paired
+			Result res4 = Layer2.runCensored(gen1gen2Comp, 0.05, false, new NoIncrementing(30), new MersenneTwister(3)).get(0);//censored and unpaired
+			Result res5 = Layer2.runCensored(gen1gen2Comp, 0.05, true, new NoIncrementing(30), new MersenneTwister(4)).get(0);//censored and paired
+			Result res6 = Layer2.run(gen3gen4Comp, 0.05, false, false, new NoIncrementing(30), new MersenneTwister(5)).get(0);//not significant
 
 			//////////////separately create the expected results to compare against///////////////////////////////////////
 		
@@ -223,12 +224,12 @@ public class TestLayer2 {
 			MersenneTwister ran = new MersenneTwister(0);
 			
 			//setup sets of experiments
-			SetOf1ArtefactExperiments<Timeseries<PairGeneratorOutput>> gen1Exp = new SetOf1ArtefactExperiments<Timeseries<PairGeneratorOutput>>(gen1);
-			SetOf1ArtefactExperiments<Timeseries<PairGeneratorOutput>> gen2Exp = new SetOf1ArtefactExperiments<Timeseries<PairGeneratorOutput>>(gen2);
+			SetOf1ArtefactExperiments<Timeseries<PairGeneratorOutput>> gen1Exp = new SetOf1ArtefactExperiments<Timeseries<PairGeneratorOutput>>(gen1, "test1");
+			SetOf1ArtefactExperiments<Timeseries<PairGeneratorOutput>> gen2Exp = new SetOf1ArtefactExperiments<Timeseries<PairGeneratorOutput>>(gen2, "test2");
 
 			SetOfComparisons<Timeseries<PairGeneratorOutput>> gen1gen2Comp = new SetOfComparisons<Timeseries<PairGeneratorOutput>>(gen1Exp,gen2Exp);
 
-			Result res = Layer2.run(gen1gen2Comp, 0.05, false, false, new NoIncrementing(30), ran).get(0).getRes();
+			Result res = Layer2.run(gen1gen2Comp, 0.05, false, false, new NoIncrementing(30), ran).get(0);
 			
 			//////////////////separately create the expected results to compare against/////////////////////////////////////
 			
@@ -290,13 +291,13 @@ public class TestLayer2 {
 			ExampleTimeseriesGenerator gen2 = new ExampleTimeseriesGenerator(0.1, 5,100);
 			
 			//setup sets of experiments
-			SetOf1ArtefactExperiments<Timeseries<PairGeneratorOutput>> gen1Exp = new SetOf1ArtefactExperiments<Timeseries<PairGeneratorOutput>>(gen1);
-			SetOf1ArtefactExperiments<Timeseries<PairGeneratorOutput>> gen2Exp = new SetOf1ArtefactExperiments<Timeseries<PairGeneratorOutput>>(gen2);
+			SetOf1ArtefactExperiments<Timeseries<PairGeneratorOutput>> gen1Exp = new SetOf1ArtefactExperiments<Timeseries<PairGeneratorOutput>>(gen1, "test1");
+			SetOf1ArtefactExperiments<Timeseries<PairGeneratorOutput>> gen2Exp = new SetOf1ArtefactExperiments<Timeseries<PairGeneratorOutput>>(gen2, "test2");
 
 			SetOfComparisons<Timeseries<PairGeneratorOutput>> gen1gen2Comp = new SetOfComparisons<Timeseries<PairGeneratorOutput>>(gen1Exp,gen2Exp);
 
 			MersenneTwister ran = new MersenneTwister(0);
-			Result res = Layer2.run(gen1gen2Comp, 0.05, false, false, new CensoringStrategy(true), new NoIncrementing(30), ran).get(0).getRes();
+			Result res = Layer2.run(gen1gen2Comp, 0.05, false, false, new CensoringStrategy(true), new NoIncrementing(30), ran).get(0);
 			
 			////////////////separately create the expected results to compare against///////////////////////////////////////////////////////////
 			
@@ -353,19 +354,18 @@ public class TestLayer2 {
 		
 		//////////////the actual tests///////////////////////
 
-		
 		ExampleTimeseriesGenerator gen1 = new ExampleTimeseriesGenerator(0.6, 5,100);
 		ExampleTimeseriesGenerator gen2 = new ExampleTimeseriesGenerator(0.5, 5,100);
 		
 		//setup sets of experiments
-		SetOf1ArtefactExperiments<Timeseries<PairGeneratorOutput>> gen1Exp = new SetOf1ArtefactExperiments<Timeseries<PairGeneratorOutput>>(gen1);
-		SetOf1ArtefactExperiments<Timeseries<PairGeneratorOutput>> gen2Exp = new SetOf1ArtefactExperiments<Timeseries<PairGeneratorOutput>>(gen2);
+		SetOf1ArtefactExperiments<Timeseries<PairGeneratorOutput>> gen1Exp = new SetOf1ArtefactExperiments<Timeseries<PairGeneratorOutput>>(gen1, "test1");
+		SetOf1ArtefactExperiments<Timeseries<PairGeneratorOutput>> gen2Exp = new SetOf1ArtefactExperiments<Timeseries<PairGeneratorOutput>>(gen2, "test2");
 
 		SetOfComparisons<Timeseries<PairGeneratorOutput>> gen1gen2Comp = new SetOfComparisons<Timeseries<PairGeneratorOutput>>(gen1Exp,gen2Exp);
 		
 		MersenneTwister ran = new MersenneTwister(0);
 		
-		Result res = Layer2.run(gen1gen2Comp, 0.05, false, false, new CensoringStrategy(new int[]{50},false), new NoIncrementing(30), ran).get(0).getRes();
+		Result res = Layer2.run(gen1gen2Comp, 0.05, false, false, new CensoringStrategy(new int[]{50},false), new NoIncrementing(30), ran).get(0);
 		
 		/////////////separately create the expected results to compare against///////////////////////////////////////////////////
 		
@@ -406,7 +406,7 @@ public class TestLayer2 {
 	
 	/**Test 4b = Run tests with the time series generator. With censoring and with no incrementing.	
 	 * Use a complex censoring strategy this time, 
-	 * in which an additional test using the time that time series's take to reach a passing grade
+	 * in which an additional test using the time that timeseries's take to reach a passing grade
 	 * is compared using a regular (non censored) p value test.
 	 * 
 	 */
@@ -424,16 +424,16 @@ public class TestLayer2 {
 		ExampleTimeseriesGenerator gen2 = new ExampleTimeseriesGenerator(0.5, 5,100);
 		
 		//setup sets of experiments
-		SetOf1ArtefactExperiments<Timeseries<PairGeneratorOutput>> gen1Exp = new SetOf1ArtefactExperiments<Timeseries<PairGeneratorOutput>>(gen1);
-		SetOf1ArtefactExperiments<Timeseries<PairGeneratorOutput>> gen2Exp = new SetOf1ArtefactExperiments<Timeseries<PairGeneratorOutput>>(gen2);
+		SetOf1ArtefactExperiments<Timeseries<PairGeneratorOutput>> gen1Exp = new SetOf1ArtefactExperiments<Timeseries<PairGeneratorOutput>>(gen1, "test1");
+		SetOf1ArtefactExperiments<Timeseries<PairGeneratorOutput>> gen2Exp = new SetOf1ArtefactExperiments<Timeseries<PairGeneratorOutput>>(gen2, "test2");
 
 		SetOfComparisons<Timeseries<PairGeneratorOutput>> gen1gen2Comp = new SetOfComparisons<Timeseries<PairGeneratorOutput>>(gen1Exp,gen2Exp);
 
 		//standard test
-		Result res = Layer2.run(gen1gen2Comp, 0.05, false, false, new CensoringStrategy(true, true), new NoIncrementing(30), new MersenneTwister(0)).get(0).getRes();//testing that the non dichotomous test uses brunner munzel
+		Result res = Layer2.run(gen1gen2Comp, 0.05, false, false, new CensoringStrategy(true, true), new NoIncrementing(30), new MersenneTwister(0)).get(0);//testing that the non dichotomous test uses brunner munzel
 		//run this test also with brunner munzel set as the non censored test should allow this setting,
 		//even though the censored test doesn't
-		Result res2 = Layer2.run(gen1gen2Comp, 0.05, true, false, new CensoringStrategy(true, true), new NoIncrementing(30), new MersenneTwister(0)).get(0).getRes();//testing that the non dichotomous test uses brunner munzel
+		Result res2 = Layer2.run(gen1gen2Comp, 0.05, true, false, new CensoringStrategy(true, true), new NoIncrementing(30), new MersenneTwister(0)).get(0);//testing that the non dichotomous test uses brunner munzel
 
 		
 		//////////////separately create the expected results to compare against///////////////////////////////////////////////
@@ -510,14 +510,14 @@ public class TestLayer2 {
 			ExampleTimeseriesGenerator gen2 = new ExampleTimeseriesGenerator(0.4, 5,100);
 			
 			//setup sets of experiments
-			SetOf1ArtefactExperiments<Timeseries<PairGeneratorOutput>> gen1Exp = new SetOf1ArtefactExperiments<Timeseries<PairGeneratorOutput>>(gen1);
-			SetOf1ArtefactExperiments<Timeseries<PairGeneratorOutput>> gen2Exp = new SetOf1ArtefactExperiments<Timeseries<PairGeneratorOutput>>(gen2);
+			SetOf1ArtefactExperiments<Timeseries<PairGeneratorOutput>> gen1Exp = new SetOf1ArtefactExperiments<Timeseries<PairGeneratorOutput>>(gen1, "test1");
+			SetOf1ArtefactExperiments<Timeseries<PairGeneratorOutput>> gen2Exp = new SetOf1ArtefactExperiments<Timeseries<PairGeneratorOutput>>(gen2, "test2");
 
 			SetOfComparisons<Timeseries<PairGeneratorOutput>> gen1gen2Comp = new SetOfComparisons<Timeseries<PairGeneratorOutput>>(gen1Exp,gen2Exp);
 
 			
 			MersenneTwister ran = new MersenneTwister(0);
-			Result res = Layer2.run(gen1gen2Comp, 0.05, false, false, new SimpleIncrementing(20,100), ran).get(0).getRes();
+			Result res = Layer2.run(gen1gen2Comp, 0.05, false, false, new SimpleIncrementing(20,100), ran).get(0);
 			
 			
 			/////////////////separately create the expected results to compare against/////////////////////////////////////////
@@ -572,14 +572,14 @@ public class TestLayer2 {
 		ExampleTimeseriesGenerator gen2 = new ExampleTimeseriesGenerator(0.4, 5,100);
 		
 		//setup sets of experiments
-		SetOf1ArtefactExperiments<Timeseries<PairGeneratorOutput>> gen1Exp = new SetOf1ArtefactExperiments<Timeseries<PairGeneratorOutput>>(gen1);
-		SetOf1ArtefactExperiments<Timeseries<PairGeneratorOutput>> gen2Exp = new SetOf1ArtefactExperiments<Timeseries<PairGeneratorOutput>>(gen2);
+		SetOf1ArtefactExperiments<Timeseries<PairGeneratorOutput>> gen1Exp = new SetOf1ArtefactExperiments<Timeseries<PairGeneratorOutput>>(gen1, "test1");
+		SetOf1ArtefactExperiments<Timeseries<PairGeneratorOutput>> gen2Exp = new SetOf1ArtefactExperiments<Timeseries<PairGeneratorOutput>>(gen2, "test2");
 
 		SetOfComparisons<Timeseries<PairGeneratorOutput>> gen1gen2Comp = new SetOfComparisons<Timeseries<PairGeneratorOutput>>(gen1Exp,gen2Exp);
 
 		
 		MersenneTwister ran = new MersenneTwister(0);
-		Result res = Layer2.run(gen1gen2Comp, 0.05, false, false, new CensoringStrategy(true), new SimpleIncrementing(20,100), ran).get(0).getRes();
+		Result res = Layer2.run(gen1gen2Comp, 0.05, false, false, new CensoringStrategy(true), new SimpleIncrementing(20,100), ran).get(0);
 		
 		////////////////separately create the expected results to compare against////////////
 		MersenneTwister ranTest = new MersenneTwister(0);
@@ -597,7 +597,7 @@ public class TestLayer2 {
 			artificialResults2FinalGen.add(artificiallyCreateTimeseries(new MersenneTwister(seeds[i+1]), 0.4, 5, 100).get(99).getSecond());
 		}
 		
-		//additional tests
+		//additional increments
 		Result resTest = Layer1.compareCensored(artificialResults1FinalGen, artificialResults2FinalGen, 0.05, false);
 		int i = 40;
 		while(resTest == null || !resTest.isSignificant() && i < 200){
@@ -639,7 +639,7 @@ public class TestLayer2 {
 	public void DatapointGeneratorsIncrementing(){
 		//output
 		try {
-			Report.setupLaTeXLoggers("reports/layer2/report1.tex");
+			Report.setupLaTeXLoggers("reports/layer2/report7.tex");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -654,13 +654,13 @@ public class TestLayer2 {
 			ExampleDatapointGenerator gen2 = new ExampleDatapointGenerator(0.1, 1);
 			
 			//setup sets of experiments
-			SetOf1ArtefactExperiments<PairGeneratorOutput> gen1Exp = new SetOf1ArtefactExperiments<PairGeneratorOutput>(gen1);
-			SetOf1ArtefactExperiments<PairGeneratorOutput> gen2Exp = new SetOf1ArtefactExperiments<PairGeneratorOutput>(gen2);
+			SetOf1ArtefactExperiments<PairGeneratorOutput> gen1Exp = new SetOf1ArtefactExperiments<PairGeneratorOutput>(gen1, "test1");
+			SetOf1ArtefactExperiments<PairGeneratorOutput> gen2Exp = new SetOf1ArtefactExperiments<PairGeneratorOutput>(gen2, "test2");
 
 			SetOfComparisons<PairGeneratorOutput> gen1gen2Comp = new SetOfComparisons<PairGeneratorOutput>(gen1Exp,gen2Exp);
 			
 			//results from layer2
-			Result res = Layer2.run(gen1gen2Comp, 0.05, false, false, new SimpleIncrementing(initialRuns, maxRuns), new MersenneTwister(0)).get(0).getRes();
+			Result res = Layer2.run(gen1gen2Comp, 0.05, false, false, new SimpleIncrementing(initialRuns, maxRuns), new MersenneTwister(0)).get(0);
 	
 			//////////////separately create the expected results to compare against///////////////////////////////////////
 		
@@ -698,11 +698,11 @@ public class TestLayer2 {
 			gen2 = new ExampleDatapointGenerator(0.4, 1);
 			
 			//setup sets of experiments
-			gen1Exp = new SetOf1ArtefactExperiments<PairGeneratorOutput>(gen1);
-			gen2Exp = new SetOf1ArtefactExperiments<PairGeneratorOutput>(gen2);
+			gen1Exp = new SetOf1ArtefactExperiments<PairGeneratorOutput>(gen1, "test1");
+			gen2Exp = new SetOf1ArtefactExperiments<PairGeneratorOutput>(gen2, "test2");
 			gen1gen2Comp = new SetOfComparisons<PairGeneratorOutput>(gen1Exp,gen2Exp);
 
-			res = Layer2.run(gen1gen2Comp, 0.05, false, false, new SimpleIncrementing(initialRuns, maxRuns), new MersenneTwister(1)).get(0).getRes();
+			res = Layer2.run(gen1gen2Comp, 0.05, false, false, new SimpleIncrementing(initialRuns, maxRuns), new MersenneTwister(1)).get(0);
 	
 			//////////////separately create the expected results to compare against///////////////////////////////////////
 		

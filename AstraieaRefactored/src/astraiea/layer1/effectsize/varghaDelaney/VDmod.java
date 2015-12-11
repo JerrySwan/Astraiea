@@ -1,4 +1,4 @@
-package astraiea.layer1.varghaDelaney;
+package astraiea.layer1.effectsize.varghaDelaney;
 
 import astraiea.layer2.generators.GeneratorOutput;
 import astraiea.util.Ordering;
@@ -38,5 +38,11 @@ public abstract class VDmod {
 		else 
 			return Ordering.LOWER;
 	}
+
+	/**
+	 * 
+	 * @return textual description of this modification for user output
+	 */
+	public abstract String describe();
 
 }
