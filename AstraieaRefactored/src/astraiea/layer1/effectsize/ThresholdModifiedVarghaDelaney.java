@@ -3,19 +3,24 @@ package astraiea.layer1.effectsize;
 import astraiea.Ordering;
 import astraiea.layer2.generators.GeneratorOutput;
 
-/**An implementation of the Modified Vargha Delaney test that simply discounts all values that are above or below a specified threshold.
+/**
+ * An implementation of the Modified Vargha Delaney test that simply discounts all values that are above or below a specified threshold.
  * 
  * @author Geoffrey Neumann
  *
  */
 
 public class ThresholdModifiedVarghaDelaney extends ModifiedVarghaDelaney {
-	/**value which data has to be greater than or equal to to be considered valid*/
+	
+	/** value which data has to be greater than or equal to to be considered valid */
 	private double thresholdUp = Double.NEGATIVE_INFINITY;
-	/**value which data has to be less than or equal to be considered valid*/
+	/** value which data has to be less than or equal to be considered valid */
 	private double thresholdDown = Double.POSITIVE_INFINITY;
+	
+	///////////////////////////////
 
-	/**Constructor if setting only thresholdUp or thresholdDown.
+	/**
+	 * Constructor if setting only thresholdUp or thresholdDown.
 	 * 
 	 * @param thresh value to set chosen threshold to
 	 * @param up if true setting thresholdUp, else setting thresholdDown
@@ -61,5 +66,6 @@ public class ThresholdModifiedVarghaDelaney extends ModifiedVarghaDelaney {
 			"\nAll results above " + thresholdDown + " are converted to infinity." :
 				"");
 	}
-
 }
+
+// End ///////////////////////////////////////////////////////////////

@@ -20,7 +20,8 @@ import astraiea.util.RankCalculator;
 
 public final class MannWhitney {
 
-	/**Return the p value of two datasets, dataA and dataB
+	/**
+	 * Return the p value of two datasets, dataA and dataB
 	 * 
 	 * @param dataA
 	 * @param dataB
@@ -81,7 +82,8 @@ public final class MannWhitney {
 		return pval;
 	}
 
-	/**Return the p value from comparing a dataset with a single value.
+	/**
+	 * Return the p value from comparing a dataset with a single value.
 	 * 
 	 * @param dataA array of results
 	 * @param dataDet single result

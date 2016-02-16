@@ -20,17 +20,21 @@ import astraiea.layer2.generators.GeneratorOutput;
 import astraiea.layer2.generators.simpleGenerators.DoubleGeneratorOutput;
 import astraiea.util.MersenneTwister;
 
-/**Carries out unit testing to confirm that, for each type of p value (significance) or effect size test implemented in Astraiea, 
- * it produces results that match those produced by R. In all cases results are expected to be as close as possible to R, 
+/**
+ * Unit tests to confirm that, for each type of p value (significance) or effect size test implemented in Astraiea, 
+ * it produces results that match those produced by R. 
+ * In all cases results are expected to be as close as possible to R, 
  * though how close this is depends on the test - as stated in the description above each method. 
  * In all cases results match at least to within 10^-3.
+ * 
  * Unit tests are also used to confirm that the Result.isSignificant() and Result.getOrder() fields are correctly set, giving a binary 
  * statement whether the result is isSignificant() and which of the two data samples are greater respectively.
  * 
  * @author Geoffrey Neumann
  *
  */
-public class TestLayer1 {
+
+public final class TestLayer1 {
 	 	
 	/**
 	 * Confirms that p values when the Wilcoxon/Mann Whitney U test (default p value test) 
@@ -39,7 +43,7 @@ public class TestLayer1 {
 	 * @throws SecurityException 
 	 */
 	@Test
-	public void wilcoxon() throws SecurityException, IOException {
+	public void wilcoxon() throws IOException {
 		//generate data for testing
 		double[][] data = generateData(10, 10, 20, 20, false);//default - data[0] is higher
 		double[][] dataN50 = generateData(10, 10, 50, 50, false);//larger datasets
@@ -107,7 +111,7 @@ public class TestLayer1 {
 	 * @throws SecurityException 
 	 */
 	@Test
-	public void modifiedVarghaDelaney() throws SecurityException, IOException {
+	public void modifiedVarghaDelaney() throws IOException {
 		//generate data for testing
 		
 		MersenneTwister ran = new MersenneTwister(12345);
@@ -166,7 +170,8 @@ public class TestLayer1 {
 		assertEquals("Effect size order obtained using VDmod should match that obtained by manually transforming data", expOrder, res.getOrder());
 	}
 	
-	/**Combines 2 arrays in a random order
+	/**
+	 * Combines 2 arrays in a random order
 	 * 
 	 * @param arr1 
 	 * @param arr2
@@ -194,14 +199,15 @@ public class TestLayer1 {
 		return combinedArr;
 	}
 
-	/**Confirms that p values when a comparison is made against deterministic data 
+	/**
+	 * Confirms that p values when a comparison is made against deterministic data 
 	 * (using the Mann Whitney test with deterministic data)
 	 *  match those generated from R with a margin of error no more than 10^-3
 	 * @throws IOException 
 	 * @throws SecurityException 
 	 */
 	@Test
-	public void wilcoxonOneSample() throws SecurityException, IOException {
+	public void wilcoxonOneSample() throws IOException {
 		Random ran = new Random(0);
 		
 		
@@ -294,7 +300,6 @@ public class TestLayer1 {
 		assertFalse("significance must be false", res.isSignificant());
 	}
 
-
 	private double[] generateSingleData(int offset, int var, int n, boolean continuous, Random ran) {
 		double[] data = new double[n];
 		
@@ -315,7 +320,7 @@ public class TestLayer1 {
 	 */
 	
 	@Test
-	public void brunnerMunzel() throws SecurityException, IOException {
+	public void brunnerMunzel() throws IOException {
 		//as in wilcoxon()
 		double[][] data = generateData(10, 10, 20, 20, false);
 		double[][] dataN50 = generateData(10, 10, 50, 50, false);
@@ -370,12 +375,15 @@ public class TestLayer1 {
 		assertTrue("significance must be true", res.isSignificant());
 	}
 
-	/**Confirms that p values when the Wilcoxon Signed Rank test (p value test used for paired data) is used 
+	/**
+	 * Confirms that p values when the Wilcoxon Signed Rank test (p value test used for paired data) is used 
 	 * match those generated from R with a margin of error no more than 10^-4
 	 * @throws IOException 
-	 * @throws SecurityException */
+	 * @throws SecurityException 
+	 */
+	
 	@Test
-	public void pairedWilcoxon() throws SecurityException, IOException {
+	public void pairedWilcoxon() throws IOException {
 		double[][] data = generateData(10, 10, 20, 20, false);
 		double[][] dataN50 = generateData(10, 10, 50, 50, false);
 		double[][] dataD0 = generateData(0, 10, 20, 20, false);
@@ -424,7 +432,7 @@ public class TestLayer1 {
 	 * @throws SecurityException 
 	 */
 	@Test
-	public void varghaDelaney() throws SecurityException, IOException {
+	public void varghaDelaney() throws IOException {
 		double[][] data = generateData(10, 10, 20, 20, false);
 		double[][] dataN50 = generateData(10, 10, 50, 50, false);
 		double[][] dataN2050 = generateData(10, 10, 20, 50, false);
@@ -479,7 +487,8 @@ public class TestLayer1 {
 	}
 	
 	
-	/**TODO description in asserts
+	/**
+	 * TODO description in asserts
 	 * Confirms that the effect sizes when the Vargha Delaney test is used 
 	 * match those generated from R with a margin of error no more than 10^-5
 	 * 4 decimal places appears to be the greatest precision that R offers for this function and so, 
@@ -487,8 +496,9 @@ public class TestLayer1 {
 	 * @throws IOException 
 	 * @throws SecurityException 
 	 */
+	
 	@Test
-	public void VDconfidenceIntervals() throws SecurityException, IOException {
+	public void VDconfidenceIntervals() throws IOException {
 		double[][] data = generateData(10, 10, 20, 20, false);
 		double[][] dataN50 = generateData(10, 10, 50, 50, false);
 		double[][] dataN2050 = generateData(10, 10, 20, 50, false);
@@ -542,8 +552,6 @@ public class TestLayer1 {
 		assertEquals("confidence intervals must accurately match those obtained by R using bootstraping (R function boot::boot) as an oracle", expectedCIs[1],actualCIs[1], 0.0001);
 	}
 
-
-
 	/**
 	 * Generate random data.
 	 * 
@@ -584,7 +592,8 @@ public class TestLayer1 {
 		return allData;
 	}
 	
-	/**Generate data for censored/dichotomous tests.
+	/**
+	 * Generate data for censored/dichotomous tests.
 	 * 
 	 * @param propGrtrA proportion of samples in dataA that passes (greater than threshold)
 	 * @param propGrtrB proportion of samples in dataB that passes (greater than threshold)
@@ -691,7 +700,8 @@ public class TestLayer1 {
 		return allData;
 	}
 
-	/**Ensures correctness for the Odds Ratio effect size test. An equation for this test is given in Arcuri2012. 
+	/**
+	 * Ensures correctness for the Odds Ratio effect size test. An equation for this test is given in Arcuri2012. 
 	 * As it appears that no R function exists that matches this equation and yet Astraiea is an implementation of this paper, 
 	 * a comparison with R cannot be made as it is for the other methods. However, we provide the equation 
 	 * that is used in method oddsRatioEquation(double[], double[]) where it can easily be compared
@@ -702,7 +712,7 @@ public class TestLayer1 {
 	 * 
 	 */
 	@Test
-	public void oddsRatio() throws SecurityException, IOException {
+	public void oddsRatio() throws IOException {
 		Random ran = new Random(0);
 		
 		boolean[][] data = convertToBools(this.generateCensoredData(0.8, 0.2, 0, 0, 10, 10, 20, 20, false, ran),10);//dataA passes more
@@ -786,7 +796,8 @@ public class TestLayer1 {
 		assertTrue("dataA must be less than dataB, according to the 'ord' field in 'res'", res.getOrder() == Ordering.LOWER);
 	}
 	
-	/**Converts double data to booleans.
+	/**
+	 * Converts double data to booleans.
 	 *  
 	 * @param data input data in doubles
 	 * @param thresh threshold for which >=thresh is a pass
@@ -806,7 +817,8 @@ public class TestLayer1 {
 		return result;
 	}
 
-	/** An exact copy of the odds ratio equation in Arcuri2012, with p set to 0.5 (matching the example value given in that paper).
+	/**
+	 * An exact copy of the odds ratio equation in Arcuri2012, with p set to 0.5 (matching the example value given in that paper).
 	 * The parameter names are used to match the paper.
 	 * @param a number of positive results in dataA
 	 * @param n total number of samples in dataA
@@ -821,12 +833,14 @@ public class TestLayer1 {
 	
 
 	
-	/**Confirms that p values when the Fisher test (For censored/dichotomous data)
+	/**
+	 * Confirms that p values when the Fisher test (For censored/dichotomous data)
 	 *  is used match those generated from R with a margin of error no more than 10^-5
 	 * @throws IOException 
-	 * @throws SecurityException */
+	 * @throws SecurityException 
+	 */
 	@Test
-	public void fisher() throws SecurityException, IOException {
+	public void fisher() throws IOException {
 		Layer1.setupLatexLoggers("reports/layer1/reportFisher.tex");
 
 		Random ran = new Random(0);
@@ -930,12 +944,14 @@ public class TestLayer1 {
 		assertTrue("significance must be true", res.isSignificant());
 	}
 	
-	/**Confirms that p values when the McNemar test (For censored/dichotomous data which is also paired)
+	/**
+	 * Confirms that p values when the McNemar test (For censored/dichotomous data which is also paired)
 	 *  is used match those generated from R with a margin of error no more than 10^-4.
 	 * @throws IOException 
-	 * @throws SecurityException */
+	 * @throws SecurityException 
+	 */
 	@Test
-	public void mcNemar() throws SecurityException, IOException {
+	public void mcNemar() throws IOException {
 		Layer1.setupLatexLoggers("reports/layer1/reportMcNemar.tex");
 
 		Random ran = new Random(0);

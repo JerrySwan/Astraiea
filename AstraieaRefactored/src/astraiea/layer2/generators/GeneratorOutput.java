@@ -1,10 +1,12 @@
 package astraiea.layer2.generators;
 
-/**FIXME Refactoring 27/11 - new class. Output from Generator
+/**
+ * FIXME Refactoring 27/11 - new class. Output from Generator
  * 
  * @author Geoffrey Neumann
  *
  */
+
 public abstract class GeneratorOutput {
 	
 	/**

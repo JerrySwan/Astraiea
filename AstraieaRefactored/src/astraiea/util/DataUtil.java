@@ -6,16 +6,19 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.commons.math3.stat.StatUtils;
+import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
 import org.apache.commons.math3.util.Pair;
 
 import com.google.common.primitives.Doubles;
 
-/**Utility class for examining and manipulating and examining data sets.
+/**
+ * Utility class for examining and manipulating and examining data sets.
  * 
  * @author Geoffrey
  *
  */
-public class DataUtil {
+public final class DataUtil {
 
 	/**
 	 * Determines whether there are ties (duplicate values) within a data set, represented as an array of doubles.
@@ -69,16 +72,16 @@ public class DataUtil {
 	}
 
 	public static double getMedian(double[] vals) {
+		/***
 		double len = vals.length;
 		Arrays.sort(vals);
 		if(len % 2 == 0)
 			return vals[(int)(len/2) - 1] + ((vals[(int)(len/2)] - vals[(int)((len/2) - 1)]) / 2);
 		else
 			return vals[(int)(Math.floor(len/2))];
+		 ***/
+		return new DescriptiveStatistics( vals ).getPercentile(50);
 	}
-
-
-
 }
 
 // End ///////////////////////////////////////////////////////////////

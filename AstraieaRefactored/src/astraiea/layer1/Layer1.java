@@ -1059,7 +1059,8 @@ public final class Layer1 {
 	 * @throws SecurityException
 	 * @throws IOException
 	 */
-	public static void setupLatexLoggers(String filename) throws SecurityException, IOException {		
+	public static void setupLatexLoggers(String filename) throws IOException 
+	{		
 		Formatter formatter = new LaTeXLogFormatter();		
 		Handler fileHandler = new FileHandler( filename);
 		fileHandler.setFormatter(formatter);

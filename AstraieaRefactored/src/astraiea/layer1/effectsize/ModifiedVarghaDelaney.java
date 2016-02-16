@@ -26,7 +26,8 @@ public abstract class ModifiedVarghaDelaney {
 	 */
 	public abstract Ordering compare(GeneratorOutput tVal, GeneratorOutput cVal);
 	
-	/**The standard comparison whereby a result is "greater" simply if it has a higher value,
+	/**
+	 * The standard comparison whereby a result is "greater" simply if it has a higher value,
 	 * "lower" if it has a lower value and "equal" only if both values are exactly the same.
 	 * 
 	 * @param tVal

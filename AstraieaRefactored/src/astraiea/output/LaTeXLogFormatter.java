@@ -9,7 +9,8 @@ import java.util.logging.LogRecord;
 
 //////////////////////////////////////////////////////////////////////
 
-/**Format Logger output to produce LaTeX results file.
+/**
+ * Format Logger output to produce LaTeX results file.
  * 
  * @author Geoffrey Neumann
  *

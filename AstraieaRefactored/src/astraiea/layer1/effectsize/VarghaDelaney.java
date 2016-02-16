@@ -23,7 +23,8 @@ public final class VarghaDelaney {
 	//FIXME Should probably be passed in but the number of parameters passed to Layer1 is getting excessive. Will explain.
 	private static final int numCISamples = 1000;
 
-	/**Interpret the effect size
+	/**
+	 * Interpret the effect size
 	 * 
 	 * @param effectSize
 	 * @return
@@ -48,7 +49,8 @@ public final class VarghaDelaney {
 	 * @param vdmod 
 	 * @return
 	 */
-	public static<T extends GeneratorOutput> double evaluate(List<T> results1, List<T> results2, boolean paired, ModifiedVarghaDelaney vdmod) {
+	public static<T extends GeneratorOutput> 
+	double evaluate(List<T> results1, List<T> results2, boolean paired, ModifiedVarghaDelaney vdmod) {
 		int lenA = results1.size();
 		int lenB = results2.size();
 		double[] drawsWins = getDrawsWins(results1,results2,paired,vdmod);
@@ -72,7 +74,8 @@ public final class VarghaDelaney {
 	
 
 	
-	/**Counts the number of times treatment obtains a better result than control and
+	/**
+	 * Counts the number of times treatment obtains a better result than control and
 	 * the number of times that the same result is obtained.
 	 * 
 	 * @param results1
@@ -80,7 +83,9 @@ public final class VarghaDelaney {
 	 * @param paired 
 	 * @return
 	 */
-	private static<T extends GeneratorOutput> double[] getDrawsWins(List<T> results1, List<T> results2, boolean paired, ModifiedVarghaDelaney vdmod) {
+	private static<T extends GeneratorOutput> 
+	double [] 
+	getDrawsWins(List<T> results1, List<T> results2, boolean paired, ModifiedVarghaDelaney vdmod) {
 		int lenT = results1.size();
 		int lenC = results2.size();
 		double draws = 0;
@@ -109,7 +114,8 @@ public final class VarghaDelaney {
 		return new double[]{draws, wins};
 	}
 
-	/**Compares a treatment and a control value
+	/**
+	 * Compares a treatment and a control value
 	 * 
 	 * @param tVal treatment value
 	 * @param cVal control value
@@ -129,7 +135,8 @@ public final class VarghaDelaney {
 		return  vdmod.compare(tVal,cVal);
 	}
 
-	/**Gets the confidence intervals of the effect size using bootstrapping.
+	/**
+	 * Gets the confidence intervals of the effect size using bootstrapping.
 	 * 
 	 * @param effSize
 	 * @param dataA
@@ -187,7 +194,8 @@ public final class VarghaDelaney {
 		return ci;
 	}
 	
-	/**	Gets random sets of indices.
+	/**	
+	 * Gets random sets of indices.
 	 * @param len the length of the array will be selecting from i.e. number of original data points
 	 * @param total number of indices needed in total
 	 * @param ran

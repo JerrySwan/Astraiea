@@ -11,7 +11,8 @@ import jsc.contingencytables.McNemarTest;
  */
 public final class McNemar {
 
-	/**Get the p value.
+	/**
+	 * Get the p value.
 	 * 
 	 * @param passBoth
 	 * @param failBoth
