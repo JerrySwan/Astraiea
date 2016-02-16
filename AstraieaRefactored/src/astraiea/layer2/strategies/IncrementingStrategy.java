@@ -41,7 +41,10 @@ public abstract class IncrementingStrategy {
 	 * @param threshold below which significance is considered sufficient for stopping
 	 * @return
 	 */
-	public abstract<T extends GeneratorOutput> int[] getNextIncrement(
+	
+	public abstract 
+	< T extends GeneratorOutput > 
+	int [] getNextIncrement(
 			List<T> results1,
 			List<T> results2, 
 			double pVal, 
