@@ -46,6 +46,21 @@ public final class Layer1 {
 	///////////////////////////////USER INTERFACE METHODS///////////////////////////////
 
 	/**
+	 * Sets up the LOGGER for this class using a default configuration.
+	 * 
+	 * @param filename file where output of logger should be stored.
+	 * @throws IOException
+	 */
+	public static void setupLatexLoggers(String filename) throws IOException {		
+		Formatter formatter = new LaTeXLogFormatter();		
+		Handler fileHandler = new FileHandler( filename);
+		fileHandler.setFormatter(formatter);
+		LOGGER.addHandler( fileHandler );
+	}	
+
+	///////////////////////////////
+	
+	/**
 	 * Compares two sets of unpaired, non dichotomous results (dataA and dataB).
 	 * 
 	 * @param dataA
@@ -1052,20 +1067,6 @@ public final class Layer1 {
 		return result;
 	}
 	
-	/**
-	 * Sets up the LOGGER for this class using a default configuration.
-	 * 
-	 * @param filename file where output of logger should be stored.
-	 * @throws IOException
-	 */
-	public static void setupLatexLoggers(String filename) throws IOException 
-	{		
-		Formatter formatter = new LaTeXLogFormatter();		
-		Handler fileHandler = new FileHandler( filename);
-		fileHandler.setFormatter(formatter);
-		LOGGER.addHandler( fileHandler );
-	}	
-
 	/**
 	 * FIXME Refactoring 27/11 - Called from Layer2 to compare lists of GeneratorOutputs.
 	 * 
