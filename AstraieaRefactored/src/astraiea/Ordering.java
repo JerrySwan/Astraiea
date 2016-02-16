@@ -1,4 +1,4 @@
-package astraiea.util;
+package astraiea;
 
 /**Whether one data set has greater, equal or lower values than an other data set.
  * 

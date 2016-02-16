@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
-import astraiea.util.Ordering;
 
 /** 
  * Stores the results of carrying out the significance and the p value tests.

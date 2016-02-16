@@ -12,13 +12,13 @@ import java.util.Random;
 
 import org.junit.Test;
 
+import astraiea.Ordering;
 import astraiea.Result;
 import astraiea.layer1.Layer1;
 import astraiea.layer1.effectsize.varghaDelaney.ThresholdVDMod;
 import astraiea.layer2.generators.GeneratorOutput;
 import astraiea.layer2.generators.simpleGenerators.DoubleGeneratorOutput;
 import astraiea.util.MersenneTwister;
-import astraiea.util.Ordering;
 
 /**Carries out unit testing to confirm that, for each type of p value (significance) or effect size test implemented in Astraiea, 
  * it produces results that match those produced by R. In all cases results are expected to be as close as possible to R, 

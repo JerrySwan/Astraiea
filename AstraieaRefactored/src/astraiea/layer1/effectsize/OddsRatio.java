@@ -1,6 +1,6 @@
 package astraiea.layer1.effectsize;
 
-import astraiea.util.Ordering;
+import astraiea.Ordering;
 
 /**
  * Odds Ratio effect-size test.

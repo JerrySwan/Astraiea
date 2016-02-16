@@ -1,7 +1,7 @@
 package astraiea.layer1.effectsize.varghaDelaney;
 
+import astraiea.Ordering;
 import astraiea.layer2.generators.GeneratorOutput;
-import astraiea.util.Ordering;
 
 /**Implementation of the Modified Vargha Delaney from .... . 
  * This modifies the comparison between individual results that is part of the Vargha Delaney process to ensure that this 

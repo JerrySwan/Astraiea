@@ -1,7 +1,7 @@
 package astraiea.layer1.effectsize.varghaDelaney;
 
+import astraiea.Ordering;
 import astraiea.layer2.generators.GeneratorOutput;
-import astraiea.util.Ordering;
 
 /**An implementation of the Modified Vargha Delaney test that simply discounts all values that are above or below a specified threshold.
  * 

@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import astraiea.Ordering;
 import astraiea.layer2.generators.GeneratorOutput;
-import astraiea.util.Ordering;
 
 import org.apache.commons.math3.stat.descriptive.rank.Percentile;
 

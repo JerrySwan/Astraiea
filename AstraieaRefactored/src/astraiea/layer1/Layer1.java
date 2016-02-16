@@ -15,6 +15,7 @@ import org.apache.commons.math3.util.Pair;
 import com.google.common.primitives.Booleans;
 import com.google.common.primitives.Doubles;
 
+import astraiea.Ordering;
 import astraiea.Result;
 import astraiea.layer1.effectsize.OddsRatio;
 import astraiea.layer1.effectsize.varghaDelaney.VDmod;
@@ -28,7 +29,6 @@ import astraiea.layer2.generators.GeneratorOutput;
 import astraiea.layer2.generators.simpleGenerators.DoubleGeneratorOutput;
 import astraiea.output.LaTeXLogFormatter;
 import astraiea.output.Report;
-import astraiea.util.Ordering;
 
 /**
  * Carries out the comparison of two samples. Computes statistical significance and effect size.
