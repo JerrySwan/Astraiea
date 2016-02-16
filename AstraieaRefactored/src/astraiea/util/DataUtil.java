@@ -59,16 +59,15 @@ public final class DataUtil {
 	 */
 	public static double [] removeZeros(double[] dataSub) {
 		List<Double> noZeros = new ArrayList<Double>();
-		for(int i =0; i < dataSub.length; i++){
+		for(int i =0; i < dataSub.length; i++)
 			if( dataSub[i] != 0)
 				noZeros.add(dataSub[i]);
-		}
 
-		double[] newArr = new double[noZeros.size()];
-		for(int i=0; i<noZeros.size(); ++i )
-			newArr[i] = noZeros.get(i);
-
-		return newArr;
+		//		double[] newArr = new double[noZeros.size()];
+		//		for(int i=0; i<noZeros.size(); ++i )
+		// newArr[i] = noZeros.get(i);
+		// return newArr;
+		return Doubles.toArray( noZeros );
 	}
 
 	public static double getMedian(double[] vals) {
