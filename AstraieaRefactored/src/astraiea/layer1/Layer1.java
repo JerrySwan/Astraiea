@@ -25,8 +25,8 @@ import astraiea.layer1.pvalue.Fisher;
 import astraiea.layer1.pvalue.MannWhitney;
 import astraiea.layer1.pvalue.McNemar;
 import astraiea.layer1.pvalue.WilcoxonSignedRank;
+import astraiea.layer2.generators.DoubleGeneratorOutput;
 import astraiea.layer2.generators.GeneratorOutput;
-import astraiea.layer2.generators.simpleGenerators.DoubleGeneratorOutput;
 import astraiea.output.LaTeXLogFormatter;
 import astraiea.output.Report;
 
