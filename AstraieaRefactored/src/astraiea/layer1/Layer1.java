@@ -17,9 +17,9 @@ import com.google.common.primitives.Doubles;
 
 import astraiea.Ordering;
 import astraiea.Result;
+import astraiea.layer1.effectsize.ModifiedVarghaDelaney;
 import astraiea.layer1.effectsize.OddsRatio;
-import astraiea.layer1.effectsize.varghaDelaney.VDmod;
-import astraiea.layer1.effectsize.varghaDelaney.VarghaDelaney;
+import astraiea.layer1.effectsize.VarghaDelaney;
 import astraiea.layer1.pvalue.BrunnerMunzel;
 import astraiea.layer1.pvalue.Fisher;
 import astraiea.layer1.pvalue.MannWhitney;
@@ -31,11 +31,13 @@ import astraiea.output.LaTeXLogFormatter;
 import astraiea.output.Report;
 
 /**
- * Carries out the comparison of two samples. Computes statistical significance and effect size.
+ * Carries out the comparison of two samples. 
+ * Computes statistical significance and effect size.
  * 
  * @author Geoffrey Neumann, Jerry Swan
  * 
  */
+
 public final class Layer1 {
 
 	private static final String resultIntroPhrase = "Statistical testing was carried out as follows: ";
@@ -43,7 +45,8 @@ public final class Layer1 {
 
 	///////////////////////////////USER INTERFACE METHODS///////////////////////////////
 
-	/**Compares two sets of unpaired, non dichotomous results (dataA and dataB).
+	/**
+	 * Compares two sets of unpaired, non dichotomous results (dataA and dataB).
 	 * 
 	 * @param dataA
 	 * @param dataB
@@ -52,6 +55,7 @@ public final class Layer1 {
 	 * @param ran
 	 * @return
 	 */
+	
 	public static Result compare( List< Double > dataA, List< Double > dataB, 
 			double significanceThreshold, 
 			boolean brunnerMunzel, Random ran ) {
@@ -71,8 +75,9 @@ public final class Layer1 {
 	}
 
 
-	/**	//FIXME Refactoring 27/11 - new method. Wraps doubles in a simple subclass of GeneratorOutput.
-		Layer1 is now based on GeneratorOutput but this allows support for using it just with arrays of doubles.
+	/**	
+	 * //FIXME Refactoring 27/11 - new method. Wraps doubles in a simple subclass of GeneratorOutput.
+	 *	Layer1 is now based on GeneratorOutput but this allows support for using it just with arrays of doubles.
 	 */
 	private static List<GeneratorOutput> wrap(double[] dA) {
 		List<GeneratorOutput> list = new ArrayList<GeneratorOutput>();
@@ -84,7 +89,8 @@ public final class Layer1 {
 	}
 
 
-	/**Compares two sets of unpaired, non dichotomous results (dataA and dataB).
+	/**
+	 * Compares two sets of unpaired, non dichotomous results (dataA and dataB).
 	 * 
 	 * @param dataA
 	 * @param dataB
@@ -94,9 +100,10 @@ public final class Layer1 {
 	 * @param vdmod allows modification of the comparison function used in Vargha Delaney
 	 * @return
 	 */
+	
 	public static Result compare( List< Double > dataA, List< Double > dataB, 
 			double significanceThreshold, 
-			boolean brunnerMunzel, Random ran, VDmod vdmod ) {
+			boolean brunnerMunzel, Random ran, ModifiedVarghaDelaney vdmod ) {
 		
 		double [] dA = Doubles.toArray( dataA );
 		double [] dB = Doubles.toArray( dataB );		
@@ -111,7 +118,8 @@ public final class Layer1 {
 				"dataB", ran,vdmod);
 	}
 
-	/**Compares two sets of unpaired, non dichotomous results (dataA and dataB).
+	/**
+	 * Compares two sets of unpaired, non dichotomous results (dataA and dataB).
 	 * 
 	 * @param dataA
 	 * @param dataB
@@ -120,6 +128,7 @@ public final class Layer1 {
 	 * @param ran
 	 * @return
 	 */
+	
 	public static Result compare( double[] dataA, double[] dataB, 
 			double significanceThreshold, 
 			boolean brunnerMunzel,Random ran) {		
@@ -133,7 +142,8 @@ public final class Layer1 {
 				false, "dataA", "dataB", ran, null);
 	}
 	
-	/**Compares two sets of unpaired, non dichotomous results (dataA and dataB).
+	/**
+	 * Compares two sets of unpaired, non dichotomous results (dataA and dataB).
 	 * 
 	 * @param dataA
 	 * @param dataB
@@ -143,9 +153,10 @@ public final class Layer1 {
 	 * @param vdmod allows modification of the comparison function used in Vargha Delaney
 	 * @return
 	 */
+	
 	public static Result compare( double[] dataA, double[] dataB, 
 			double significanceThreshold, 
-			boolean brunnerMunzel,Random ran, VDmod vdmod ) {		
+			boolean brunnerMunzel,Random ran, ModifiedVarghaDelaney vdmod ) {		
 		
 		return compareImpl( 
 				wrap(dataA),
@@ -156,7 +167,8 @@ public final class Layer1 {
 				false, "dataA", "dataB", ran, vdmod);
 	}
 	
-	/**Compares two sets of unpaired, non dichotomous results (dataA and dataB).
+	/**
+	 * Compares two sets of unpaired, non dichotomous results (dataA and dataB).
 	 * 
 	 * @param dataA
 	 * @param dataB
@@ -168,9 +180,10 @@ public final class Layer1 {
 	 * @param vdmod allows modification of the comparison function used in Vargha Delaney
 	 * @return
 	 */
+	
 	public static Result compare( List< Double > dataA, List< Double > dataB, 
 			double significanceThreshold, 
-			boolean brunnerMunzel, Random ran, String dataAName, String dataBName, VDmod vdmod) {
+			boolean brunnerMunzel, Random ran, String dataAName, String dataBName, ModifiedVarghaDelaney vdmod) {
 		
 		double [] dA = Doubles.toArray( dataA );
 		double [] dB = Doubles.toArray( dataB );		
@@ -184,7 +197,8 @@ public final class Layer1 {
 				false, dataAName, dataBName, ran, vdmod);
 	}
 	
-	/**Compares two sets of unpaired, non dichotomous results (dataA and dataB).
+	/**
+	 * Compares two sets of unpaired, non dichotomous results (dataA and dataB).
 	 * 
 	 * @param dataA
 	 * @param dataB
@@ -195,6 +209,7 @@ public final class Layer1 {
 	 * @param dataBName user given name for dataB
 	 * @return
 	 */
+	
 	public static Result compare( List< Double > dataA, List< Double > dataB, 
 			double significanceThreshold, 
 			boolean brunnerMunzel, Random ran, String dataAName, String dataBName) {
@@ -211,7 +226,8 @@ public final class Layer1 {
 				false, dataAName, dataBName, ran, null);
 	}
 
-	/**Compares two sets of unpaired, non dichotomous results (dataA and dataB).
+	/**
+	 * Compares two sets of unpaired, non dichotomous results (dataA and dataB).
 	 * 
 	 * @param dataA
 	 * @param dataB
@@ -223,9 +239,10 @@ public final class Layer1 {
 	 * @param vdmod allows modification of the comparison function used in Vargha Delaney
 	 * @return
 	 */
+	
 	public static Result compare( double[] dataA, double[] dataB, 
 			double significanceThreshold, 
-			boolean brunnerMunzel,Random ran, String dataAName, String dataBName, VDmod vdmod) {		
+			boolean brunnerMunzel,Random ran, String dataAName, String dataBName, ModifiedVarghaDelaney vdmod) {		
 		
 		return compareImpl( 
 				wrap(dataA),
@@ -236,7 +253,8 @@ public final class Layer1 {
 				false, dataAName, dataBName, ran, vdmod);
 	}
 	
-	/**Compares two sets of unpaired, non dichotomous results (dataA and dataB).
+	/**
+	 * Compares two sets of unpaired, non dichotomous results (dataA and dataB).
 	 * 
 	 * @param dataA
 	 * @param dataB
@@ -247,6 +265,7 @@ public final class Layer1 {
 	 * @param dataBName user given name for dataB
 	 * @return
 	 */
+	
 	public static Result compare( double[] dataA, double[] dataB, 
 			double significanceThreshold, 
 			boolean brunnerMunzel,Random ran, String dataAName, String dataBName) {		
@@ -260,13 +279,15 @@ public final class Layer1 {
 				false, dataAName, dataBName, ran, null);
 	}
 	
-	/**	Compares two sets of paired, non dichotomous results (dataA and dataB).
+	/**	
+	 * Compares two sets of paired, non dichotomous results (dataA and dataB).
 	 * 
 	 * @param dataA
 	 * @param dataB
 	 * @param significanceThreshold
 	 * @return
 	 */
+	
 	public static Result comparePaired( double[] dataA, double[] dataB, 
 			double significanceThreshold) {
 		return compareImpl( 
@@ -278,13 +299,15 @@ public final class Layer1 {
 				true, "dataA", "dataB", null,null);
 	}
 	
-	/**	Compares two sets of paired, non dichotomous results (dataA and dataB).
+	/**	
+	 * Compares two sets of paired, non dichotomous results (dataA and dataB).
 	 * 
 	 * @param dataA
 	 * @param dataB
 	 * @param significanceThreshold
 	 * @return
 	 */
+	
 	public static Result comparePaired( List< Double > dataA, List< Double > dataB, 
 			double significanceThreshold) {
 		
@@ -300,7 +323,8 @@ public final class Layer1 {
 				true, "dataA", "dataB", null,null);
 	}
 
-	/**	Compares two sets of paired, non dichotomous results (dataA and dataB).
+	/**	
+	 * Compares two sets of paired, non dichotomous results (dataA and dataB).
 	 * 
 	 * @param dataA
 	 * @param dataB
@@ -309,6 +333,7 @@ public final class Layer1 {
 	 * @param dataBName user given name for dataB
 	 * @return
 	 */
+	
 	public static Result comparePaired( double[] dataA, double[] dataB, 
 			double significanceThreshold, String dataAName, String dataBName) {
 		return compareImpl( 
@@ -320,7 +345,8 @@ public final class Layer1 {
 				true, dataAName, dataBName, null,null);
 	}
 	
-	/**	Compares two sets of paired, non dichotomous results (dataA and dataB).
+	/**	
+	 * Compares two sets of paired, non dichotomous results (dataA and dataB).
 	 * 
 	 * @param dataA
 	 * @param dataB
@@ -329,6 +355,7 @@ public final class Layer1 {
 	 * @param dataBName user given name for dataB
 	 * @return
 	 */
+	
 	public static Result comparePaired( List< Double > dataA, List< Double > dataB, 
 			double significanceThreshold,String dataAName, String dataBName) {
 		
@@ -345,7 +372,8 @@ public final class Layer1 {
 	}
 	
 	
-	/**	Compares two sets of paired, non dichotomous results (dataA and dataB).
+	/**	
+	 * Compares two sets of paired, non dichotomous results (dataA and dataB).
 	 * 
 	 * @param dataA
 	 * @param dataB
@@ -353,8 +381,9 @@ public final class Layer1 {
 	 * @param vdmod 
 	 * @return
 	 */
+	
 	public static Result comparePaired( double[] dataA, double[] dataB, 
-			double significanceThreshold, VDmod vdmod) {
+			double significanceThreshold, ModifiedVarghaDelaney vdmod) {
 		return compareImpl( 
 				wrap(dataA),
 				wrap(dataB),
@@ -364,7 +393,8 @@ public final class Layer1 {
 				true, "dataA", "dataB", null,vdmod);
 	}
 	
-	/**	Compares two sets of paired, non dichotomous results (dataA and dataB).
+	/**	
+	 * Compares two sets of paired, non dichotomous results (dataA and dataB).
 	 * 
 	 * @param dataA
 	 * @param dataB
@@ -372,8 +402,9 @@ public final class Layer1 {
 	 * @param vdmod 
 	 * @return
 	 */
+	
 	public static Result comparePaired( List< Double > dataA, List< Double > dataB, 
-			double significanceThreshold, VDmod vdmod) {
+			double significanceThreshold, ModifiedVarghaDelaney vdmod) {
 		
 		double [] dA = Doubles.toArray( dataA );
 		double [] dB = Doubles.toArray( dataB );
@@ -387,7 +418,8 @@ public final class Layer1 {
 				true, "dataA", "dataB", null,vdmod);
 	}
 
-	/**	Compares two sets of paired, non dichotomous results (dataA and dataB).
+	/**	
+	 * Compares two sets of paired, non dichotomous results (dataA and dataB).
 	 * 
 	 * @param dataA
 	 * @param dataB
@@ -397,8 +429,9 @@ public final class Layer1 {
 	 * @param vdmod 
 	 * @return
 	 */
+	
 	public static Result comparePaired( double[] dataA, double[] dataB, 
-			double significanceThreshold, String dataAName, String dataBName, VDmod vdmod) {
+			double significanceThreshold, String dataAName, String dataBName, ModifiedVarghaDelaney vdmod) {
 		return compareImpl( 
 				wrap(dataA),
 				wrap(dataB),
@@ -408,7 +441,8 @@ public final class Layer1 {
 				true, dataAName, dataBName, null,vdmod);
 	}
 	
-	/**	Compares two sets of paired, non dichotomous results (dataA and dataB).
+	/**	
+	 * Compares two sets of paired, non dichotomous results (dataA and dataB).
 	 * 
 	 * @param dataA
 	 * @param dataB
@@ -418,8 +452,9 @@ public final class Layer1 {
 	 * @param vdmod 
 	 * @return
 	 */
+	
 	public static Result comparePaired( List< Double > dataA, List< Double > dataB, 
-			double significanceThreshold,String dataAName, String dataBName, VDmod vdmod) {
+			double significanceThreshold,String dataAName, String dataBName, ModifiedVarghaDelaney vdmod) {
 		
 		double [] dA = Doubles.toArray( dataA );
 		double [] dB = Doubles.toArray( dataB );
@@ -434,7 +469,8 @@ public final class Layer1 {
 				true, dataAName, dataBName, null,vdmod);
 	}
 	
-	/**	Compares two sets of paired, dichotomous results (dataA and dataB).
+	/**	
+	 * Compares two sets of paired, dichotomous results (dataA and dataB).
 	 * 
 	 * @param dataA
 	 * @param dataB
@@ -442,6 +478,7 @@ public final class Layer1 {
 	 * @param paired
 	 * @return
 	 */
+	
 	public static Result compareCensored( List< Boolean > dataA, List< Boolean > dataB, 
 			double significanceThreshold, boolean paired) {
 		
@@ -453,7 +490,8 @@ public final class Layer1 {
 				"dataA", "dataB");
 	}
 
-	/**	Compares two sets of paired, dichotomous results (dataA and dataB).
+	/**	
+	 * Compares two sets of paired, dichotomous results (dataA and dataB).
 	 * 
 	 * @param dataA
 	 * @param dataB
@@ -463,6 +501,7 @@ public final class Layer1 {
 	 * @param dataBName user given name for dataB
 	 * @return
 	 */
+	
 	public static Result compareCensored( List< Boolean > dataA, List< Boolean > dataB, 
 			double significanceThreshold, boolean paired,
 			String dataAName, String dataBName ) {
@@ -475,7 +514,8 @@ public final class Layer1 {
 				dataAName, dataBName);
 	}
 
-	/**	Compares two sets of paired, dichotomous results (dataA and dataB).
+	/**	
+	 * Compares two sets of paired, dichotomous results (dataA and dataB).
 	 * 
 	 * @param dataA
 	 * @param dataB
@@ -483,16 +523,17 @@ public final class Layer1 {
 	 * @param paired 
 	 * @return
 	 */
+	
 	public static Result compareCensored( boolean[] dataA, boolean[] dataB, 
-			double significanceThreshold, boolean paired 
-			) {		
+			double significanceThreshold, boolean paired ) {		
 		
 		return compareCensoredImpl( dataA, dataB, 
 				significanceThreshold, paired,
 				"dataA", "dataB");
 	}
 
-	/**	Compares two sets of paired, dichotomous results (dataA and dataB).
+	/**	
+	 * Compares two sets of paired, dichotomous results (dataA and dataB).
 	 * 
 	 * @param dataA
 	 * @param dataB
@@ -502,6 +543,7 @@ public final class Layer1 {
 	 * @param dataBName user given name for dataB
 	 * @return
 	 */
+	
 	public static Result compareCensored( boolean[] dataA, boolean[] dataB, 
 			double significanceThreshold, 
 			String dataAName, String dataBName, boolean paired ) {
@@ -510,7 +552,8 @@ public final class Layer1 {
 				dataAName, dataBName);
 	}
 	
-	/**	Compares two sets of paired, dichotomous results (dataA and dataB), with a threshold.
+	/**	
+	 * Compares two sets of paired, dichotomous results (dataA and dataB), with a threshold.
 	 * 
 	 * @param dataA
 	 * @param dataB
@@ -520,9 +563,9 @@ public final class Layer1 {
 	 * @param paired 
 	 * @return
 	 */
+	
 	public static Result compareCensored( List< Double > dataA, List< Double > dataB, double censorThreshold, 
-			double significanceThreshold, boolean paired 
-			) {
+			double significanceThreshold, boolean paired ) {
 		
 		boolean [] dA = new boolean[dataA.size()];
 		boolean [] dB = new boolean[dataB.size()];
@@ -543,7 +586,8 @@ public final class Layer1 {
 				"dataA", "dataB");
 	}
 
-	/**	Compares two sets of paired, dichotomous results (dataA and dataB), with a threshold.
+	/**	
+	 * Compares two sets of paired, dichotomous results (dataA and dataB), with a threshold.
 	 * 
 	 * @param dataA
 	 * @param dataB
@@ -555,6 +599,7 @@ public final class Layer1 {
 	 * @param paired 
 	 * @return
 	 */
+	
 	public static Result compareCensored( List< Double > dataA, List< Double > dataB, double censorThreshold, 
 			double significanceThreshold, 
 			String dataAName, String dataBName, boolean paired ) {
@@ -568,13 +613,13 @@ public final class Layer1 {
 		iter = dataB.listIterator();
 		i =0;
 		while(iter.hasNext())
-			dB[i++] = iter.next() >= censorThreshold;		
-		return compareCensoredImpl( dA, dB, 
-				significanceThreshold, paired,
-				dataAName, dataBName);
+			dB[i++] = iter.next() >= censorThreshold;
+			
+		return compareCensoredImpl( dA, dB,significanceThreshold, paired,dataAName, dataBName);
 	}
 
-	/**	Compares two sets of paired, dichotomous results (dataA and dataB), with a threshold.
+	/**	
+	 * Compares two sets of paired, dichotomous results (dataA and dataB), with a threshold.
 	 * 
 	 * @param dataA
 	 * @param dataB
@@ -585,8 +630,7 @@ public final class Layer1 {
 	 * @return
 	 */
 	public static Result compareCensored( double[] dataA, double[] dataB, double censorThreshold, 
-			double significanceThreshold, boolean paired 
-			) {		
+			double significanceThreshold, boolean paired ) {		
 		
 		boolean [] dA = new boolean[dataA.length];
 		boolean [] dB = new boolean[dataB.length];
@@ -601,7 +645,8 @@ public final class Layer1 {
 	}
 
 
-	/**	Compares two sets of paired, dichotomous results (dataA and dataB), with a threshold.
+	/**	
+	 * Compares two sets of paired, dichotomous results (dataA and dataB), with a threshold.
 	 * 
 	 * @param dataA
 	 * @param dataB
@@ -633,7 +678,8 @@ public final class Layer1 {
 				dataAName, dataBName);
 	}
 	
-	/** Compares two sets of results stored in the paired format produced by layer2.
+	/** 
+	 * Compares two sets of results stored in the paired format produced by layer2.
 	 * In this format a single data element has both a 
 	 * double (non dichotomous part) and a boolean (dichotomous) part.
 	 * This method converts data from this format into a simple 'List(boolean)' or 'List(Double)' as appropriate
@@ -652,10 +698,11 @@ public final class Layer1 {
 	 * @param vdmod allows modification of the comparison function used in Vargha Delaney
 	 * @return
 	 */
+	
 	public static Result comparePair(List<Pair<Double, Boolean>> dataA,
 			List<Pair<Double, Boolean>> dataB, double significanceThreshold,
 			boolean brunnerMunzel, boolean paired, boolean censored,
-			String dataAName, String dataBName, Random ran, VDmod vdmod) {
+			String dataAName, String dataBName, Random ran, ModifiedVarghaDelaney vdmod) {
 		
 			//convert to two dichotomous arrays of booleans
 			if(censored){
@@ -709,13 +756,15 @@ public final class Layer1 {
 			}
 	}
 	
-	/**Compares an array of data with a single data point
+	/**
+	 * Compares an array of data with a single data point
 	 * 
 	 * @param dataA array of data
 	 * @param dataB single data point
 	 * @param significanceThreshold
 	 * @return
 	 */
+	
 	public static Result compareOneSample( double[] dataA, double dataB, 
 			double significanceThreshold) {		
 		
@@ -723,20 +772,23 @@ public final class Layer1 {
 				significanceThreshold, "data stochastic", "data deterministic");
 	}
 	
-	/**Compares an array of data with a single data point
+	/**
+	 * Compares an array of data with a single data point
 	 * 
 	 * @param dataA array of data
 	 * @param dataB single data point
 	 * @param significanceThreshold
 	 * @return
 	 */
+	
 	public static Result compareOneSample( List<Double> dataA, double dataB, 
 			double significanceThreshold) {		
 		return compareOneSampleImpl( Doubles.toArray( dataA ), dataB, 
 				significanceThreshold, "data stochastic", "data deterministic");
 	}
 
-	/**Compares an array of data with a single data point
+	/**
+	 * Compares an array of data with a single data point
 	 * 
 	 * @param dataA array of data
 	 * @param dataB single data point
@@ -747,12 +799,12 @@ public final class Layer1 {
 	 */
 	public static Result compareOneSample( double[] dataA, double dataB, 
 			double significanceThreshold, String nameA, String nameB) {		
-		
 		return compareOneSampleImpl( dataA, dataB, 
 				significanceThreshold, nameA, nameB);
 	}
 	
-	/**Compares an array of data with a single data point
+	/**
+	 * Compares an array of data with a single data point
 	 * 
 	 * @param dataA array of data
 	 * @param dataB single data point
@@ -769,7 +821,8 @@ public final class Layer1 {
 
 	///////////////////////IMPLEMENTATIONS//////////////////////
 	
-	/**The implementation for comparing dichotomous, censored data.
+	/**
+	 * The implementation for comparing dichotomous, censored data.
 	 * 
 	 * @param dataA first data set
 	 * @param dataB second data set
@@ -787,12 +840,10 @@ public final class Layer1 {
 			String dataAName, 
 			String dataBName) {
 		
-		
 		double pValue;
 		Ordering order = null;
 		boolean significant;
 		double effectSize = Double.NaN;
-		
 		
 		//output the settings
 		LOGGER.info( resultIntroPhrase );
@@ -845,7 +896,8 @@ public final class Layer1 {
 
 	}
 	
-	/**The implementation for comparing non censored data.
+	/**
+	 * The implementation for comparing non censored data.
 	 * 
 	 * @param results1 first data set, as a list of GeneratorOutput objects
 	 * @param results2 second data set, as a list of GeneratorOutput objects
@@ -871,7 +923,7 @@ public final class Layer1 {
 			String dataAName, 
 			String dataBName, 
 			Random ran, 
-			VDmod vdmod) {
+			ModifiedVarghaDelaney vdmod) {
 		
 
 		double pValue;
@@ -913,7 +965,8 @@ public final class Layer1 {
 		return res;
 	}
 	
-	/**The implementation for carrying out a one sampled comparison where dataB is a single data point.
+	/**
+	 * The implementation for carrying out a one sampled comparison where dataB is a single data point.
 	 * 
 	 * @param dataA array of data
 	 * @param dataB single data point
@@ -922,6 +975,7 @@ public final class Layer1 {
 	 * @param dataBName user given name for dataB
 	 * @return
 	 */
+	
 	private static Result compareOneSampleImpl( double[] dataA, double dataB, 
 			double significanceThreshold, String dataAName, String dataBName ) {
 		LOGGER.info( "Statistical testing was carried out as follows: " );
@@ -960,7 +1014,7 @@ public final class Layer1 {
 						String dataAName, 
 						String dataBName, 
 						boolean censored,
-						VDmod vdmod) {
+						ModifiedVarghaDelaney vdmod) {
 		
 		List< String > result = new ArrayList< String >();
 		
@@ -998,7 +1052,8 @@ public final class Layer1 {
 		return result;
 	}
 	
-	/**Sets up the LOGGER for this class using a default configuration.
+	/**
+	 * Sets up the LOGGER for this class using a default configuration.
 	 * 
 	 * @param filename file where output of logger should be stored.
 	 * @throws SecurityException
@@ -1011,7 +1066,8 @@ public final class Layer1 {
 		LOGGER.addHandler( fileHandler );
 	}	
 
-	/**FIXME Refactoring 27/11 - Called from Layer2 to compare lists of GeneratorOutputs.
+	/**
+	 * FIXME Refactoring 27/11 - Called from Layer2 to compare lists of GeneratorOutputs.
 	 * 
 	 * @param dataA
 	 * @param dataB
@@ -1033,7 +1089,7 @@ public final class Layer1 {
 			String gen1Name, 
 			String gen2Name, 
 			Random random,
-			VDmod vdmod) {
+			ModifiedVarghaDelaney vdmod) {
 		
 		int size1 = dataA.size();
 		int size2 = dataB.size();
@@ -1051,12 +1107,10 @@ public final class Layer1 {
 			dataBArr[i] = iter2.next().getValue();
 			i++;
 		}
-
 		
 		return compareImpl(dataA,dataB,dataAArr, dataBArr, significanceThreshold,brunnerMunzel,paired,gen1Name,
 				gen2Name,random,vdmod);
 	}	
-
 }
 
 // End ///////////////////////////////////////////////////////////////

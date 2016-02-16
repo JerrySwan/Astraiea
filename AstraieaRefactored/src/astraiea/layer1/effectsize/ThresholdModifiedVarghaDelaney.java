@@ -1,4 +1,4 @@
-package astraiea.layer1.effectsize.varghaDelaney;
+package astraiea.layer1.effectsize;
 
 import astraiea.Ordering;
 import astraiea.layer2.generators.GeneratorOutput;
@@ -9,7 +9,7 @@ import astraiea.layer2.generators.GeneratorOutput;
  *
  */
 
-public class ThresholdVDMod extends VDmod {
+public class ThresholdModifiedVarghaDelaney extends ModifiedVarghaDelaney {
 	/**value which data has to be greater than or equal to to be considered valid*/
 	private double thresholdUp = Double.NEGATIVE_INFINITY;
 	/**value which data has to be less than or equal to be considered valid*/
@@ -20,7 +20,7 @@ public class ThresholdVDMod extends VDmod {
 	 * @param thresh value to set chosen threshold to
 	 * @param up if true setting thresholdUp, else setting thresholdDown
 	 */
-	public ThresholdVDMod(double thresh, boolean up){
+	public ThresholdModifiedVarghaDelaney(double thresh, boolean up){
 		if(up)
 			thresholdUp = thresh;
 		else
@@ -32,7 +32,7 @@ public class ThresholdVDMod extends VDmod {
 	 * @param thresholdUp
 	 * @param thresholdDown
 	 */
-	public ThresholdVDMod(double thresholdUp, double thresholdDown){
+	public ThresholdModifiedVarghaDelaney(double thresholdUp, double thresholdDown){
 		this.thresholdUp = thresholdUp;
 		this.thresholdDown = thresholdDown;
 	}

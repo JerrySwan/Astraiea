@@ -15,7 +15,7 @@ import org.junit.Test;
 import astraiea.Ordering;
 import astraiea.Result;
 import astraiea.layer1.Layer1;
-import astraiea.layer1.effectsize.varghaDelaney.ThresholdVDMod;
+import astraiea.layer1.effectsize.ThresholdModifiedVarghaDelaney;
 import astraiea.layer2.generators.GeneratorOutput;
 import astraiea.layer2.generators.simpleGenerators.DoubleGeneratorOutput;
 import astraiea.util.MersenneTwister;
@@ -142,7 +142,7 @@ public class TestLayer1 {
 		//set up logger
 		Layer1.setupLatexLoggers("reports/layer1/reportWilcoxon.tex");
 				
-		Result res = Layer1.compare(data1Combined, data2Combined, 0.05, false, ran, new ThresholdVDMod(2,true));
+		Result res = Layer1.compare(data1Combined, data2Combined, 0.05, false, ran, new ThresholdModifiedVarghaDelaney(2,true));
 
 		//remove all the values under 2 (which should have been ignored by the ThresholdVDMod)
 		data1CombList.clear();
@@ -158,8 +158,8 @@ public class TestLayer1 {
 		}
 		
 		//get what the result should be (given that we've just manually removed all values which the VDmod should ignore)
-		double expEffSize = astraiea.layer1.effectsize.varghaDelaney.VarghaDelaney.evaluate(data1CombList, data2CombList, false, null);
-		Ordering expOrder = astraiea.layer1.effectsize.varghaDelaney.VarghaDelaney.getOrder(expEffSize);
+		double expEffSize = astraiea.layer1.effectsize.VarghaDelaney.evaluate(data1CombList, data2CombList, false, null);
+		Ordering expOrder = astraiea.layer1.effectsize.VarghaDelaney.getOrder(expEffSize);
 		
 		// unit testing
 		assertEquals("Effect size obtained using VDmod should match that obtained by manually transforming data", expEffSize, res.getEffectSize(), 0);

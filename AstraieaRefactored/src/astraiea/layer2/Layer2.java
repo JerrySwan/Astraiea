@@ -11,7 +11,7 @@ import org.apache.commons.math3.util.Pair;
 
 import astraiea.Result;
 import astraiea.layer1.Layer1;
-import astraiea.layer1.effectsize.varghaDelaney.VDmod;
+import astraiea.layer1.effectsize.ModifiedVarghaDelaney;
 import astraiea.layer2.generators.GeneratorOutput;
 import astraiea.layer2.generators.multipleArtefacts.MultipleArtefactOutput;
 import astraiea.layer2.generators.timeseries.Timeseries;
@@ -144,7 +144,7 @@ public final class Layer2 {
 			boolean paired,
 			IncrementingStrategy incr,
 			Random random,
-			VDmod vdmod) {
+			ModifiedVarghaDelaney vdmod) {
 		return runAllImpl(gens,significanceThreshold, false,paired,new CensoringStrategy(true),incr,random,vdmod);
 	}
 	
@@ -165,7 +165,7 @@ public final class Layer2 {
 			boolean brunnerMunzel, 
 			IncrementingStrategy incr,
 			Random random,
-			VDmod vdmod) {
+			ModifiedVarghaDelaney vdmod) {
 		return runAllImpl(gens,significanceThreshold,brunnerMunzel,true,new CensoringStrategy(false),incr,random,vdmod);
 	}
 	
@@ -186,7 +186,7 @@ public final class Layer2 {
 			IncrementingStrategy incr,
 			Random random,
 			boolean censoring,
-			VDmod vdmod) {
+			ModifiedVarghaDelaney vdmod) {
 		return runAllImpl(gens,significanceThreshold,false,true,new CensoringStrategy(censoring),incr,random,null);
 	}
 
@@ -212,7 +212,7 @@ public final class Layer2 {
 			CensoringStrategy cens,
 			IncrementingStrategy incr,
 			Random random,
-			VDmod vdmod) {
+			ModifiedVarghaDelaney vdmod) {
 		return runAllImpl(gens,significanceThreshold,brunnerMunzel,paired,cens,incr,random,vdmod);
 	}
 
@@ -239,7 +239,7 @@ public final class Layer2 {
 			CensoringStrategy cens,
 			IncrementingStrategy incr,
 			Random random, 
-			VDmod vdmod) {
+			ModifiedVarghaDelaney vdmod) {
 		
 		Report rep = new Report();
 		
@@ -372,7 +372,7 @@ public final class Layer2 {
 			String gen1Name, 
 			String gen2Name, 
 			Random random, 
-			VDmod vdmod) {
+			ModifiedVarghaDelaney vdmod) {
 		if(cens.isCensoring()){
 			int censCounter = 0;
 			while(res == null || !res.isSignificant() && cens.hasMoreSteps(censCounter)){

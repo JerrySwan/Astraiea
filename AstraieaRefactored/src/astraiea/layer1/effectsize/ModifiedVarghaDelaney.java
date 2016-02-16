@@ -1,19 +1,22 @@
-package astraiea.layer1.effectsize.varghaDelaney;
+package astraiea.layer1.effectsize;
 
 import astraiea.Ordering;
 import astraiea.layer2.generators.GeneratorOutput;
 
-/**Implementation of the Modified Vargha Delaney from .... . 
+/**
+ * Implementation of the Modified Vargha Delaney from .... . 
  * This modifies the comparison between individual results that is part of the Vargha Delaney process to ensure that this 
  * comparison is problem specific and excludes irrelevant differences. This class should be extended for your problem.
  * 
  * @author Geoffrey Neumann
  *
  */
-public abstract class VDmod {
+
+public abstract class ModifiedVarghaDelaney {
 
 	//FIXME Refactoring 27/11 - now with GeneratorOutput allows more complex comparisons.
-	/**Will be called every time a result from one dataset is compared to one from another dataset 
+	/**
+	 * Will be called every time a result from one dataset is compared to one from another dataset 
 	 * as part of the Vargha Delaney comparison. Compares the two results to indicate which one is greater. 
 	 * Overwrite this method for a problem specific comparison.
 	 * 
@@ -44,5 +47,7 @@ public abstract class VDmod {
 	 * @return textual description of this modification for user output
 	 */
 	public abstract String describe();
-
 }
+
+// End ///////////////////////////////////////////////////////////////
+

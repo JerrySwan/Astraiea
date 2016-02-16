@@ -13,23 +13,20 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 
 public class Result {
 	
-	/** effect size */
-	private final double effectSize; // = Double.NaN;
-	/**p value significance*/
+	private final double effectSize;
 	private final double pValue;
-	/**whether dataA is greater, lower or equal to dataB*/
-	private final Ordering order;
-	/**whether the difference is significant*/
-	private final boolean significant;
-	/**threshold below which a p value is significant*/
-	private final double threshold;
+	private final Ordering order; 		// whether dataA is greater, lower or equal to dataB
+	private final boolean significant; 	// whether the difference is significant
+	private final double threshold;		// threshold below which a p value is significant*/
 	private double[] cis;
 	private final String name1;
 	private final String name2;
 
 	///////////////////////////////
 
-	public Result(String name1, String name2, double effectSize, double pValue, boolean significant, double threshold, Ordering order, double[] cis) {
+	public Result(String name1, String name2, double effectSize, 
+			double pValue, boolean significant, 
+			double threshold, Ordering order, double[] cis) {
 		this.name1 = name1;
 		this.name2 = name2;
 		this.effectSize = effectSize;
@@ -40,7 +37,9 @@ public class Result {
 		this.cis = cis;
 	}
 	
-	public Result(String name1, String name2, double effectSize, double pValue, boolean significant, double threshold, Ordering order) {
+	public Result(String name1, String name2, double effectSize, 
+			double pValue, boolean significant, 
+			double threshold, Ordering order) {
 		this.name1 = name1;
 		this.name2 = name2;
 		this.effectSize = effectSize;
@@ -64,13 +63,14 @@ public class Result {
 		return ToStringBuilder.reflectionToString( this, ToStringStyle.MULTI_LINE_STYLE );
 	}
 	
-	/**Produces printed output describing the results.
+	/**
+	 * Produces printed output describing the results.
 	 * 
 	 * @param run the result object storing effect size, significance etc.
 	 * @param data1Name output name of first dataset
 	 * @param data2Name output name of second dataset
-	 * @return
 	 */
+	
 	public static List< String > 
 	describe(Result run, String data1Name, String data2Name ) {
 		
@@ -108,15 +108,12 @@ public class Result {
 		return new Result(name1, name2, effectSize, newPVal, significant, threshold, order, cis);
 	}
 
-	public double[] getCIs() {
-		return cis;
-	}
+	public double[] getCIs() { return cis; }
 
 	public boolean isaComparisonOf(String name1, String name2) {
 		return (this.name1.equals(name1) && this.name2.equals(name2)) || 
 				(this.name1.equals(name2) && this.name2.equals(name1));
 	}
-
 }
 
 // End ///////////////////////////////////////////////////////////////

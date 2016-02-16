@@ -1,4 +1,4 @@
-package astraiea.layer1.effectsize.varghaDelaney;
+package astraiea.layer1.effectsize;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,7 +48,7 @@ public final class VarghaDelaney {
 	 * @param vdmod 
 	 * @return
 	 */
-	public static<T extends GeneratorOutput> double evaluate(List<T> results1, List<T> results2, boolean paired, VDmod vdmod) {
+	public static<T extends GeneratorOutput> double evaluate(List<T> results1, List<T> results2, boolean paired, ModifiedVarghaDelaney vdmod) {
 		int lenA = results1.size();
 		int lenB = results2.size();
 		double[] drawsWins = getDrawsWins(results1,results2,paired,vdmod);
@@ -80,7 +80,7 @@ public final class VarghaDelaney {
 	 * @param paired 
 	 * @return
 	 */
-	private static<T extends GeneratorOutput> double[] getDrawsWins(List<T> results1, List<T> results2, boolean paired, VDmod vdmod) {
+	private static<T extends GeneratorOutput> double[] getDrawsWins(List<T> results1, List<T> results2, boolean paired, ModifiedVarghaDelaney vdmod) {
 		int lenT = results1.size();
 		int lenC = results2.size();
 		double draws = 0;
@@ -116,7 +116,7 @@ public final class VarghaDelaney {
 	 * @param vdmod modified version of Vargha Delaney comparison used to compare them or "null" if a standard comparison is used
 	 * @return
 	 */
-	private static<T extends GeneratorOutput> Ordering compare(T tVal, T cVal, VDmod vdmod) {
+	private static<T extends GeneratorOutput> Ordering compare(T tVal, T cVal, ModifiedVarghaDelaney vdmod) {
 		if(vdmod == null){
 			if(tVal.getValue() > cVal.getValue())
 				return Ordering.GREATER;
@@ -141,7 +141,7 @@ public final class VarghaDelaney {
 	 * @param paired 
 	 * @return
 	 */
-	public static<T extends GeneratorOutput> double[] getConfidenceInterval(double effSize, List<T> dataA, List<T> dataB, double upper, double lower, Random ran, boolean paired, VDmod vdmod){
+	public static<T extends GeneratorOutput> double[] getConfidenceInterval(double effSize, List<T> dataA, List<T> dataB, double upper, double lower, Random ran, boolean paired, ModifiedVarghaDelaney vdmod){
 		int lenA = dataA.size();
 		int lenB = dataB.size();
 		

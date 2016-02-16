@@ -11,7 +11,7 @@ import astraiea.Ordering;
 
 public final class OddsRatio {
 	
-	/** an arbitrary constant, 0.5 was the example given in Arcuri2012 */
+	// an arbitrary constant, 0.5 was the example given in Arcuri2012
 	public static final double ARCURI_CONSTANT = 0.5;
 	
 	///////////////////////////////
@@ -45,7 +45,8 @@ public final class OddsRatio {
 		return ((a + ARCURI_CONSTANT) / (n + ARCURI_CONSTANT - a)) / ((b + ARCURI_CONSTANT) / (m + ARCURI_CONSTANT - b));
 	}
 	
-	/**Return the matched odds ration, used when the two datasets are paired.
+	/**
+	 * Return the matched odds ration, used when the two datasets are paired.
 	 * 
 	 * @param onAoffB number of pairs in which the sample from dataA passes and the sample from dataB fails
 	 * @param onBoffA number of pairs in which the sample from dataB passes and the sample from dataA fails

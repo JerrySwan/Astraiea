@@ -10,7 +10,7 @@ import java.util.logging.Logger;
 
 import astraiea.Result;
 import astraiea.layer1.Layer1;
-import astraiea.layer1.effectsize.varghaDelaney.VDmod;
+import astraiea.layer1.effectsize.ModifiedVarghaDelaney;
 import astraiea.layer2.MultiTestAdjustment;
 import astraiea.layer2.generators.GeneratorOutput;
 import astraiea.layer2.multipleExperiments.SetOfComparisons;
@@ -63,7 +63,7 @@ public class Report {
 			boolean timeseries, 
 			int artefactRepeats,
 			SetOfComparisons<? extends GeneratorOutput> gens,
-			VDmod vdmod) {
+			ModifiedVarghaDelaney vdmod) {
 		
 		if(initialRuns < 10)
 			warning("The number of runs ($n$) is low, at only " + initialRuns 
@@ -115,7 +115,7 @@ public class Report {
 			int maxRuns, 
 			CensoringStrategy cens, 
 			boolean timeSeries, 
-			int artefactRepeats, SetOfComparisons<? extends GeneratorOutput> gens, VDmod vdmod) {
+			int artefactRepeats, SetOfComparisons<? extends GeneratorOutput> gens, ModifiedVarghaDelaney vdmod) {
 
 		if(artefactRepeats > 1){ 
 			LOGGER.info("This data was obtained from runs on multiple artefacts. Each artefact is treated as a single run "
