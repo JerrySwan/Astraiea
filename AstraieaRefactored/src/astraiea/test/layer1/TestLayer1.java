@@ -16,8 +16,8 @@ import astraiea.Ordering;
 import astraiea.Result;
 import astraiea.layer1.Layer1;
 import astraiea.layer1.effectsize.ThresholdModifiedVarghaDelaney;
+import astraiea.layer2.generators.DoubleGeneratorOutput;
 import astraiea.layer2.generators.GeneratorOutput;
-import astraiea.layer2.generators.simpleGenerators.DoubleGeneratorOutput;
 import astraiea.util.MersenneTwister;
 
 /**
