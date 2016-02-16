@@ -12,8 +12,8 @@ import astraiea.Result;
 import astraiea.layer1.Layer1;
 import astraiea.layer1.effectsize.ModifiedVarghaDelaney;
 import astraiea.layer2.MultiTestAdjustment;
+import astraiea.layer2.experiments.SetOfComparisons;
 import astraiea.layer2.generators.GeneratorOutput;
-import astraiea.layer2.multipleExperiments.SetOfComparisons;
 import astraiea.layer2.strategies.CensoringStrategy;
 
 /**FIXME Refactoring 27/11 - new class. Just a minor change - seperates out printing output to log file from
