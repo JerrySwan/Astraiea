@@ -5,23 +5,27 @@ import java.util.ListIterator;
 
 import astraiea.layer2.generators.GeneratorOutput;
 
-/**FIXME Refactoring 27/11 - new class. Encapsulates a time series. Is a list of GeneratorOutputs.
- * 
+/**
+ * FIXME Refactoring 27/11 - new class. Encapsulates a time series. Is a list of GeneratorOutputs.
  * @author Geoffrey Neumann
  *
  * @param <T>
  */
+
 public class Timeseries<T extends GeneratorOutput> extends GeneratorOutput {
 	
 	private final List<T> list;
+	
+	///////////////////////////////
 	
 	public Timeseries(List<T> list){
 		this.list = list;
 	}
 
-	/**By default just get the result at the final time interval.
-	 * 
+	/**
+	 * By default just get the result at the final time interval.
 	 */
+	
 	@Override
 	public boolean getPassed(){
 		return list.get(list.size() - 1).getPassed();
@@ -49,9 +53,10 @@ public class Timeseries<T extends GeneratorOutput> extends GeneratorOutput {
 		return -1;
 	}
 	
-	/**Gets time at a given generation/time index
-	 * 
+	/**
+	 * Gets time at a given generation/time index
 	 */
+	
 	public boolean getIntermediatePassed(int index){
 		return list.get(index).getPassed();
 	}
@@ -66,3 +71,5 @@ public class Timeseries<T extends GeneratorOutput> extends GeneratorOutput {
 		return out;
 	}
 }
+
+// End ///////////////////////////////////////////////////////////////

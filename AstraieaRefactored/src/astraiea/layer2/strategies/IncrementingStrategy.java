@@ -4,12 +4,14 @@ import java.util.List;
 
 import astraiea.layer2.generators.GeneratorOutput;
 
-/**Encodes strategies for adding more data if significance is not achieved after the first set
+/**
+ * Encodes strategies for adding more data if significance is not achieved after the first set
  * 
  * @author Geoffrey Neumann
  *
  */
 public abstract class IncrementingStrategy {
+	
 	/**initial number of runs*/
 	protected int min;
 	/**maximum number of runs that might increment to*/
@@ -19,21 +21,18 @@ public abstract class IncrementingStrategy {
 	/**if another p value is needed*/
 	protected boolean runPVal;
 
+	///////////////////////////////
 
 	public IncrementingStrategy(int min, int max){
 		this.min = min;
 		this.max = max;
 	}
 	
-	public int getMin() {
-		return min;
-	}
-	
-	public int getMax() {
-		return max;
-	}
+	public int getMin() { return min; }
+	public int getMax() { return max; }
 
-	/**Gets the quantity of runs that should be performed for each
+	/**
+	 * Gets the quantity of runs that should be performed for each
 	 * generator next increment (possibly 0).
 	 * 
 	 * @param results1 results from last run (generator 2)
@@ -50,11 +49,7 @@ public abstract class IncrementingStrategy {
 
 	public abstract String report();
 
-	public boolean runPVal() {
-		return runPVal;
-	}
-
-
-
-
+	public boolean runPVal() { return runPVal; }
 }
+
+// End ///////////////////////////////////////////////////////////////

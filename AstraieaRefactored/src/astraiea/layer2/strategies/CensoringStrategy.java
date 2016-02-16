@@ -26,9 +26,11 @@ public class CensoringStrategy {
 	private final boolean switching;
 	/**when 'counter' equals 'maxCounter' there are no more tests*/
 	private final int maxCounter;
+	
+	///////////////////////////////
 
-	/**Constructor for just using a single censored test at the final generation/time point.
-	 * 
+	/**
+	 * Single censored test at the final generation/time point.
 	 */
 	public CensoringStrategy(boolean censoring){
 		points = new int[0];
@@ -37,7 +39,8 @@ public class CensoringStrategy {
 		this.censoring = censoring;
 	}
 
-	/**Constructor for using additional censoring points other than the final time point.
+	/**
+	 * Use additional censoring points other than the final time point.
 	 * 
 	 * @param points the addition points
 	 * @param switching whether the switching technique should be used too
@@ -65,9 +68,7 @@ public class CensoringStrategy {
 	 * 
 	 * @return
 	 */
-	public boolean isCensoring(){
-		return censoring;
-	}
+	public boolean isCensoring() { return censoring; }
 
 	/**Returns if there are more censoring strategies to try.
 	 * 
@@ -173,3 +174,5 @@ public class CensoringStrategy {
 		return points[counter - 1];
 	}
 }
+
+// End ///////////////////////////////////////////////////////////////

@@ -15,7 +15,7 @@ import astraiea.layer1.Layer1;
 import astraiea.layer2.Layer2;
 import astraiea.layer2.generators.simpleGenerators.PairGeneratorOutput;
 import astraiea.layer2.generators.timeseries.Timeseries;
-import astraiea.layer2.multipleExperiments.SetOf1ArtefactExperiments;
+import astraiea.layer2.multipleExperiments.SingleArtefactExperiments;
 import astraiea.layer2.multipleExperiments.SetOfComparisons;
 import astraiea.layer2.strategies.CensoringStrategy;
 import astraiea.layer2.strategies.NoIncrementing;
@@ -60,10 +60,10 @@ public class TestLayer2 {
 		ExampleDatapointGenerator gen4 = new ExampleDatapointGenerator(0.5, 1);
 		
 		//setup sets of experiments
-		SetOf1ArtefactExperiments<PairGeneratorOutput> gen1Exp = new SetOf1ArtefactExperiments<PairGeneratorOutput>(gen1, "test1");
-		SetOf1ArtefactExperiments<PairGeneratorOutput> gen2Exp = new SetOf1ArtefactExperiments<PairGeneratorOutput>(gen2, "test2");
-		SetOf1ArtefactExperiments<PairGeneratorOutput> gen3Exp = new SetOf1ArtefactExperiments<PairGeneratorOutput>(gen3, "test3");
-		SetOf1ArtefactExperiments<PairGeneratorOutput> gen4Exp = new SetOf1ArtefactExperiments<PairGeneratorOutput>(gen4, "test4");
+		SingleArtefactExperiments<PairGeneratorOutput> gen1Exp = new SingleArtefactExperiments<PairGeneratorOutput>(gen1, "test1");
+		SingleArtefactExperiments<PairGeneratorOutput> gen2Exp = new SingleArtefactExperiments<PairGeneratorOutput>(gen2, "test2");
+		SingleArtefactExperiments<PairGeneratorOutput> gen3Exp = new SingleArtefactExperiments<PairGeneratorOutput>(gen3, "test3");
+		SingleArtefactExperiments<PairGeneratorOutput> gen4Exp = new SingleArtefactExperiments<PairGeneratorOutput>(gen4, "test4");
 
 		SetOfComparisons<PairGeneratorOutput> gen1gen2Comp = new SetOfComparisons<PairGeneratorOutput>(gen1Exp,gen2Exp);
 		SetOfComparisons<PairGeneratorOutput> gen3gen4Comp = new SetOfComparisons<PairGeneratorOutput>(gen3Exp,gen4Exp);
@@ -224,8 +224,8 @@ public class TestLayer2 {
 			MersenneTwister ran = new MersenneTwister(0);
 			
 			//setup sets of experiments
-			SetOf1ArtefactExperiments<Timeseries<PairGeneratorOutput>> gen1Exp = new SetOf1ArtefactExperiments<Timeseries<PairGeneratorOutput>>(gen1, "test1");
-			SetOf1ArtefactExperiments<Timeseries<PairGeneratorOutput>> gen2Exp = new SetOf1ArtefactExperiments<Timeseries<PairGeneratorOutput>>(gen2, "test2");
+			SingleArtefactExperiments<Timeseries<PairGeneratorOutput>> gen1Exp = new SingleArtefactExperiments<Timeseries<PairGeneratorOutput>>(gen1, "test1");
+			SingleArtefactExperiments<Timeseries<PairGeneratorOutput>> gen2Exp = new SingleArtefactExperiments<Timeseries<PairGeneratorOutput>>(gen2, "test2");
 
 			SetOfComparisons<Timeseries<PairGeneratorOutput>> gen1gen2Comp = new SetOfComparisons<Timeseries<PairGeneratorOutput>>(gen1Exp,gen2Exp);
 
@@ -291,8 +291,8 @@ public class TestLayer2 {
 			ExampleTimeseriesGenerator gen2 = new ExampleTimeseriesGenerator(0.1, 5,100);
 			
 			//setup sets of experiments
-			SetOf1ArtefactExperiments<Timeseries<PairGeneratorOutput>> gen1Exp = new SetOf1ArtefactExperiments<Timeseries<PairGeneratorOutput>>(gen1, "test1");
-			SetOf1ArtefactExperiments<Timeseries<PairGeneratorOutput>> gen2Exp = new SetOf1ArtefactExperiments<Timeseries<PairGeneratorOutput>>(gen2, "test2");
+			SingleArtefactExperiments<Timeseries<PairGeneratorOutput>> gen1Exp = new SingleArtefactExperiments<Timeseries<PairGeneratorOutput>>(gen1, "test1");
+			SingleArtefactExperiments<Timeseries<PairGeneratorOutput>> gen2Exp = new SingleArtefactExperiments<Timeseries<PairGeneratorOutput>>(gen2, "test2");
 
 			SetOfComparisons<Timeseries<PairGeneratorOutput>> gen1gen2Comp = new SetOfComparisons<Timeseries<PairGeneratorOutput>>(gen1Exp,gen2Exp);
 
@@ -358,8 +358,8 @@ public class TestLayer2 {
 		ExampleTimeseriesGenerator gen2 = new ExampleTimeseriesGenerator(0.5, 5,100);
 		
 		//setup sets of experiments
-		SetOf1ArtefactExperiments<Timeseries<PairGeneratorOutput>> gen1Exp = new SetOf1ArtefactExperiments<Timeseries<PairGeneratorOutput>>(gen1, "test1");
-		SetOf1ArtefactExperiments<Timeseries<PairGeneratorOutput>> gen2Exp = new SetOf1ArtefactExperiments<Timeseries<PairGeneratorOutput>>(gen2, "test2");
+		SingleArtefactExperiments<Timeseries<PairGeneratorOutput>> gen1Exp = new SingleArtefactExperiments<Timeseries<PairGeneratorOutput>>(gen1, "test1");
+		SingleArtefactExperiments<Timeseries<PairGeneratorOutput>> gen2Exp = new SingleArtefactExperiments<Timeseries<PairGeneratorOutput>>(gen2, "test2");
 
 		SetOfComparisons<Timeseries<PairGeneratorOutput>> gen1gen2Comp = new SetOfComparisons<Timeseries<PairGeneratorOutput>>(gen1Exp,gen2Exp);
 		
@@ -424,8 +424,8 @@ public class TestLayer2 {
 		ExampleTimeseriesGenerator gen2 = new ExampleTimeseriesGenerator(0.5, 5,100);
 		
 		//setup sets of experiments
-		SetOf1ArtefactExperiments<Timeseries<PairGeneratorOutput>> gen1Exp = new SetOf1ArtefactExperiments<Timeseries<PairGeneratorOutput>>(gen1, "test1");
-		SetOf1ArtefactExperiments<Timeseries<PairGeneratorOutput>> gen2Exp = new SetOf1ArtefactExperiments<Timeseries<PairGeneratorOutput>>(gen2, "test2");
+		SingleArtefactExperiments<Timeseries<PairGeneratorOutput>> gen1Exp = new SingleArtefactExperiments<Timeseries<PairGeneratorOutput>>(gen1, "test1");
+		SingleArtefactExperiments<Timeseries<PairGeneratorOutput>> gen2Exp = new SingleArtefactExperiments<Timeseries<PairGeneratorOutput>>(gen2, "test2");
 
 		SetOfComparisons<Timeseries<PairGeneratorOutput>> gen1gen2Comp = new SetOfComparisons<Timeseries<PairGeneratorOutput>>(gen1Exp,gen2Exp);
 
@@ -510,8 +510,8 @@ public class TestLayer2 {
 			ExampleTimeseriesGenerator gen2 = new ExampleTimeseriesGenerator(0.4, 5,100);
 			
 			//setup sets of experiments
-			SetOf1ArtefactExperiments<Timeseries<PairGeneratorOutput>> gen1Exp = new SetOf1ArtefactExperiments<Timeseries<PairGeneratorOutput>>(gen1, "test1");
-			SetOf1ArtefactExperiments<Timeseries<PairGeneratorOutput>> gen2Exp = new SetOf1ArtefactExperiments<Timeseries<PairGeneratorOutput>>(gen2, "test2");
+			SingleArtefactExperiments<Timeseries<PairGeneratorOutput>> gen1Exp = new SingleArtefactExperiments<Timeseries<PairGeneratorOutput>>(gen1, "test1");
+			SingleArtefactExperiments<Timeseries<PairGeneratorOutput>> gen2Exp = new SingleArtefactExperiments<Timeseries<PairGeneratorOutput>>(gen2, "test2");
 
 			SetOfComparisons<Timeseries<PairGeneratorOutput>> gen1gen2Comp = new SetOfComparisons<Timeseries<PairGeneratorOutput>>(gen1Exp,gen2Exp);
 
@@ -572,8 +572,8 @@ public class TestLayer2 {
 		ExampleTimeseriesGenerator gen2 = new ExampleTimeseriesGenerator(0.4, 5,100);
 		
 		//setup sets of experiments
-		SetOf1ArtefactExperiments<Timeseries<PairGeneratorOutput>> gen1Exp = new SetOf1ArtefactExperiments<Timeseries<PairGeneratorOutput>>(gen1, "test1");
-		SetOf1ArtefactExperiments<Timeseries<PairGeneratorOutput>> gen2Exp = new SetOf1ArtefactExperiments<Timeseries<PairGeneratorOutput>>(gen2, "test2");
+		SingleArtefactExperiments<Timeseries<PairGeneratorOutput>> gen1Exp = new SingleArtefactExperiments<Timeseries<PairGeneratorOutput>>(gen1, "test1");
+		SingleArtefactExperiments<Timeseries<PairGeneratorOutput>> gen2Exp = new SingleArtefactExperiments<Timeseries<PairGeneratorOutput>>(gen2, "test2");
 
 		SetOfComparisons<Timeseries<PairGeneratorOutput>> gen1gen2Comp = new SetOfComparisons<Timeseries<PairGeneratorOutput>>(gen1Exp,gen2Exp);
 
@@ -654,8 +654,8 @@ public class TestLayer2 {
 			ExampleDatapointGenerator gen2 = new ExampleDatapointGenerator(0.1, 1);
 			
 			//setup sets of experiments
-			SetOf1ArtefactExperiments<PairGeneratorOutput> gen1Exp = new SetOf1ArtefactExperiments<PairGeneratorOutput>(gen1, "test1");
-			SetOf1ArtefactExperiments<PairGeneratorOutput> gen2Exp = new SetOf1ArtefactExperiments<PairGeneratorOutput>(gen2, "test2");
+			SingleArtefactExperiments<PairGeneratorOutput> gen1Exp = new SingleArtefactExperiments<PairGeneratorOutput>(gen1, "test1");
+			SingleArtefactExperiments<PairGeneratorOutput> gen2Exp = new SingleArtefactExperiments<PairGeneratorOutput>(gen2, "test2");
 
 			SetOfComparisons<PairGeneratorOutput> gen1gen2Comp = new SetOfComparisons<PairGeneratorOutput>(gen1Exp,gen2Exp);
 			
@@ -698,8 +698,8 @@ public class TestLayer2 {
 			gen2 = new ExampleDatapointGenerator(0.4, 1);
 			
 			//setup sets of experiments
-			gen1Exp = new SetOf1ArtefactExperiments<PairGeneratorOutput>(gen1, "test1");
-			gen2Exp = new SetOf1ArtefactExperiments<PairGeneratorOutput>(gen2, "test2");
+			gen1Exp = new SingleArtefactExperiments<PairGeneratorOutput>(gen1, "test1");
+			gen2Exp = new SingleArtefactExperiments<PairGeneratorOutput>(gen2, "test2");
 			gen1gen2Comp = new SetOfComparisons<PairGeneratorOutput>(gen1Exp,gen2Exp);
 
 			res = Layer2.run(gen1gen2Comp, 0.05, false, false, new SimpleIncrementing(initialRuns, maxRuns), new MersenneTwister(1)).get(0);

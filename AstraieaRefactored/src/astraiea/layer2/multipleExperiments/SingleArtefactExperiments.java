@@ -13,9 +13,9 @@ import astraiea.util.MersenneTwister;
  * @author Geoffrey Neumann
  *
  */
-public class SetOf1ArtefactExperiments<T extends GeneratorOutput> extends SetOfExperiments<T> {
+public class SingleArtefactExperiments<T extends GeneratorOutput> extends SetOfExperiments<T> {
 
-	public SetOf1ArtefactExperiments(Generator<T> gen, String name){
+	public SingleArtefactExperiments(Generator<T> gen, String name){
 		super(gen,name);
 	}
 	

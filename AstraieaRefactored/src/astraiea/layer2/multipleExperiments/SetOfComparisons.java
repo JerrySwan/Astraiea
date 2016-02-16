@@ -12,12 +12,14 @@ import astraiea.layer2.MultiTestAdjustment;
 import astraiea.layer2.generators.Generator;
 import astraiea.layer2.generators.GeneratorOutput;
 
-/**The set of generators being compared and information about how they should be compared.
+/**
+ * The set of generators being compared and information about how they should be compared.
  * 
  * @author Geoffrey Neumann
  *
  * @param <T>
  */
+
 public class SetOfComparisons<T extends GeneratorOutput> {
 	
 	/**the set of generators being compared, wrapped in "experiments" to enable them to run multiple times*/
@@ -28,7 +30,8 @@ public class SetOfComparisons<T extends GeneratorOutput> {
 	 * null if every generator is being compared against every other generator*/
 	private final SetOfExperiments<T> mainExp;
 	
-	/**For just comparing two generators.
+	/**
+	 * For just comparing two generators.
 	 * 
 	 * @param genA
 	 * @param genB
@@ -45,7 +48,8 @@ public class SetOfComparisons<T extends GeneratorOutput> {
 		 adjust = null;
 	}
 
-	/**For comparing multiple generators, each against every other one.
+	/**
+	 * For comparing multiple generators, each against every other one.
 	 * 
 	 * @param g list of generators
 	 */
@@ -58,7 +62,8 @@ public class SetOfComparisons<T extends GeneratorOutput> {
 		mainExp = null;
 	}
 
-	/**For comparing multiple generators, each against just one.
+	/**
+	 * For comparing multiple generators, each against just one.
 	 * 
 	 * @param g list of generators
 	 * @param mainExp index of the generator that each is compared against
@@ -74,7 +79,8 @@ public class SetOfComparisons<T extends GeneratorOutput> {
 		checkMainExp(mainExp);
 	}
 
-	/**For comparing multiple generators, each against every other one, with an adjustment.
+	/**
+	 * For comparing multiple generators, each against every other one, with an adjustment.
 	 * 
 	 * @param g list of generators
 	 * @param adjust
@@ -90,7 +96,8 @@ public class SetOfComparisons<T extends GeneratorOutput> {
 		mainExp = null;
 	}
 	
-	/**For comparing multiple generators, each against just one, with an adjustment.
+	/**
+	 * For comparing multiple generators, each against just one, with an adjustment.
 	 * 
 	 * @param g list of generators
 	 * @param mainGen index of the generator that each is compared against
@@ -107,7 +114,8 @@ public class SetOfComparisons<T extends GeneratorOutput> {
 		checkMainExp(mainGen);
 	}
 
-	/**Checks that there are not two or experiments in a set with the same name
+	/**
+	 * Checks that there are not two or experiments in a set with the same name
 	 * 
 	 * @param exps
 	 * @return true if there are duplicates
@@ -127,7 +135,8 @@ public class SetOfComparisons<T extends GeneratorOutput> {
 		return false;
 	}
 
-	/**Checks that the experiment specified to be "main" is actually in the set of experiments.
+	/**
+	 * Checks that the experiment specified to be "main" is actually in the set of experiments.
 	 * Throws exception if not.
 	 * 
 	 * @param mainGen 
@@ -139,7 +148,8 @@ public class SetOfComparisons<T extends GeneratorOutput> {
 
 	
 	
-	/**Carry out the adjustment specified by 'adjust'.
+	/**
+	 * Carry out the adjustment specified by 'adjust'.
 	 * 
 	 * @param results
 	 * @return
@@ -150,7 +160,8 @@ public class SetOfComparisons<T extends GeneratorOutput> {
 		return adjust.adjust(results);
 	}
 
-	/**Gets a set of pairs of experiments covering every comparison which should be carried out.
+	/**
+	 * Gets a set of pairs of experiments covering every comparison which should be carried out.
 	 * Either all against all or all against mainExp.
 	 * 
 	 * @return
@@ -175,11 +186,10 @@ public class SetOfComparisons<T extends GeneratorOutput> {
 		return pairs;
 	}
 
-	public List<SetOfExperiments<T>> getExperiments() {
-		return experiments;
-	}
+	public List<SetOfExperiments<T>> getExperiments() { return experiments;	}
 
-	/**Gets the index of a set of experiments (generator) within the complete set of generators.
+	/**
+	 * Gets the index of a set of experiments (generator) within the complete set of generators.
 	 * 
 	 * @param exp
 	 * @return
@@ -191,8 +201,7 @@ public class SetOfComparisons<T extends GeneratorOutput> {
 		return ind;
 	}
 
-	public MultiTestAdjustment getAdjust() {
-		return adjust;
-	}
-
+	public MultiTestAdjustment getAdjust() { return adjust;	}
 }
+
+// End ///////////////////////////////////////////////////////////////

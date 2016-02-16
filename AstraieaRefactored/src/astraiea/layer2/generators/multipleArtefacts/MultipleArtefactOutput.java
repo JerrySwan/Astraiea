@@ -16,58 +16,60 @@ import astraiea.util.DataUtil;
  */
 public class MultipleArtefactOutput<T extends GeneratorOutput> extends GeneratorOutput {
 
-	private static final int recommendedListSize = 1000;
+	private static final int recommendedListSizeHitchhikers = 1000;
 	private final List<T> list;
 	
-	/**Initialised with a list of GeneratorOutput's where each GeneratorOutput
+	///////////////////////////////
+	
+	/**
+	 * Initialised with a list of GeneratorOutputs where each GeneratorOutput
 	 * is the output of running one test on this artefact.
 	 * 
 	 * @param list
 	 */
+	
 	public MultipleArtefactOutput(List<T> list){
-		if(list.size() < recommendedListSize) //recommended number of repeats for Hitchhikers
+		if( list.size() < recommendedListSizeHitchhikers )
 			Layer1.LOGGER.warning("Artefact is only repeated " + list.size() + " times. "
-					+ "It is recommended that artefacts are repeated at least " + recommendedListSize + " times."); 
+					+ "It is recommended that artefacts are repeated at least " + recommendedListSizeHitchhikers + " times."); 
 		this.list = list;
 	}
 	
-	/**Passed is defined as passed > 50% though this is just an obvious solution - not from hitchhikers
+	/**
+	 * Passed is defined as passed > 50% though this is just an obvious solution - not from hitchhikers
 	 * and more a placeholder than anything.
-	 * 
 	 */
+	
 	@Override
 	public boolean getPassed() {
-		ListIterator<T> iter = list.listIterator();
 		int total = 0;
-		while(iter.hasNext()){
-			if(iter.next().getPassed())
-				total ++;
+		for( int i=0; i<list.size(); ++i ) {
+			if( list.get(i).getPassed() )
+				++total;
+			if( total > list.size() / 2 )
+				return true;
 		}
-		return total > list.size()/ 2;
+		
+		return false;
 	}
 
-	/**When a single value is requested it is the median of all runs, 
+	/**
+	 * When a single value is requested it is the median of all runs, 
 	 * ("average" recommended in Hitchhikers and median used for robustness).
-	 * 
 	 */
+	
 	@Override
 	public double getValue() {
-		ListIterator<T> iter = list.listIterator();
-		double[] listArr = new double[list.size()];
-		int i =0;
-		while(iter.hasNext()){
-			listArr[i] = iter.next().getValue();
-			i++;
-		}
+		double [] listArr = new double[list.size()];
+		for( int i=0; i<list.size(); ++i )
+			listArr[i] = list.get(i).getValue();
+		
 		return DataUtil.getMedian(listArr);
 	}
 	
 	/**
-	 * 
 	 * @return number of repeats
 	 */
-	public int getRepeats(){
-		return list.size();
-	}
+	public int getRepeats(){ return list.size(); }
 
 }

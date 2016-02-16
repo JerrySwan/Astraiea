@@ -6,8 +6,8 @@ import org.apache.commons.math3.util.Pair;
 
 import astraiea.layer2.generators.GeneratorOutput;
 
-/**Test performs a fixed number of runs (no incrementing).
- * 
+/**
+ * Test performs a fixed number of runs (no incrementing).
  * @author Geoffrey Neumann
  *
  */
@@ -27,5 +27,7 @@ public class NoIncrementing extends IncrementingStrategy {
 			double threshold) {
 		return new int[]{0,0};
 	}
-
 }
+
+// End ///////////////////////////////////////////////////////////////
+

@@ -23,8 +23,11 @@ public class SimpleIncrementing extends IncrementingStrategy {
 	private boolean stopOnBonFerroni;
 	private double originalPVal;
 	private int numSets;
+	
+	///////////////////////////////
 
-	/**Run from min to max and stop if significance is achieved taking into account bon ferroni.
+	/**
+	 * Run from min to max and stop if significance is achieved taking into account bon ferroni.
 	 * 
 	 * @param min
 	 * @param max
@@ -76,5 +79,7 @@ public class SimpleIncrementing extends IncrementingStrategy {
 	public String report() {
 		return "Statistic adjusted with Bon Ferroni (With " + numSets + " sets): " + finalPVal + "\n Unadjusted Statistic: " + originalPVal;
 	}
-
 }
+
+// End ///////////////////////////////////////////////////////////////
+
