@@ -1,6 +1,5 @@
-package astraiea.layer2.generators.simpleGenerators;
+package astraiea.layer2.generators;
 
-import astraiea.layer2.generators.GeneratorOutput;
 
 /**	FIXME Refactoring 27/11 - new class. Just encapsulates a GeneratorOutput 
  * that is just a double and implicitly considered to always pass.

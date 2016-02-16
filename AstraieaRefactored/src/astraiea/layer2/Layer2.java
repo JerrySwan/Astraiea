@@ -12,11 +12,11 @@ import org.apache.commons.math3.util.Pair;
 import astraiea.Result;
 import astraiea.layer1.Layer1;
 import astraiea.layer1.effectsize.ModifiedVarghaDelaney;
+import astraiea.layer2.experiments.SetOfComparisons;
+import astraiea.layer2.experiments.SetOfExperiments;
 import astraiea.layer2.generators.GeneratorOutput;
-import astraiea.layer2.generators.multipleArtefacts.MultipleArtefactOutput;
-import astraiea.layer2.generators.timeseries.Timeseries;
-import astraiea.layer2.multipleExperiments.SetOfComparisons;
-import astraiea.layer2.multipleExperiments.SetOfExperiments;
+import astraiea.layer2.generators.artefacts.MultipleArtefactOutput;
+import astraiea.layer2.generators.timeseries.TimeseriesGeneratorOutput;
 import astraiea.layer2.strategies.*;
 import astraiea.output.Report;
 
@@ -113,7 +113,7 @@ public final class Layer2 {
 	 * @return
 	 */
 	public static<T extends GeneratorOutput> List<Result> run(
-			SetOfComparisons<Timeseries<T>> gens,
+			SetOfComparisons<TimeseriesGeneratorOutput<T>> gens,
 			double significanceThreshold, 
 			boolean brunnerMunzel, 
 			boolean paired,
@@ -205,7 +205,7 @@ public final class Layer2 {
 	 * @return
 	 */
 	public static<T extends GeneratorOutput> List<Result> run(
-			SetOfComparisons<Timeseries<T>> gens,
+			SetOfComparisons<TimeseriesGeneratorOutput<T>> gens,
 			double significanceThreshold, 
 			boolean brunnerMunzel, 
 			boolean paired,
@@ -271,7 +271,7 @@ public final class Layer2 {
 			//For Output to LOGGER
 			if(listOfRes.get(0) instanceof MultipleArtefactOutput)
 				numArts = ((MultipleArtefactOutput<?>)listOfRes.get(0)).getRepeats();
-			timeSeries = listOfRes.get(0) instanceof Timeseries;
+			timeSeries = listOfRes.get(0) instanceof TimeseriesGeneratorOutput;
 			//end output
 			
 			resultHash.put(nextGen,listOfRes);
