@@ -18,18 +18,18 @@ import astraiea.Result;
 import astraiea.layer1.Layer1;
 import astraiea.layer2.BonFerroni;
 import astraiea.layer2.Layer2;
+import astraiea.layer2.experiments.SetOfComparisons;
+import astraiea.layer2.experiments.SetOfExperiments;
+import astraiea.layer2.experiments.SetOfMultiArtefactExperiments;
+import astraiea.layer2.experiments.SingleArtefactExperiments;
 import astraiea.layer2.generators.Generator;
 import astraiea.layer2.generators.GeneratorOutput;
-import astraiea.layer2.generators.multipleArtefacts.ArtefactGenerator;
-import astraiea.layer2.generators.multipleArtefacts.ArtefactTimeseriesGenerator;
-import astraiea.layer2.generators.multipleArtefacts.MultipleArtefactOutput;
-import astraiea.layer2.generators.simpleGenerators.PairGeneratorOutput;
-import astraiea.layer2.generators.timeseries.Timeseries;
+import astraiea.layer2.generators.PairGeneratorOutput;
+import astraiea.layer2.generators.artefacts.ArtefactGenerator;
+import astraiea.layer2.generators.artefacts.ArtefactTimeseriesGenerator;
+import astraiea.layer2.generators.artefacts.MultipleArtefactOutput;
+import astraiea.layer2.generators.timeseries.TimeseriesGeneratorOutput;
 import astraiea.layer2.generators.timeseries.TimeseriesGenerator;
-import astraiea.layer2.multipleExperiments.SingleArtefactExperiments;
-import astraiea.layer2.multipleExperiments.SetOfComparisons;
-import astraiea.layer2.multipleExperiments.SetOfExperiments;
-import astraiea.layer2.multipleExperiments.SetOfMultiArtefactExperiments;
 import astraiea.layer2.strategies.CensoringStrategy;
 import astraiea.layer2.strategies.IncrementingStrategy;
 import astraiea.layer2.strategies.NoIncrementing;
@@ -135,9 +135,9 @@ public class TestLayer2MultiGens {
 			}
 			
 			//setup sets of experiments
-			SetOfExperiments<MultipleArtefactOutput<Timeseries<PairGeneratorOutput>>> gen1ExpT = new SetOfMultiArtefactExperiments<Timeseries<PairGeneratorOutput>>(gens1T, "test1");
-			SetOfExperiments<MultipleArtefactOutput<Timeseries<PairGeneratorOutput>>> gen2ExpT = new SetOfMultiArtefactExperiments<Timeseries<PairGeneratorOutput>>(gens2T, "test2");
-			SetOfComparisons<MultipleArtefactOutput<Timeseries<PairGeneratorOutput>>> gen1gen2CompT = new SetOfComparisons<MultipleArtefactOutput<Timeseries<PairGeneratorOutput>>>(gen1ExpT,gen2ExpT);
+			SetOfExperiments<MultipleArtefactOutput<TimeseriesGeneratorOutput<PairGeneratorOutput>>> gen1ExpT = new SetOfMultiArtefactExperiments<TimeseriesGeneratorOutput<PairGeneratorOutput>>(gens1T, "test1");
+			SetOfExperiments<MultipleArtefactOutput<TimeseriesGeneratorOutput<PairGeneratorOutput>>> gen2ExpT = new SetOfMultiArtefactExperiments<TimeseriesGeneratorOutput<PairGeneratorOutput>>(gens2T, "test2");
+			SetOfComparisons<MultipleArtefactOutput<TimeseriesGeneratorOutput<PairGeneratorOutput>>> gen1gen2CompT = new SetOfComparisons<MultipleArtefactOutput<TimeseriesGeneratorOutput<PairGeneratorOutput>>>(gen1ExpT,gen2ExpT);
 
 			//run
 			Result resT = Layer2.runArtefacts(gen1gen2CompT,0.05,new NoIncrementing(30),new MersenneTwister(0),false).get(0);
@@ -263,21 +263,21 @@ public class TestLayer2MultiGens {
 			gens.add(gen3);
 			gens.add(gen4);
 			gens.add(gen5);
-			SetOfExperiments<Timeseries<PairGeneratorOutput>> gen1ExpT = new SingleArtefactExperiments<Timeseries<PairGeneratorOutput>>(gen1, "data1");
-			SetOfExperiments<Timeseries<PairGeneratorOutput>> gen2ExpT = new SingleArtefactExperiments<Timeseries<PairGeneratorOutput>>(gen2, "data2");
-			SetOfExperiments<Timeseries<PairGeneratorOutput>> gen3ExpT = new SingleArtefactExperiments<Timeseries<PairGeneratorOutput>>(gen3, "data3");
-			SetOfExperiments<Timeseries<PairGeneratorOutput>> gen4ExpT = new SingleArtefactExperiments<Timeseries<PairGeneratorOutput>>(gen4, "data4");
-			SetOfExperiments<Timeseries<PairGeneratorOutput>> gen5ExpT = new SingleArtefactExperiments<Timeseries<PairGeneratorOutput>>(gen5, "data5");
+			SetOfExperiments<TimeseriesGeneratorOutput<PairGeneratorOutput>> gen1ExpT = new SingleArtefactExperiments<TimeseriesGeneratorOutput<PairGeneratorOutput>>(gen1, "data1");
+			SetOfExperiments<TimeseriesGeneratorOutput<PairGeneratorOutput>> gen2ExpT = new SingleArtefactExperiments<TimeseriesGeneratorOutput<PairGeneratorOutput>>(gen2, "data2");
+			SetOfExperiments<TimeseriesGeneratorOutput<PairGeneratorOutput>> gen3ExpT = new SingleArtefactExperiments<TimeseriesGeneratorOutput<PairGeneratorOutput>>(gen3, "data3");
+			SetOfExperiments<TimeseriesGeneratorOutput<PairGeneratorOutput>> gen4ExpT = new SingleArtefactExperiments<TimeseriesGeneratorOutput<PairGeneratorOutput>>(gen4, "data4");
+			SetOfExperiments<TimeseriesGeneratorOutput<PairGeneratorOutput>> gen5ExpT = new SingleArtefactExperiments<TimeseriesGeneratorOutput<PairGeneratorOutput>>(gen5, "data5");
 
-			List<SetOfExperiments<Timeseries<PairGeneratorOutput>>> setsOfExperimentsT = new ArrayList<SetOfExperiments<Timeseries<PairGeneratorOutput>>>();
+			List<SetOfExperiments<TimeseriesGeneratorOutput<PairGeneratorOutput>>> setsOfExperimentsT = new ArrayList<SetOfExperiments<TimeseriesGeneratorOutput<PairGeneratorOutput>>>();
 			setsOfExperimentsT.add(gen1ExpT);
 			setsOfExperimentsT.add(gen2ExpT);
 			setsOfExperimentsT.add(gen3ExpT);
 			setsOfExperimentsT.add(gen4ExpT);
 			setsOfExperimentsT.add(gen5ExpT);
 			
-			SetOfComparisons<Timeseries<PairGeneratorOutput>> gensCompT1 = new SetOfComparisons<Timeseries<PairGeneratorOutput>>(setsOfExperimentsT);
-			SetOfComparisons<Timeseries<PairGeneratorOutput>> gensCompT2 = new SetOfComparisons<Timeseries<PairGeneratorOutput>>(setsOfExperimentsT,gen1ExpT);
+			SetOfComparisons<TimeseriesGeneratorOutput<PairGeneratorOutput>> gensCompT1 = new SetOfComparisons<TimeseriesGeneratorOutput<PairGeneratorOutput>>(setsOfExperimentsT);
+			SetOfComparisons<TimeseriesGeneratorOutput<PairGeneratorOutput>> gensCompT2 = new SetOfComparisons<TimeseriesGeneratorOutput<PairGeneratorOutput>>(setsOfExperimentsT,gen1ExpT);
 			
 			List<Generator<PairGeneratorOutput>> gensD = new ArrayList<Generator<PairGeneratorOutput>>();
 			gensD.add(genD1);
@@ -788,21 +788,21 @@ public class TestLayer2MultiGens {
 		gens.add(gen3);
 		gens.add(gen4);
 		gens.add(gen5);
-		SetOfExperiments<Timeseries<PairGeneratorOutput>> gen1ExpT = new SingleArtefactExperiments<Timeseries<PairGeneratorOutput>>(gen1, "data1");
-		SetOfExperiments<Timeseries<PairGeneratorOutput>> gen2ExpT = new SingleArtefactExperiments<Timeseries<PairGeneratorOutput>>(gen2, "data2");
-		SetOfExperiments<Timeseries<PairGeneratorOutput>> gen3ExpT = new SingleArtefactExperiments<Timeseries<PairGeneratorOutput>>(gen3, "data3");
-		SetOfExperiments<Timeseries<PairGeneratorOutput>> gen4ExpT = new SingleArtefactExperiments<Timeseries<PairGeneratorOutput>>(gen4, "data4");
-		SetOfExperiments<Timeseries<PairGeneratorOutput>> gen5ExpT = new SingleArtefactExperiments<Timeseries<PairGeneratorOutput>>(gen5, "data5");
+		SetOfExperiments<TimeseriesGeneratorOutput<PairGeneratorOutput>> gen1ExpT = new SingleArtefactExperiments<TimeseriesGeneratorOutput<PairGeneratorOutput>>(gen1, "data1");
+		SetOfExperiments<TimeseriesGeneratorOutput<PairGeneratorOutput>> gen2ExpT = new SingleArtefactExperiments<TimeseriesGeneratorOutput<PairGeneratorOutput>>(gen2, "data2");
+		SetOfExperiments<TimeseriesGeneratorOutput<PairGeneratorOutput>> gen3ExpT = new SingleArtefactExperiments<TimeseriesGeneratorOutput<PairGeneratorOutput>>(gen3, "data3");
+		SetOfExperiments<TimeseriesGeneratorOutput<PairGeneratorOutput>> gen4ExpT = new SingleArtefactExperiments<TimeseriesGeneratorOutput<PairGeneratorOutput>>(gen4, "data4");
+		SetOfExperiments<TimeseriesGeneratorOutput<PairGeneratorOutput>> gen5ExpT = new SingleArtefactExperiments<TimeseriesGeneratorOutput<PairGeneratorOutput>>(gen5, "data5");
 
-		List<SetOfExperiments<Timeseries<PairGeneratorOutput>>> setsOfExperimentsT = new ArrayList<SetOfExperiments<Timeseries<PairGeneratorOutput>>>();
+		List<SetOfExperiments<TimeseriesGeneratorOutput<PairGeneratorOutput>>> setsOfExperimentsT = new ArrayList<SetOfExperiments<TimeseriesGeneratorOutput<PairGeneratorOutput>>>();
 		setsOfExperimentsT.add(gen1ExpT);
 		setsOfExperimentsT.add(gen2ExpT);
 		setsOfExperimentsT.add(gen3ExpT);
 		setsOfExperimentsT.add(gen4ExpT);
 		setsOfExperimentsT.add(gen5ExpT);
 		
-		SetOfComparisons<Timeseries<PairGeneratorOutput>> gensCompT1 = new SetOfComparisons<Timeseries<PairGeneratorOutput>>(setsOfExperimentsT, new BonFerroni());
-		SetOfComparisons<Timeseries<PairGeneratorOutput>> gensCompT2 = new SetOfComparisons<Timeseries<PairGeneratorOutput>>(setsOfExperimentsT,gen1ExpT, new BonFerroni());
+		SetOfComparisons<TimeseriesGeneratorOutput<PairGeneratorOutput>> gensCompT1 = new SetOfComparisons<TimeseriesGeneratorOutput<PairGeneratorOutput>>(setsOfExperimentsT, new BonFerroni());
+		SetOfComparisons<TimeseriesGeneratorOutput<PairGeneratorOutput>> gensCompT2 = new SetOfComparisons<TimeseriesGeneratorOutput<PairGeneratorOutput>>(setsOfExperimentsT,gen1ExpT, new BonFerroni());
 		
 		List<Generator<PairGeneratorOutput>> gensD = new ArrayList<Generator<PairGeneratorOutput>>();
 		gensD.add(genD1);

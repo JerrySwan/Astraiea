@@ -8,10 +8,10 @@ import java.util.Random;
 import org.apache.commons.math3.util.Pair;
 
 import astraiea.layer2.generators.Generator;
-import astraiea.layer2.generators.multipleArtefacts.ArtefactTimeseriesGenerator;
-import astraiea.layer2.generators.multipleArtefacts.MultipleArtefactOutput;
-import astraiea.layer2.generators.simpleGenerators.PairGeneratorOutput;
-import astraiea.layer2.generators.timeseries.Timeseries;
+import astraiea.layer2.generators.PairGeneratorOutput;
+import astraiea.layer2.generators.artefacts.ArtefactTimeseriesGenerator;
+import astraiea.layer2.generators.artefacts.MultipleArtefactOutput;
+import astraiea.layer2.generators.timeseries.TimeseriesGeneratorOutput;
 import astraiea.util.MersenneTwister;
 
 /**The Example generator using multiple artefacts in which each artefact returns a time series
@@ -45,8 +45,8 @@ public class ExampleTimeseriesMultiArtefactGenerator implements ArtefactTimeseri
 	}
 	
 	@Override
-	public MultipleArtefactOutput<Timeseries<PairGeneratorOutput>> generate(Random random) {
-		List<Timeseries<PairGeneratorOutput>> results = new ArrayList<Timeseries<PairGeneratorOutput>>();
+	public MultipleArtefactOutput<TimeseriesGeneratorOutput<PairGeneratorOutput>> generate(Random random) {
+		List<TimeseriesGeneratorOutput<PairGeneratorOutput>> results = new ArrayList<TimeseriesGeneratorOutput<PairGeneratorOutput>>();
 		for(int r = 0; r < numRepeats; r++){
 			List<PairGeneratorOutput> results2 = new ArrayList<PairGeneratorOutput>();
 			for(int i =0; i < duration; i++){
@@ -60,9 +60,9 @@ public class ExampleTimeseriesMultiArtefactGenerator implements ArtefactTimeseri
 				boolean bool = (val > bias);
 				results2.add(new PairGeneratorOutput(val,bool));
 			}
-			results.add(new Timeseries<PairGeneratorOutput>(results2));
+			results.add(new TimeseriesGeneratorOutput<PairGeneratorOutput>(results2));
 		}
-		return new MultipleArtefactOutput<Timeseries<PairGeneratorOutput>>(results);
+		return new MultipleArtefactOutput<TimeseriesGeneratorOutput<PairGeneratorOutput>>(results);
 	}
 
 	

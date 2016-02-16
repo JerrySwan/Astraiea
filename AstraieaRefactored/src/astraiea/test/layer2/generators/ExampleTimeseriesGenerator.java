@@ -8,8 +8,8 @@ import java.util.Random;
 import org.apache.commons.math3.util.Pair;
 
 import astraiea.layer2.generators.Generator;
-import astraiea.layer2.generators.simpleGenerators.PairGeneratorOutput;
-import astraiea.layer2.generators.timeseries.Timeseries;
+import astraiea.layer2.generators.PairGeneratorOutput;
+import astraiea.layer2.generators.timeseries.TimeseriesGeneratorOutput;
 import astraiea.layer2.generators.timeseries.TimeseriesGenerator;
 import astraiea.util.MersenneTwister;
 
@@ -38,7 +38,7 @@ public class ExampleTimeseriesGenerator implements TimeseriesGenerator<PairGener
 	}
 	
 	@Override
-	public Timeseries<PairGeneratorOutput> generate(Random random) {
+	public TimeseriesGeneratorOutput<PairGeneratorOutput> generate(Random random) {
 		List<PairGeneratorOutput> results = new ArrayList<PairGeneratorOutput>();
 		for(int i =0; i < duration; i++){
 			double val = random.nextGaussian();
@@ -50,7 +50,7 @@ public class ExampleTimeseriesGenerator implements TimeseriesGenerator<PairGener
 			boolean bool = (val > bias);
 			results.add(new PairGeneratorOutput(val,bool));
 		}
-		return new Timeseries<PairGeneratorOutput>(results);
+		return new TimeseriesGeneratorOutput<PairGeneratorOutput>(results);
 	}
 
 	

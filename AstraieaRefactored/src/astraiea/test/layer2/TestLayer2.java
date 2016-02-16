@@ -13,10 +13,10 @@ import org.junit.Test;
 import astraiea.Result;
 import astraiea.layer1.Layer1;
 import astraiea.layer2.Layer2;
-import astraiea.layer2.generators.simpleGenerators.PairGeneratorOutput;
-import astraiea.layer2.generators.timeseries.Timeseries;
-import astraiea.layer2.multipleExperiments.SingleArtefactExperiments;
-import astraiea.layer2.multipleExperiments.SetOfComparisons;
+import astraiea.layer2.experiments.SetOfComparisons;
+import astraiea.layer2.experiments.SingleArtefactExperiments;
+import astraiea.layer2.generators.PairGeneratorOutput;
+import astraiea.layer2.generators.timeseries.TimeseriesGeneratorOutput;
 import astraiea.layer2.strategies.CensoringStrategy;
 import astraiea.layer2.strategies.NoIncrementing;
 import astraiea.layer2.strategies.SimpleIncrementing;
@@ -224,10 +224,10 @@ public class TestLayer2 {
 			MersenneTwister ran = new MersenneTwister(0);
 			
 			//setup sets of experiments
-			SingleArtefactExperiments<Timeseries<PairGeneratorOutput>> gen1Exp = new SingleArtefactExperiments<Timeseries<PairGeneratorOutput>>(gen1, "test1");
-			SingleArtefactExperiments<Timeseries<PairGeneratorOutput>> gen2Exp = new SingleArtefactExperiments<Timeseries<PairGeneratorOutput>>(gen2, "test2");
+			SingleArtefactExperiments<TimeseriesGeneratorOutput<PairGeneratorOutput>> gen1Exp = new SingleArtefactExperiments<TimeseriesGeneratorOutput<PairGeneratorOutput>>(gen1, "test1");
+			SingleArtefactExperiments<TimeseriesGeneratorOutput<PairGeneratorOutput>> gen2Exp = new SingleArtefactExperiments<TimeseriesGeneratorOutput<PairGeneratorOutput>>(gen2, "test2");
 
-			SetOfComparisons<Timeseries<PairGeneratorOutput>> gen1gen2Comp = new SetOfComparisons<Timeseries<PairGeneratorOutput>>(gen1Exp,gen2Exp);
+			SetOfComparisons<TimeseriesGeneratorOutput<PairGeneratorOutput>> gen1gen2Comp = new SetOfComparisons<TimeseriesGeneratorOutput<PairGeneratorOutput>>(gen1Exp,gen2Exp);
 
 			Result res = Layer2.run(gen1gen2Comp, 0.05, false, false, new NoIncrementing(30), ran).get(0);
 			
@@ -291,10 +291,10 @@ public class TestLayer2 {
 			ExampleTimeseriesGenerator gen2 = new ExampleTimeseriesGenerator(0.1, 5,100);
 			
 			//setup sets of experiments
-			SingleArtefactExperiments<Timeseries<PairGeneratorOutput>> gen1Exp = new SingleArtefactExperiments<Timeseries<PairGeneratorOutput>>(gen1, "test1");
-			SingleArtefactExperiments<Timeseries<PairGeneratorOutput>> gen2Exp = new SingleArtefactExperiments<Timeseries<PairGeneratorOutput>>(gen2, "test2");
+			SingleArtefactExperiments<TimeseriesGeneratorOutput<PairGeneratorOutput>> gen1Exp = new SingleArtefactExperiments<TimeseriesGeneratorOutput<PairGeneratorOutput>>(gen1, "test1");
+			SingleArtefactExperiments<TimeseriesGeneratorOutput<PairGeneratorOutput>> gen2Exp = new SingleArtefactExperiments<TimeseriesGeneratorOutput<PairGeneratorOutput>>(gen2, "test2");
 
-			SetOfComparisons<Timeseries<PairGeneratorOutput>> gen1gen2Comp = new SetOfComparisons<Timeseries<PairGeneratorOutput>>(gen1Exp,gen2Exp);
+			SetOfComparisons<TimeseriesGeneratorOutput<PairGeneratorOutput>> gen1gen2Comp = new SetOfComparisons<TimeseriesGeneratorOutput<PairGeneratorOutput>>(gen1Exp,gen2Exp);
 
 			MersenneTwister ran = new MersenneTwister(0);
 			Result res = Layer2.run(gen1gen2Comp, 0.05, false, false, new CensoringStrategy(true), new NoIncrementing(30), ran).get(0);
@@ -358,10 +358,10 @@ public class TestLayer2 {
 		ExampleTimeseriesGenerator gen2 = new ExampleTimeseriesGenerator(0.5, 5,100);
 		
 		//setup sets of experiments
-		SingleArtefactExperiments<Timeseries<PairGeneratorOutput>> gen1Exp = new SingleArtefactExperiments<Timeseries<PairGeneratorOutput>>(gen1, "test1");
-		SingleArtefactExperiments<Timeseries<PairGeneratorOutput>> gen2Exp = new SingleArtefactExperiments<Timeseries<PairGeneratorOutput>>(gen2, "test2");
+		SingleArtefactExperiments<TimeseriesGeneratorOutput<PairGeneratorOutput>> gen1Exp = new SingleArtefactExperiments<TimeseriesGeneratorOutput<PairGeneratorOutput>>(gen1, "test1");
+		SingleArtefactExperiments<TimeseriesGeneratorOutput<PairGeneratorOutput>> gen2Exp = new SingleArtefactExperiments<TimeseriesGeneratorOutput<PairGeneratorOutput>>(gen2, "test2");
 
-		SetOfComparisons<Timeseries<PairGeneratorOutput>> gen1gen2Comp = new SetOfComparisons<Timeseries<PairGeneratorOutput>>(gen1Exp,gen2Exp);
+		SetOfComparisons<TimeseriesGeneratorOutput<PairGeneratorOutput>> gen1gen2Comp = new SetOfComparisons<TimeseriesGeneratorOutput<PairGeneratorOutput>>(gen1Exp,gen2Exp);
 		
 		MersenneTwister ran = new MersenneTwister(0);
 		
@@ -424,10 +424,10 @@ public class TestLayer2 {
 		ExampleTimeseriesGenerator gen2 = new ExampleTimeseriesGenerator(0.5, 5,100);
 		
 		//setup sets of experiments
-		SingleArtefactExperiments<Timeseries<PairGeneratorOutput>> gen1Exp = new SingleArtefactExperiments<Timeseries<PairGeneratorOutput>>(gen1, "test1");
-		SingleArtefactExperiments<Timeseries<PairGeneratorOutput>> gen2Exp = new SingleArtefactExperiments<Timeseries<PairGeneratorOutput>>(gen2, "test2");
+		SingleArtefactExperiments<TimeseriesGeneratorOutput<PairGeneratorOutput>> gen1Exp = new SingleArtefactExperiments<TimeseriesGeneratorOutput<PairGeneratorOutput>>(gen1, "test1");
+		SingleArtefactExperiments<TimeseriesGeneratorOutput<PairGeneratorOutput>> gen2Exp = new SingleArtefactExperiments<TimeseriesGeneratorOutput<PairGeneratorOutput>>(gen2, "test2");
 
-		SetOfComparisons<Timeseries<PairGeneratorOutput>> gen1gen2Comp = new SetOfComparisons<Timeseries<PairGeneratorOutput>>(gen1Exp,gen2Exp);
+		SetOfComparisons<TimeseriesGeneratorOutput<PairGeneratorOutput>> gen1gen2Comp = new SetOfComparisons<TimeseriesGeneratorOutput<PairGeneratorOutput>>(gen1Exp,gen2Exp);
 
 		//standard test
 		Result res = Layer2.run(gen1gen2Comp, 0.05, false, false, new CensoringStrategy(true, true), new NoIncrementing(30), new MersenneTwister(0)).get(0);//testing that the non dichotomous test uses brunner munzel
@@ -510,10 +510,10 @@ public class TestLayer2 {
 			ExampleTimeseriesGenerator gen2 = new ExampleTimeseriesGenerator(0.4, 5,100);
 			
 			//setup sets of experiments
-			SingleArtefactExperiments<Timeseries<PairGeneratorOutput>> gen1Exp = new SingleArtefactExperiments<Timeseries<PairGeneratorOutput>>(gen1, "test1");
-			SingleArtefactExperiments<Timeseries<PairGeneratorOutput>> gen2Exp = new SingleArtefactExperiments<Timeseries<PairGeneratorOutput>>(gen2, "test2");
+			SingleArtefactExperiments<TimeseriesGeneratorOutput<PairGeneratorOutput>> gen1Exp = new SingleArtefactExperiments<TimeseriesGeneratorOutput<PairGeneratorOutput>>(gen1, "test1");
+			SingleArtefactExperiments<TimeseriesGeneratorOutput<PairGeneratorOutput>> gen2Exp = new SingleArtefactExperiments<TimeseriesGeneratorOutput<PairGeneratorOutput>>(gen2, "test2");
 
-			SetOfComparisons<Timeseries<PairGeneratorOutput>> gen1gen2Comp = new SetOfComparisons<Timeseries<PairGeneratorOutput>>(gen1Exp,gen2Exp);
+			SetOfComparisons<TimeseriesGeneratorOutput<PairGeneratorOutput>> gen1gen2Comp = new SetOfComparisons<TimeseriesGeneratorOutput<PairGeneratorOutput>>(gen1Exp,gen2Exp);
 
 			
 			MersenneTwister ran = new MersenneTwister(0);
@@ -572,10 +572,10 @@ public class TestLayer2 {
 		ExampleTimeseriesGenerator gen2 = new ExampleTimeseriesGenerator(0.4, 5,100);
 		
 		//setup sets of experiments
-		SingleArtefactExperiments<Timeseries<PairGeneratorOutput>> gen1Exp = new SingleArtefactExperiments<Timeseries<PairGeneratorOutput>>(gen1, "test1");
-		SingleArtefactExperiments<Timeseries<PairGeneratorOutput>> gen2Exp = new SingleArtefactExperiments<Timeseries<PairGeneratorOutput>>(gen2, "test2");
+		SingleArtefactExperiments<TimeseriesGeneratorOutput<PairGeneratorOutput>> gen1Exp = new SingleArtefactExperiments<TimeseriesGeneratorOutput<PairGeneratorOutput>>(gen1, "test1");
+		SingleArtefactExperiments<TimeseriesGeneratorOutput<PairGeneratorOutput>> gen2Exp = new SingleArtefactExperiments<TimeseriesGeneratorOutput<PairGeneratorOutput>>(gen2, "test2");
 
-		SetOfComparisons<Timeseries<PairGeneratorOutput>> gen1gen2Comp = new SetOfComparisons<Timeseries<PairGeneratorOutput>>(gen1Exp,gen2Exp);
+		SetOfComparisons<TimeseriesGeneratorOutput<PairGeneratorOutput>> gen1gen2Comp = new SetOfComparisons<TimeseriesGeneratorOutput<PairGeneratorOutput>>(gen1Exp,gen2Exp);
 
 		
 		MersenneTwister ran = new MersenneTwister(0);

@@ -3,7 +3,7 @@ package astraiea.test.layer2.generators;
 import java.util.Random;
 
 import astraiea.layer2.generators.Generator;
-import astraiea.layer2.generators.simpleGenerators.PairGeneratorOutput;
+import astraiea.layer2.generators.PairGeneratorOutput;
 
 /**The Example generator for just vanilla (double, boolean pair valued) generator 
  * rather than a timeseries or generator with multiple artefacts used in the JUnit tests.

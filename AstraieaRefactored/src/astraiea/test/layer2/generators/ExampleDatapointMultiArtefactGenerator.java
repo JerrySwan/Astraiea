@@ -6,9 +6,9 @@ import java.util.Random;
 
 import astraiea.layer2.generators.Generator;
 import astraiea.layer2.generators.GeneratorOutput;
-import astraiea.layer2.generators.multipleArtefacts.ArtefactGenerator;
-import astraiea.layer2.generators.multipleArtefacts.MultipleArtefactOutput;
-import astraiea.layer2.generators.simpleGenerators.PairGeneratorOutput;
+import astraiea.layer2.generators.PairGeneratorOutput;
+import astraiea.layer2.generators.artefacts.ArtefactGenerator;
+import astraiea.layer2.generators.artefacts.MultipleArtefactOutput;
 
 /**The Example multiple artefact generator used in the JUnit tests.
  * 
