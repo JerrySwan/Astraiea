@@ -1056,7 +1056,6 @@ public final class Layer1 {
 	 * Sets up the LOGGER for this class using a default configuration.
 	 * 
 	 * @param filename file where output of logger should be stored.
-	 * @throws SecurityException
 	 * @throws IOException
 	 */
 	public static void setupLatexLoggers(String filename) throws IOException 
