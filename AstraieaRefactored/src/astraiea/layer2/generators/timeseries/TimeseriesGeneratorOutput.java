@@ -12,13 +12,13 @@ import astraiea.layer2.generators.GeneratorOutput;
  * @param <T>
  */
 
-public class Timeseries<T extends GeneratorOutput> extends GeneratorOutput {
+public class TimeseriesGeneratorOutput<T extends GeneratorOutput> extends GeneratorOutput {
 	
 	private final List<T> list;
 	
 	///////////////////////////////
 	
-	public Timeseries(List<T> list){
+	public TimeseriesGeneratorOutput(List<T> list){
 		this.list = list;
 	}
 

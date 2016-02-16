@@ -9,6 +9,6 @@ import astraiea.layer2.generators.GeneratorOutput;
  *
  * @param <T>
  */
-public interface TimeseriesGenerator<T extends GeneratorOutput> extends Generator<Timeseries<T>> {
+public interface TimeseriesGenerator<T extends GeneratorOutput> extends Generator<TimeseriesGeneratorOutput<T>> {
 
 }
