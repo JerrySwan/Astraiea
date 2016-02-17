@@ -16,13 +16,13 @@ import astraiea.layer2.Layer2;
 import astraiea.layer2.experiments.SetOfComparisons;
 import astraiea.layer2.experiments.SingleArtefactExperiments;
 import astraiea.layer2.generators.PairGeneratorOutput;
+import astraiea.layer2.generators.examples.ExampleDatapointGenerator;
+import astraiea.layer2.generators.examples.ExampleTimeseriesGenerator;
 import astraiea.layer2.generators.timeseries.TimeseriesGeneratorOutput;
 import astraiea.layer2.strategies.CensoringStrategy;
 import astraiea.layer2.strategies.NoIncrementing;
 import astraiea.layer2.strategies.SimpleIncrementing;
 import astraiea.outputformat.Report;
-import astraiea.test.layer2.generators.ExampleDatapointGenerator;
-import astraiea.test.layer2.generators.ExampleTimeseriesGenerator;
 import astraiea.util.MersenneTwister;
 
 /**
