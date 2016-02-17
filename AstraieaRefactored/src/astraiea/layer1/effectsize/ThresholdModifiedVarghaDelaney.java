@@ -4,7 +4,8 @@ import astraiea.Ordering;
 import astraiea.layer2.generators.GeneratorOutput;
 
 /**
- * An implementation of the Modified Vargha Delaney test that simply discounts all values that are above or below a specified threshold.
+ * An implementation of the Modified Vargha-Delaney test 
+ * that simply discounts all values that are above or below a specified threshold.
  * 
  * @author Geoffrey Neumann
  *
@@ -20,7 +21,7 @@ public class ThresholdModifiedVarghaDelaney extends ModifiedVarghaDelaney {
 	///////////////////////////////
 
 	/**
-	 * Constructor if setting only thresholdUp or thresholdDown.
+	 * Use either thresholdUp or thresholdDown.
 	 * 
 	 * @param thresh value to set chosen threshold to
 	 * @param up if true setting thresholdUp, else setting thresholdDown
@@ -32,7 +33,8 @@ public class ThresholdModifiedVarghaDelaney extends ModifiedVarghaDelaney {
 			thresholdDown = thresh;
 	}
 	
-	/**Constructor if setting both thresholdUp and thresholdDown.
+	/**
+	 * Use both thresholdUp and thresholdDown.
 	 * 
 	 * @param thresholdUp
 	 * @param thresholdDown

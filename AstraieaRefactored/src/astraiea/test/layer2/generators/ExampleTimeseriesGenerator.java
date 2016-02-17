@@ -52,6 +52,7 @@ public class ExampleTimeseriesGenerator implements TimeseriesGenerator<PairGener
 		}
 		return new TimeseriesGeneratorOutput<PairGeneratorOutput>(results);
 	}
-
-	
 }
+
+// End ///////////////////////////////////////////////////////////////
+

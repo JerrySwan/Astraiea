@@ -1,4 +1,4 @@
-package astraiea.output;
+package astraiea.outputformat;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -16,12 +16,14 @@ import astraiea.layer2.experiments.SetOfComparisons;
 import astraiea.layer2.generators.GeneratorOutput;
 import astraiea.layer2.strategies.CensoringStrategy;
 
-/**FIXME Refactoring 27/11 - new class. Just a minor change - seperates out printing output to log file from
+/**
+ * FIXME Refactoring 27/11 - new class. Just a minor change - separates out printing output to log file from
  * layer 2 as it was getting too complicated when stored just in layer2.
  * 
  * @author Geoffrey Neumann
  *
  */
+
 public class Report {
 
 	public static Logger LOGGER = Logger.getLogger( Report.class.getName() );
@@ -30,16 +32,14 @@ public class Report {
 	 * Sets up the LOGGER for this class using a default configuration.
 	 * 
 	 * @param filename file where output of logger should be stored.
-	 * @throws SecurityException
 	 * @throws IOException
 	 */
-	public static void setupLaTeXLoggers(String filename) throws SecurityException, IOException {		
+	public static void setupLaTeXLoggers(String filename) throws IOException {		
 		Formatter formatter = new LaTeXLogFormatter();		
 		Handler fileHandler = new FileHandler( filename);
 		fileHandler.setFormatter(formatter);
 		LOGGER.addHandler( fileHandler );
 	}
-	
 	
 	/**
 	 * Prints a description to the statistical process carried out above the results.
@@ -221,18 +221,15 @@ public class Report {
 		return result;
 	}
 
-
 	public static void addToTable(String[] strings) {
 		LOGGER.info(LaTeXLogFormatter.tabulateItems(strings));
 		
 	}
 
-
 	public void endTable() {
 		LOGGER.info(LaTeXLogFormatter.endTable());
 		
 	}
-
 
 	public void printPrePairOutput(String gen1Name, String gen2Name, CensoringStrategy cens, int initialRuns, int maxRuns) {
 		if(cens.complexStrategy() || maxRuns > initialRuns){ //if there will be a table then add this line to introduce it
@@ -241,11 +238,11 @@ public class Report {
 		}
 	}
 
-
 	public static void warning(String warning) {
 		LOGGER.warning(warning + "\n");
 		Layer1.LOGGER.warning(warning + "\n");
 	}
-
-	
 }
+
+// End ///////////////////////////////////////////////////////////////
+

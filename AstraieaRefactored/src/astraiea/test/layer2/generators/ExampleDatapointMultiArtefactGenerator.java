@@ -50,3 +50,6 @@ public class ExampleDatapointMultiArtefactGenerator implements ArtefactGenerator
 
 
 }
+
+// End ///////////////////////////////////////////////////////////////
+

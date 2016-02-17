@@ -4,7 +4,11 @@ import astraiea.Ordering;
 import astraiea.layer2.generators.GeneratorOutput;
 
 /**
- * Implementation of the Modified Vargha Delaney from .... . 
+ * Implementation of the Modified Vargha Delaney from: 
+ *  "Transformed Vargha-Delaney Effect Size." Geoffrey Neumann, Mark Harman, and Simon Poulding.
+ *  Search-Based Software Engineering. Springer International, 2015. 318-324. 
+ *  http://dx.doi.org/10.1007/978-3-319-22183-0_29.
+ *  
  * This modifies the comparison between individual results that is part of the Vargha Delaney process to ensure that this 
  * comparison is problem specific and excludes irrelevant differences. This class should be extended for your problem.
  * 

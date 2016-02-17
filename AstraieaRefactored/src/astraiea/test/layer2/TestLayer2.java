@@ -20,7 +20,7 @@ import astraiea.layer2.generators.timeseries.TimeseriesGeneratorOutput;
 import astraiea.layer2.strategies.CensoringStrategy;
 import astraiea.layer2.strategies.NoIncrementing;
 import astraiea.layer2.strategies.SimpleIncrementing;
-import astraiea.output.Report;
+import astraiea.outputformat.Report;
 import astraiea.test.layer2.generators.ExampleDatapointGenerator;
 import astraiea.test.layer2.generators.ExampleTimeseriesGenerator;
 import astraiea.util.MersenneTwister;

@@ -18,7 +18,7 @@ import astraiea.layer2.generators.GeneratorOutput;
 import astraiea.layer2.generators.artefacts.MultipleArtefactOutput;
 import astraiea.layer2.generators.timeseries.TimeseriesGeneratorOutput;
 import astraiea.layer2.strategies.*;
-import astraiea.output.Report;
+import astraiea.outputformat.Report;
 
 /**
  * Layer2 organises the running of two or more metaheuristics. 

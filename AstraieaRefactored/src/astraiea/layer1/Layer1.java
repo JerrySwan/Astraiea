@@ -27,8 +27,8 @@ import astraiea.layer1.pvalue.McNemar;
 import astraiea.layer1.pvalue.WilcoxonSignedRank;
 import astraiea.layer2.generators.DoubleGeneratorOutput;
 import astraiea.layer2.generators.GeneratorOutput;
-import astraiea.output.LaTeXLogFormatter;
-import astraiea.output.Report;
+import astraiea.outputformat.LaTeXLogFormatter;
+import astraiea.outputformat.Report;
 
 /**
  * Carries out the comparison of two samples. 

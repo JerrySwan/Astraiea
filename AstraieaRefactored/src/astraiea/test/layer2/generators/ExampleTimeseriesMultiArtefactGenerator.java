@@ -14,13 +14,16 @@ import astraiea.layer2.generators.artefacts.MultipleArtefactOutput;
 import astraiea.layer2.generators.timeseries.TimeseriesGeneratorOutput;
 import astraiea.util.MersenneTwister;
 
-/**The Example generator using multiple artefacts in which each artefact returns a time series
+/**
+ * The Example generator using multiple artefacts in which each artefact returns a time series
  * used in the JUnit tests.
  * 
  * @author Geoffrey Neumann
  *
  */
-public class ExampleTimeseriesMultiArtefactGenerator implements ArtefactTimeseriesGenerator<PairGeneratorOutput>{
+
+public class ExampleTimeseriesMultiArtefactGenerator 
+implements ArtefactTimeseriesGenerator<PairGeneratorOutput> {
 
 	private double bias;
 	private double gap;
@@ -46,14 +49,14 @@ public class ExampleTimeseriesMultiArtefactGenerator implements ArtefactTimeseri
 	
 	@Override
 	public MultipleArtefactOutput<TimeseriesGeneratorOutput<PairGeneratorOutput>> generate(Random random) {
-		List<TimeseriesGeneratorOutput<PairGeneratorOutput>> results = new ArrayList<TimeseriesGeneratorOutput<PairGeneratorOutput>>();
+		List<TimeseriesGeneratorOutput<PairGeneratorOutput>> results = new ArrayList<>();
 		for(int r = 0; r < numRepeats; r++){
 			List<PairGeneratorOutput> results2 = new ArrayList<PairGeneratorOutput>();
 			for(int i =0; i < duration; i++){
 				double val = random.nextGaussian();
 				//so that value increases during the course of the time series, 
 				//but with it's mean around the value generated when not time series, i.e. random.nextGaussian()(+gap)
-				val *= (((double)i/(double)duration)  * 2) + index + r;
+				val *= ((i/(double)duration)  * 2) + index + r;
 				if(random.nextDouble() > bias)
 					val += gap;
 				
@@ -64,6 +67,7 @@ public class ExampleTimeseriesMultiArtefactGenerator implements ArtefactTimeseri
 		}
 		return new MultipleArtefactOutput<TimeseriesGeneratorOutput<PairGeneratorOutput>>(results);
 	}
-
-	
 }
+
+// End ///////////////////////////////////////////////////////////////
+
