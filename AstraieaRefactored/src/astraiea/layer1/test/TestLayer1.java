@@ -1,4 +1,4 @@
-package astraiea.test.layer1;
+package astraiea.layer1.test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
