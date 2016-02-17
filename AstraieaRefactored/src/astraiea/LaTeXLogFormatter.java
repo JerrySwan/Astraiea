@@ -1,4 +1,4 @@
-package astraiea.outputformat;
+package astraiea;
 
 import java.util.Date;
 import java.util.List;

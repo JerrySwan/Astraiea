@@ -1,4 +1,4 @@
-package astraiea.outputformat;
+package astraiea;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -8,7 +8,6 @@ import java.util.logging.Formatter;
 import java.util.logging.Handler;
 import java.util.logging.Logger;
 
-import astraiea.Result;
 import astraiea.layer1.Layer1;
 import astraiea.layer1.effectsize.ModifiedVarghaDelaney;
 import astraiea.layer2.MultiTestAdjustment;

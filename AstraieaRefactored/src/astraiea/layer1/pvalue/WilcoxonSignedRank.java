@@ -10,7 +10,7 @@ import org.apache.commons.math3.distribution.NormalDistribution;
 import com.google.common.collect.HashMultiset;
 import com.google.common.collect.Multiset;
 
-import astraiea.outputformat.Report;
+import astraiea.Report;
 import astraiea.util.DataUtil;
 import astraiea.util.RankCalculator;
 

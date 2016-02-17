@@ -7,7 +7,7 @@ import jsc.onesample.WilcoxonTest;
 import org.apache.commons.math3.distribution.NormalDistribution;
 import org.apache.commons.math3.stat.inference.MannWhitneyUTest;
 
-import astraiea.outputformat.Report;
+import astraiea.Report;
 import astraiea.util.DataUtil;
 import astraiea.util.RankCalculator;
 

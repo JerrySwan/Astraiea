@@ -9,6 +9,7 @@ import java.util.Random;
 
 import org.apache.commons.math3.util.Pair;
 
+import astraiea.Report;
 import astraiea.Result;
 import astraiea.layer1.Layer1;
 import astraiea.layer1.effectsize.ModifiedVarghaDelaney;
@@ -18,7 +19,6 @@ import astraiea.layer2.generators.GeneratorOutput;
 import astraiea.layer2.generators.artefacts.MultipleArtefactOutput;
 import astraiea.layer2.generators.timeseries.TimeseriesGeneratorOutput;
 import astraiea.layer2.strategies.*;
-import astraiea.outputformat.Report;
 
 /**
  * Layer2 organises the running of two or more metaheuristics. 

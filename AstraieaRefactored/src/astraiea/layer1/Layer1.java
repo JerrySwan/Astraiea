@@ -15,7 +15,9 @@ import org.apache.commons.math3.util.Pair;
 import com.google.common.primitives.Booleans;
 import com.google.common.primitives.Doubles;
 
+import astraiea.LaTeXLogFormatter;
 import astraiea.Ordering;
+import astraiea.Report;
 import astraiea.Result;
 import astraiea.layer1.effectsize.ModifiedVarghaDelaney;
 import astraiea.layer1.effectsize.OddsRatio;
@@ -27,8 +29,6 @@ import astraiea.layer1.pvalue.McNemar;
 import astraiea.layer1.pvalue.WilcoxonSignedRank;
 import astraiea.layer2.generators.DoubleGeneratorOutput;
 import astraiea.layer2.generators.GeneratorOutput;
-import astraiea.outputformat.LaTeXLogFormatter;
-import astraiea.outputformat.Report;
 
 /**
  * Carries out the comparison of two samples. 
