@@ -32,7 +32,6 @@ implements ArtefactTimeseriesGenerator<PairGeneratorOutput> {
 	private int numRepeats;
 
 	/**
-	 * 
 	 * @param bias with what probability this class should generate higher values
 	 * @param gap by how much, on average, the higher values 
 	 * generated from this class should be higher than the lower ones
