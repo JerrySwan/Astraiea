@@ -5,14 +5,14 @@ Astraiea is a tool kit for the fair comparison of experimental results.
 It is primarily aimed at assessing search based software engineering techniques.
 It is designed to comply with the seminal paper on statistical methods for software engineering by 
 Andrea Arcuri and Lional Briand: 
-"A Hitchhiker’s guide to statistical tests for assessing randomized algorithms in software engineering" (Arcuri2012).
+"A Hitchhiker’s guide to statistical tests for assessing randomized algorithms in software engineering" (Arcuri2014).
 
 Astraiea takes as input two sets of results or a collection of programs for producing results and carries out a fair comparison.
 
 It will print a LaTeX file giving the results of these comparisons which can then be added to research papers.
 Below is explained how Astraiea may be used to carry out this comparison and how it may be configured to 
 carry out various different tests depending on the nature of the data. 
-The location of this LaTeX file can be set by calling astraiea.output.Report.setupLaTeXLoggers(String filename).
+The location of this LaTeX file can be set by calling astraiea.Layer1.setupLaTeXLoggers(String filename).
 
 ========================================================
 
@@ -25,18 +25,17 @@ The output of these will be input in pairs into layer 1 which will then compare 
 
 1.1 - DEFAULT: 
 
-By default, according to the instructions in (Arcuri2012), two datasets will be compared using:
+By default, according to the instructions in (Arcuri2014), two datasets will be compared using:
 1) The Wilcoxon/Mann-Whitney U test to test statistical significance.
 2) The Vargha Delaney test to test effect size.
 3) Confidence intervals are obtained on the effect size through bootstrapping.
 The intervals are the same size as the significance threshold 
 i.e. with a threshold of 0.05 confidence intervals at 45% and 55% are shown.
 
-An example of calling layer1 with this default set up:
-(For more information on this or any of the other examples for Layer1, see the javadoc for the "Layer1" class)
+Below is an example of calling layer1 with this default set up. 
+For an explanation of these parameters see the documentation for astraiea.Layer1
 
-Random ran = new Random();
-Layer1.compare( dataA, dataB, double significanceThreshold, boolean brunnerMunzel, Random ran );
+Layer1.compare( dataA, dataB, double significanceThreshold, boolean brunnerMunzel, new Random() );
 
 "dataA" and "dataB" may be either arrays of lists of doubles.
 
@@ -66,8 +65,8 @@ The fisher p value test followed by the odds ratio effect size test is used.
 Modified Vargha Delaney-
 This allows the application of a modified version of the Vargha Delaney effect size test which is customised to the problem 
 so that only differences which can't be regarded as trivial or "noise" are taken into account (Neumann2015). 
-To use this create a new class extending astraiea.layer1.effectsize.varghaDelaney.VDmod. 
-Objects of this type can then be passed in as a parameter in Layer1.compare(...) or Layer2.run(...) methods. 
+To use this create a new class extending astraiea.layer1.effectsize.ModifiedVarghaDelaney 
+Objects of this type can then be passed in as a parameter in Layer1.compare(...) or astraiea.layer2.Layer2.run(...) methods. 
 
 ==============Layer 2==================================
 
@@ -81,7 +80,7 @@ Layer2.run(gens, double significanceThreshold, boolean brunnerMunzel, boolean pa
 This contains a set of SetOfExperiments objects, each of which is responsible for running one generator.
 See the Javadoc for more information.
 The SetOfComparisons object is where options for how the comparison are to be carried out are applied
-(e.g. whether and all against all or an all against one comparison is needed and whether any adjustment for multiple comparisons, such as BonFerroni, is to be applied).
+(e.g. whether an all against all or an all against one comparison is needed and whether any adjustment for multiple comparisons, such as BonFerroni, is to be applied).
 
 2.2 OTHER COMPARISONS
 
@@ -89,9 +88,9 @@ Censored data strategies:
 Censored data means that a result is classed as true or false based on an observation taken at whichever point the test finished.
 This is, in some sense, an arbitrary judgement. 
 For this reason, Arcuri and Briand's paper suggests various alternative tests to be carried out after the initial censored test.
-Instructions for how censoring is to be carried out are passed as a parameter to Layer2 using an object of type CensoringStrategy.
-call method runCensored(...) unless using timeseries generators, in which case a CensoringStrategy parameter is included in the default run(...) method.
-The reason for this is because when Censoring is used for non timeseries generators only dichotomous tests will be carried out and this places limits
+Instructions for how censoring is to be carried out are passed as a parameter to Layer2 using an object of type astraiea.layer2.strategies.CensoringStrategy.
+Call method runCensored(...) unless using timeseries generators, in which case a CensoringStrategy parameter is included in the default run(...) method.
+The reason for this is because when censoring is used for non timeseries generators only dichotomous tests will be carried out and this places limits
 on which options can be set (e.g. Brunner Munzel is no longer possible). 
 When a timeseries is used there is an option for carrying out non dichotomous tests on the length of time that each algorithm took to reach a passing value
 and so all of these options are available. See the documentation for Layer2 for more details.
@@ -108,12 +107,20 @@ This is when one generator is invoked on multiple instances of a problem.
 This is dealt with in Astraiea in the manner recommended by Arcuri and Briand. 
 For each set of runs on one artefact the median is taken, thus producing one value for each artefact. 
 It is these values which are then used in statistical testing in the normal manner.
-To ensure that this process is carried out, any generator featuring multiple artefacts should be of type extends ArtefactGenerator
-or at least of type Generator<MultipleArtefactOutput>. 
-How the repeats of an artefact actually take place should be implemented in a class implementing ArtefactGenerator.
+To ensure that this process is carried out, any generator featuring multiple artefacts should be of a type implementing astraiea.layer2.generators.artefact.ArtefactGenerator
+or at least of type astraiea.layer2.generators.Generator<MultipleArtefactOutput>. 
+How the repeats of an artefact actually take place should be implemented in ArtefactGenerator's subclass.
 
 Comparisons of more than 2 generators:
-This is possible through an object of type SetOfComparisons. 
+This is possible through an object of type astraiea.layer2.experiments.SetOfComparisons. 
 The recommendation of Arcuri and Briand is that all p values should be printed instead of using adjustments such as Hochberg and Bonferroni.
 All p values from every comparison are output whether or not an adjustment is used but an adjustment can be used through a parameter of type astraiea.layer2.MultiTestAdjustment
 passed to the constructor of SetOfComparisons.
+
+====================References====================
+
+Arcuri, Andrea, and Lionel Briand. "A hitchhiker's guide to statistical tests for assessing randomized algorithms in software engineering." Software Testing, Verification and Reliability 24.3, 2014. 219-250.
+
+Neumann, Geoffrey, Mark Harman, and Simon Poulding. "Transformed Vargha-Delaney Effect Size." Search-Based Software Engineering. Springer International Publishing, 2015. 318-324.
+APA	
+

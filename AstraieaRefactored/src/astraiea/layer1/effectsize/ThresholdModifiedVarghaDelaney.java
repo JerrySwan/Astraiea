@@ -61,10 +61,10 @@ public class ThresholdModifiedVarghaDelaney extends ModifiedVarghaDelaney {
 
 	@Override
 	public String describe() {
-		return (Double.isFinite(thresholdUp) ? 
+		return (!Double.isInfinite(thresholdUp) ? 
 			"\nAll results below " + thresholdUp + " are converted to 0." :
 				"") + 
-			(Double.isFinite(thresholdDown) ? 
+			(!Double.isInfinite(thresholdDown) ? 
 			"\nAll results above " + thresholdDown + " are converted to infinity." :
 				"");
 	}

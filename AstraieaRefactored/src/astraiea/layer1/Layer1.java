@@ -63,17 +63,17 @@ public final class Layer1 {
 	/**
 	 * Compares two sets of unpaired, non dichotomous results (dataA and dataB).
 	 * 
-	 * @param dataA
-	 * @param dataB
-	 * @param significanceThreshold
-	 * @param brunnerMunzel
-	 * @param ran
-	 * @return
+	 * @param dataA first data set
+	 * @param dataB second data set
+	 * @param significanceThreshold threshold above which data is considered to be significant
+	 * @param brunnerMunzel if the brunner munzel test is to be used
+	 * @param ran random number generator for use in calculating confidence intervals
+	 * @return object holding the effect size and significance results
 	 */
-	
 	public static Result compare( List< Double > dataA, List< Double > dataB, 
 			double significanceThreshold, 
-			boolean brunnerMunzel, Random ran ) {
+			boolean brunnerMunzel, 
+			Random ran ) {
 		
 		double [] dA = Doubles.toArray( dataA );
 		double [] dB = Doubles.toArray( dataB );		
@@ -91,8 +91,9 @@ public final class Layer1 {
 
 
 	/**	
-	 * //FIXME Refactoring 27/11 - new method. Wraps doubles in a simple subclass of GeneratorOutput.
 	 *	Layer1 is now based on GeneratorOutput but this allows support for using it just with arrays of doubles.
+	 * @param dA array of doubles to be transformed
+	 * @return list of GeneratorOutput objects dA transformed into
 	 */
 	private static List<GeneratorOutput> wrap(double[] dA) {
 		List<GeneratorOutput> list = new ArrayList<GeneratorOutput>();
@@ -107,18 +108,19 @@ public final class Layer1 {
 	/**
 	 * Compares two sets of unpaired, non dichotomous results (dataA and dataB).
 	 * 
-	 * @param dataA
-	 * @param dataB
-	 * @param significanceThreshold
-	 * @param brunnerMunzel
-	 * @param ran
+	 * @param dataA first data set
+	 * @param dataB second data set
+	 * @param significanceThreshold threshold above which data is considered to be significant
+	 * @param brunnerMunzel if the brunner munzel test is to be used
+	 * @param ran random number generator for use in calculating confidence intervals
 	 * @param vdmod allows modification of the comparison function used in Vargha Delaney
-	 * @return
+	 * @return object holding the effect size and significance results
 	 */
-	
 	public static Result compare( List< Double > dataA, List< Double > dataB, 
 			double significanceThreshold, 
-			boolean brunnerMunzel, Random ran, ModifiedVarghaDelaney vdmod ) {
+			boolean brunnerMunzel, 
+			Random ran,
+			ModifiedVarghaDelaney vdmod ) {
 		
 		double [] dA = Doubles.toArray( dataA );
 		double [] dB = Doubles.toArray( dataB );		
@@ -136,17 +138,19 @@ public final class Layer1 {
 	/**
 	 * Compares two sets of unpaired, non dichotomous results (dataA and dataB).
 	 * 
-	 * @param dataA
-	 * @param dataB
-	 * @param significanceThreshold
-	 * @param brunnerMunzel
-	 * @param ran
-	 * @return
+	 * @param dataA first data set
+	 * @param dataB second data set
+	 * @param significanceThreshold threshold above which data is considered to be significant
+	 * @param brunnerMunzel if the brunner munzel test is to be used
+	 * @param ran random number generator for use in calculating confidence intervals
+	 * @return object holding the effect size and significance results
+	 * 
 	 */
-	
-	public static Result compare( double[] dataA, double[] dataB, 
+	public static Result compare( double[] dataA, 
+			double[] dataB, 
 			double significanceThreshold, 
-			boolean brunnerMunzel,Random ran) {		
+			boolean brunnerMunzel,
+			Random ran) {		
 		
 		return compareImpl( 
 				wrap(dataA),
@@ -160,15 +164,14 @@ public final class Layer1 {
 	/**
 	 * Compares two sets of unpaired, non dichotomous results (dataA and dataB).
 	 * 
-	 * @param dataA
-	 * @param dataB
-	 * @param significanceThreshold
-	 * @param brunnerMunzel
-	 * @param ran
+	 * @param dataA first data set
+	 * @param dataB second data set
+	 * @param significanceThreshold threshold above which data is considered to be significant
+	 * @param brunnerMunzel if the brunner munzel test is to be used
+	 * @param ran random number generator for use in calculating confidence intervals
 	 * @param vdmod allows modification of the comparison function used in Vargha Delaney
-	 * @return
+	 * @return object holding the effect size and significance results
 	 */
-	
 	public static Result compare( double[] dataA, double[] dataB, 
 			double significanceThreshold, 
 			boolean brunnerMunzel,Random ran, ModifiedVarghaDelaney vdmod ) {		
@@ -185,20 +188,25 @@ public final class Layer1 {
 	/**
 	 * Compares two sets of unpaired, non dichotomous results (dataA and dataB).
 	 * 
-	 * @param dataA
-	 * @param dataB
-	 * @param significanceThreshold
-	 * @param brunnerMunzel
-	 * @param ran
+	 * @param dataA first data set
+	 * @param dataB second data set
+	 * @param significanceThreshold threshold above which data is considered to be significant
+	 * @param brunnerMunzel if the brunner munzel test is to be used
+	 * @param ran random number generator for use in calculating confidence intervals
 	 * @param dataAName user given name for dataA 
 	 * @param dataBName user given name for dataB
 	 * @param vdmod allows modification of the comparison function used in Vargha Delaney
-	 * @return
+	 * @return object holding the effect size and significance results
 	 */
 	
-	public static Result compare( List< Double > dataA, List< Double > dataB, 
+	public static Result compare( List< Double > dataA, 
+			List< Double > dataB, 
 			double significanceThreshold, 
-			boolean brunnerMunzel, Random ran, String dataAName, String dataBName, ModifiedVarghaDelaney vdmod) {
+			boolean brunnerMunzel, 
+			Random ran, 
+			String dataAName, 
+			String dataBName, 
+			ModifiedVarghaDelaney vdmod) {
 		
 		double [] dA = Doubles.toArray( dataA );
 		double [] dB = Doubles.toArray( dataB );		
@@ -215,19 +223,22 @@ public final class Layer1 {
 	/**
 	 * Compares two sets of unpaired, non dichotomous results (dataA and dataB).
 	 * 
-	 * @param dataA
-	 * @param dataB
-	 * @param significanceThreshold
-	 * @param brunnerMunzel
-	 * @param ran
+	 * @param dataA first data set
+	 * @param dataB second data set
+	 * @param significanceThreshold threshold above which data is considered to be significant
+	 * @param brunnerMunzel if the brunner munzel test is to be used
+	 * @param ran random number generator for use in calculating confidence intervals
 	 * @param dataAName user given name for dataA 
 	 * @param dataBName user given name for dataB
-	 * @return
+	 * @return object holding the effect size and significance results
 	 */
-	
-	public static Result compare( List< Double > dataA, List< Double > dataB, 
+	public static Result compare( List< Double > dataA,
+			List< Double > dataB, 
 			double significanceThreshold, 
-			boolean brunnerMunzel, Random ran, String dataAName, String dataBName) {
+			boolean brunnerMunzel, 
+			Random ran, 
+			String dataAName, 
+			String dataBName) {
 		
 		double [] dA = Doubles.toArray( dataA );
 		double [] dB = Doubles.toArray( dataB );		
@@ -244,20 +255,24 @@ public final class Layer1 {
 	/**
 	 * Compares two sets of unpaired, non dichotomous results (dataA and dataB).
 	 * 
-	 * @param dataA
-	 * @param dataB
-	 * @param significanceThreshold
-	 * @param brunnerMunzel
-	 * @param ran
+	 * @param dataA first data set
+	 * @param dataB second data set
+	 * @param significanceThreshold threshold above which data is considered to be significant
+	 * @param brunnerMunzel if the brunner munzel test is to be used
+	 * @param ran random number generator for use in calculating confidence intervals
 	 * @param dataAName user given name for dataA 
 	 * @param dataBName user given name for dataB
 	 * @param vdmod allows modification of the comparison function used in Vargha Delaney
-	 * @return
+	 * @return object holding the effect size and significance results
 	 */
-	
-	public static Result compare( double[] dataA, double[] dataB, 
+	public static Result compare( double[] dataA, 
+			double[] dataB, 
 			double significanceThreshold, 
-			boolean brunnerMunzel,Random ran, String dataAName, String dataBName, ModifiedVarghaDelaney vdmod) {		
+			boolean brunnerMunzel,
+			Random ran, 
+			String dataAName, 
+			String dataBName, 
+			ModifiedVarghaDelaney vdmod) {		
 		
 		return compareImpl( 
 				wrap(dataA),
@@ -271,19 +286,22 @@ public final class Layer1 {
 	/**
 	 * Compares two sets of unpaired, non dichotomous results (dataA and dataB).
 	 * 
-	 * @param dataA
-	 * @param dataB
-	 * @param significanceThreshold
-	 * @param brunnerMunzel
-	 * @param ran
+	 * @param dataA first data set
+	 * @param dataB second data set
+	 * @param significanceThreshold threshold above which data is considered to be significant
+	 * @param brunnerMunzel if the brunner munzel test is to be used
+	 * @param ran random number generator for use in calculating confidence intervals
 	 * @param dataAName user given name for dataA 
 	 * @param dataBName user given name for dataB
-	 * @return
+	 * @return object holding the effect size and significance results
 	 */
-	
-	public static Result compare( double[] dataA, double[] dataB, 
+	public static Result compare( double[] dataA, 
+			double[] dataB, 
 			double significanceThreshold, 
-			boolean brunnerMunzel,Random ran, String dataAName, String dataBName) {		
+			boolean brunnerMunzel,
+			Random ran, 
+			String dataAName, 
+			String dataBName) {		
 		
 		return compareImpl(
 				wrap(dataA),
@@ -297,13 +315,13 @@ public final class Layer1 {
 	/**	
 	 * Compares two sets of paired, non dichotomous results (dataA and dataB).
 	 * 
-	 * @param dataA
-	 * @param dataB
-	 * @param significanceThreshold
-	 * @return
+	 * @param dataA first data set
+	 * @param dataB second data set
+	 * @param significanceThreshold threshold above which data is considered to be significant
+	 * @return object holding the effect size and significance results
 	 */
-	
-	public static Result comparePaired( double[] dataA, double[] dataB, 
+	public static Result comparePaired( double[] dataA, 
+			double[] dataB, 
 			double significanceThreshold) {
 		return compareImpl( 
 				wrap(dataA),
@@ -317,13 +335,13 @@ public final class Layer1 {
 	/**	
 	 * Compares two sets of paired, non dichotomous results (dataA and dataB).
 	 * 
-	 * @param dataA
-	 * @param dataB
-	 * @param significanceThreshold
-	 * @return
+	 * @param dataA first data set
+	 * @param dataB second data set
+	 * @param significanceThreshold threshold above which data is considered to be significant
+	 * @return object holding the effect size and significance results
 	 */
-	
-	public static Result comparePaired( List< Double > dataA, List< Double > dataB, 
+	public static Result comparePaired( List< Double > dataA, 
+			List< Double > dataB, 
 			double significanceThreshold) {
 		
 		double [] dA = Doubles.toArray( dataA );
@@ -341,16 +359,18 @@ public final class Layer1 {
 	/**	
 	 * Compares two sets of paired, non dichotomous results (dataA and dataB).
 	 * 
-	 * @param dataA
-	 * @param dataB
-	 * @param significanceThreshold
+	 * @param dataA first data set
+	 * @param dataB second data set
+	 * @param significanceThreshold threshold above which data is considered to be significant
 	 * @param dataAName user given name for dataA 
 	 * @param dataBName user given name for dataB
-	 * @return
+	 * @return object holding the effect size and significance results
 	 */
-	
-	public static Result comparePaired( double[] dataA, double[] dataB, 
-			double significanceThreshold, String dataAName, String dataBName) {
+	public static Result comparePaired( double[] dataA, 
+			double[] dataB, 
+			double significanceThreshold, 
+			String dataAName, 
+			String dataBName) {
 		return compareImpl( 
 				wrap(dataA),
 				wrap(dataB),
@@ -363,16 +383,19 @@ public final class Layer1 {
 	/**	
 	 * Compares two sets of paired, non dichotomous results (dataA and dataB).
 	 * 
-	 * @param dataA
-	 * @param dataB
-	 * @param significanceThreshold
+	 * @param dataA first data set
+	 * @param dataB second data set
+	 * @param significanceThreshold threshold above which data is considered to be significant
 	 * @param dataAName user given name for dataA 
 	 * @param dataBName user given name for dataB
-	 * @return
+	 * @return object holding the effect size and significance results
 	 */
 	
-	public static Result comparePaired( List< Double > dataA, List< Double > dataB, 
-			double significanceThreshold,String dataAName, String dataBName) {
+	public static Result comparePaired( List< Double > dataA, 
+			List< Double > dataB, 
+			double significanceThreshold,
+			String dataAName, 
+			String dataBName) {
 		
 		double [] dA = Doubles.toArray( dataA );
 		double [] dB = Doubles.toArray( dataB );
@@ -390,15 +413,16 @@ public final class Layer1 {
 	/**	
 	 * Compares two sets of paired, non dichotomous results (dataA and dataB).
 	 * 
-	 * @param dataA
-	 * @param dataB
-	 * @param significanceThreshold
-	 * @param vdmod 
-	 * @return
+	 * @param dataA first data set
+	 * @param dataB second data set
+	 * @param significanceThreshold threshold above which data is considered to be significant
+	 * @param vdmod allows modification of the comparison function used in Vargha Delaney
+	 * @return object holding the effect size and significance results
 	 */
-	
-	public static Result comparePaired( double[] dataA, double[] dataB, 
-			double significanceThreshold, ModifiedVarghaDelaney vdmod) {
+	public static Result comparePaired( double[] dataA, 
+			double[] dataB, 
+			double significanceThreshold, 
+			ModifiedVarghaDelaney vdmod) {
 		return compareImpl( 
 				wrap(dataA),
 				wrap(dataB),
@@ -411,15 +435,16 @@ public final class Layer1 {
 	/**	
 	 * Compares two sets of paired, non dichotomous results (dataA and dataB).
 	 * 
-	 * @param dataA
-	 * @param dataB
-	 * @param significanceThreshold
-	 * @param vdmod 
-	 * @return
+	 * @param dataA first data set
+	 * @param dataB second data set
+	 * @param significanceThreshold threshold above which data is considered to be significant
+	 * @param vdmod allows modification of the comparison function used in Vargha Delaney
+	 * @return object holding the effect size and significance results
 	 */
-	
-	public static Result comparePaired( List< Double > dataA, List< Double > dataB, 
-			double significanceThreshold, ModifiedVarghaDelaney vdmod) {
+	public static Result comparePaired( List< Double > dataA, 
+			List< Double > dataB, 
+			double significanceThreshold, 
+			ModifiedVarghaDelaney vdmod) {
 		
 		double [] dA = Doubles.toArray( dataA );
 		double [] dB = Doubles.toArray( dataB );
@@ -436,15 +461,14 @@ public final class Layer1 {
 	/**	
 	 * Compares two sets of paired, non dichotomous results (dataA and dataB).
 	 * 
-	 * @param dataA
-	 * @param dataB
-	 * @param significanceThreshold
+	 * @param dataA first data set
+	 * @param dataB second data set
+	 * @param significanceThreshold threshold above which data is considered to be significant
 	 * @param dataAName user given name for dataA 
 	 * @param dataBName user given name for dataB
-	 * @param vdmod 
-	 * @return
+	 * @param vdmod allows modification of the comparison function used in Vargha Delaney
+	 * @return object holding the effect size and significance results
 	 */
-	
 	public static Result comparePaired( double[] dataA, double[] dataB, 
 			double significanceThreshold, String dataAName, String dataBName, ModifiedVarghaDelaney vdmod) {
 		return compareImpl( 
@@ -459,17 +483,21 @@ public final class Layer1 {
 	/**	
 	 * Compares two sets of paired, non dichotomous results (dataA and dataB).
 	 * 
-	 * @param dataA
-	 * @param dataB
-	 * @param significanceThreshold
+	 * @param dataA first data set
+	 * @param dataB second data set
+	 * @param significanceThreshold threshold above which data is considered to be significant
 	 * @param dataAName user given name for dataA 
 	 * @param dataBName user given name for dataB
-	 * @param vdmod 
-	 * @return
+	 * @param vdmod allows modification of the comparison function used in Vargha Delaney
+	 * @return object holding the effect size and significance results
 	 */
 	
-	public static Result comparePaired( List< Double > dataA, List< Double > dataB, 
-			double significanceThreshold,String dataAName, String dataBName, ModifiedVarghaDelaney vdmod) {
+	public static Result comparePaired( List< Double > dataA, 
+			List< Double > dataB, 
+			double significanceThreshold,
+			String dataAName, 
+			String dataBName,
+			ModifiedVarghaDelaney vdmod) {
 		
 		double [] dA = Doubles.toArray( dataA );
 		double [] dB = Doubles.toArray( dataB );
@@ -487,15 +515,16 @@ public final class Layer1 {
 	/**	
 	 * Compares two sets of paired, dichotomous results (dataA and dataB).
 	 * 
-	 * @param dataA
-	 * @param dataB
-	 * @param significanceThreshold
-	 * @param paired
-	 * @return
+	 * @param dataA first data set
+	 * @param dataB second data set
+	 * @param significanceThreshold threshold above which data is considered to be significant
+	 * @param paired if the data is paired
+	 * @return object holding the effect size and significance results
 	 */
-	
-	public static Result compareCensored( List< Boolean > dataA, List< Boolean > dataB, 
-			double significanceThreshold, boolean paired) {
+	public static Result compareCensored( List< Boolean > dataA, 
+			List< Boolean > dataB, 
+			double significanceThreshold, 
+			boolean paired) {
 		
 		boolean [] dA = Booleans.toArray( dataA );
 		boolean [] dB = Booleans.toArray( dataB );		
@@ -508,18 +537,20 @@ public final class Layer1 {
 	/**	
 	 * Compares two sets of paired, dichotomous results (dataA and dataB).
 	 * 
-	 * @param dataA
-	 * @param dataB
-	 * @param significanceThreshold
-	 * @param paired
+	 * @param dataA first data set
+	 * @param dataB second data set
+	 * @param significanceThreshold threshold above which data is considered to be significant
+	 * @param paired if the data is paired
 	 * @param dataAName user given name for dataA 
 	 * @param dataBName user given name for dataB
-	 * @return
+	 * @return object holding the effect size and significance results
 	 */
-	
-	public static Result compareCensored( List< Boolean > dataA, List< Boolean > dataB, 
-			double significanceThreshold, boolean paired,
-			String dataAName, String dataBName ) {
+	public static Result compareCensored( List< Boolean > dataA, 
+			List< Boolean > dataB, 
+			double significanceThreshold,
+			boolean paired,
+			String dataAName, 
+			String dataBName ) {
 		
 		boolean [] dA = Booleans.toArray( dataA );
 		boolean [] dB = Booleans.toArray( dataB );
@@ -532,15 +563,16 @@ public final class Layer1 {
 	/**	
 	 * Compares two sets of paired, dichotomous results (dataA and dataB).
 	 * 
-	 * @param dataA
-	 * @param dataB
-	 * @param significanceThreshold
-	 * @param paired 
-	 * @return
+	 * @param dataA first data set
+	 * @param dataB second data set
+	 * @param significanceThreshold threshold above which data is considered to be significant
+	 * @param paired if the data is paired
+	 * @return object holding the effect size and significance results
 	 */
-	
-	public static Result compareCensored( boolean[] dataA, boolean[] dataB, 
-			double significanceThreshold, boolean paired ) {		
+	public static Result compareCensored( boolean[] dataA, 
+			boolean[] dataB, 
+			double significanceThreshold, 
+			boolean paired ) {		
 		
 		return compareCensoredImpl( dataA, dataB, 
 				significanceThreshold, paired,
@@ -550,18 +582,21 @@ public final class Layer1 {
 	/**	
 	 * Compares two sets of paired, dichotomous results (dataA and dataB).
 	 * 
-	 * @param dataA
-	 * @param dataB
-	 * @param significanceThreshold
-	 * @param paired
+	 * @param dataA first data set
+	 * @param dataB second data set
+	 * @param significanceThreshold threshold above which data is considered to be significant
+	 * @param paired if the data is paired
 	 * @param dataAName user given name for dataA 
 	 * @param dataBName user given name for dataB
-	 * @return
+	 * @return object holding the effect size and significance results
 	 */
 	
-	public static Result compareCensored( boolean[] dataA, boolean[] dataB, 
+	public static Result compareCensored( boolean[] dataA, 
+			boolean[] dataB, 
 			double significanceThreshold, 
-			String dataAName, String dataBName, boolean paired ) {
+			String dataAName, 
+			String dataBName, 
+			boolean paired ) {
 		return compareCensoredImpl( dataA, dataB, 
 				significanceThreshold, paired,
 				dataAName, dataBName);
@@ -570,17 +605,20 @@ public final class Layer1 {
 	/**	
 	 * Compares two sets of paired, dichotomous results (dataA and dataB), with a threshold.
 	 * 
-	 * @param dataA
-	 * @param dataB
+	 * @param dataA first data set
+	 * @param dataB second data set
 	 * @param censorThreshold threshold such that data above it or equal to it is said to have "passed"
 	 * and given a "true" boolean value, else "false".
-	 * @param significanceThreshold
-	 * @param paired 
-	 * @return
+	 * @param significanceThreshold threshold above which data is considered to be significant
+	 * @param paired if the data is paired
+	 * @return object holding the effect size and significance results
 	 */
 	
-	public static Result compareCensored( List< Double > dataA, List< Double > dataB, double censorThreshold, 
-			double significanceThreshold, boolean paired ) {
+	public static Result compareCensored( List< Double > dataA, 
+			List< Double > dataB, 
+			double censorThreshold, 
+			double significanceThreshold, 
+			boolean paired ) {
 		
 		boolean [] dA = new boolean[dataA.size()];
 		boolean [] dB = new boolean[dataB.size()];
@@ -604,20 +642,23 @@ public final class Layer1 {
 	/**	
 	 * Compares two sets of paired, dichotomous results (dataA and dataB), with a threshold.
 	 * 
-	 * @param dataA
-	 * @param dataB
+	 * @param dataA first data set
+	 * @param dataB second data set
 	 * @param censorThreshold threshold such that data above it or equal to it is said to have "passed"
 	 * and given a "true" boolean value, else "false".
-	 * @param significanceThreshold
+	 * @param significanceThreshold threshold above which data is considered to be significant
 	 * @param dataAName user given name for dataA 
 	 * @param dataBName user given name for dataB
-	 * @param paired 
-	 * @return
+	 * @param paired if the data is paired
+	 * @return object holding the effect size and significance results
 	 */
-	
-	public static Result compareCensored( List< Double > dataA, List< Double > dataB, double censorThreshold, 
+	public static Result compareCensored( List< Double > dataA, 
+			List< Double > dataB, 
+			double censorThreshold, 
 			double significanceThreshold, 
-			String dataAName, String dataBName, boolean paired ) {
+			String dataAName, 
+			String dataBName, 
+			boolean paired ) {
 		
 		boolean [] dA = new boolean[dataA.size()];
 		boolean [] dB = new boolean[dataB.size()];
@@ -636,16 +677,19 @@ public final class Layer1 {
 	/**	
 	 * Compares two sets of paired, dichotomous results (dataA and dataB), with a threshold.
 	 * 
-	 * @param dataA
-	 * @param dataB
+	 * @param dataA first data set
+	 * @param dataB second data set
 	 * @param censorThreshold threshold such that data above it or equal to it is said to have "passed"
 	 * and given a "true" boolean value, else "false".
-	 * @param significanceThreshold
-	 * @param paired 
-	 * @return
+	 * @param significanceThreshold threshold above which data is considered to be significant
+	 * @param paired if the data is paired
+	 * @return object holding the effect size and significance results
 	 */
-	public static Result compareCensored( double[] dataA, double[] dataB, double censorThreshold, 
-			double significanceThreshold, boolean paired ) {		
+	public static Result compareCensored( double[] dataA, 
+			double[] dataB, 
+			double censorThreshold, 
+			double significanceThreshold, 
+			boolean paired ) {		
 		
 		boolean [] dA = new boolean[dataA.length];
 		boolean [] dB = new boolean[dataB.length];
@@ -663,15 +707,15 @@ public final class Layer1 {
 	/**	
 	 * Compares two sets of paired, dichotomous results (dataA and dataB), with a threshold.
 	 * 
-	 * @param dataA
-	 * @param dataB
+	 * @param dataA first data set
+	 * @param dataB second data set
 	 * @param censorThreshold threshold such that data above it or equal to it is said to have "passed"
 	 * and given a "true" boolean value, else "false".
-	 * @param significanceThreshold
+	 * @param significanceThreshold threshold above which data is considered to be significant
 	 * @param dataAName user given name for dataA 
 	 * @param dataBName user given name for dataB
-	 * @param paired 
-	 * @return
+	 * @param paired if the data is paired
+	 * @return object holding the effect size and significance results
 	 */
 	public static Result compareCensored( 
 			double[] dataA, 
@@ -701,23 +745,28 @@ public final class Layer1 {
 	 * and then calls the main compare method to actually do the comparison.
 	 * 
 	 * 
-	 * @param dataA
-	 * @param dataB
-	 * @param significanceThreshold
-	 * @param brunnerMunzel
-	 * @param paired
+	 * @param dataA first data set
+	 * @param dataB second data set
+	 * @param significanceThreshold threshold above which data is considered to be significant
+	 * @param brunnerMunzel if the brunner munzel test is to be used
+	 * @param paired if the data is paired
 	 * @param censored if true will convert into boolean list, otherwise into double list
 	 * @param dataAName user given name for dataA 
 	 * @param dataBName user given name for dataB
-	 * @param ran 
+	 * @param ran random number generator for use in calculating confidence intervals 
 	 * @param vdmod allows modification of the comparison function used in Vargha Delaney
-	 * @return
+	 * @return object holding the effect size and significance results
 	 */
-	
 	public static Result comparePair(List<Pair<Double, Boolean>> dataA,
-			List<Pair<Double, Boolean>> dataB, double significanceThreshold,
-			boolean brunnerMunzel, boolean paired, boolean censored,
-			String dataAName, String dataBName, Random ran, ModifiedVarghaDelaney vdmod) {
+			List<Pair<Double, Boolean>> dataB, 
+			double significanceThreshold,
+			boolean brunnerMunzel, 
+			boolean paired, 
+			boolean censored,
+			String dataAName, 
+			String dataBName, 
+			Random ran, 
+			ModifiedVarghaDelaney vdmod) {
 		
 			//convert to two dichotomous arrays of booleans
 			if(censored){
@@ -776,11 +825,11 @@ public final class Layer1 {
 	 * 
 	 * @param dataA array of data
 	 * @param dataB single data point
-	 * @param significanceThreshold
-	 * @return
+	 * @param significanceThreshold threshold above which data is considered to be significant
+	 * @return object holding the effect size and significance results
 	 */
-	
-	public static Result compareOneSample( double[] dataA, double dataB, 
+	public static Result compareOneSample( double[] dataA, 
+			double dataB, 
 			double significanceThreshold) {		
 		
 		return compareOneSampleImpl( dataA, dataB, 
@@ -792,11 +841,11 @@ public final class Layer1 {
 	 * 
 	 * @param dataA array of data
 	 * @param dataB single data point
-	 * @param significanceThreshold
-	 * @return
+	 * @param significanceThreshold threshold above which data is considered to be significant
+	 * @return object holding the effect size and significance results
 	 */
-	
-	public static Result compareOneSample( List<Double> dataA, double dataB, 
+	public static Result compareOneSample( List<Double> dataA, 
+			double dataB, 
 			double significanceThreshold) {		
 		return compareOneSampleImpl( Doubles.toArray( dataA ), dataB, 
 				significanceThreshold, "data stochastic", "data deterministic");
@@ -809,11 +858,14 @@ public final class Layer1 {
 	 * @param dataB single data point
 	 * @param nameA user given name for dataA 
 	 * @param nameB user given name for dataB
-	 * @param significanceThreshold
-	 * @return
+	 * @param significanceThreshold threshold above which data is considered to be significant
+	 * @return object holding the effect size and significance results
 	 */
-	public static Result compareOneSample( double[] dataA, double dataB, 
-			double significanceThreshold, String nameA, String nameB) {		
+	public static Result compareOneSample( double[] dataA, 
+			double dataB, 
+			double significanceThreshold, 
+			String nameA, 
+			String nameB) {		
 		return compareOneSampleImpl( dataA, dataB, 
 				significanceThreshold, nameA, nameB);
 	}
@@ -825,11 +877,14 @@ public final class Layer1 {
 	 * @param dataB single data point
 	 * @param nameA user given name for dataA 
 	 * @param nameB user given name for dataB
-	 * @param significanceThreshold
-	 * @return
+	 * @param significanceThreshold threshold above which data is considered to be significant
+	 * @return object holding the effect size and significance results
 	 */
-	public static Result compareOneSample( List<Double> dataA, double dataB, 
-			double significanceThreshold, String nameA, String nameB) {		
+	public static Result compareOneSample( List<Double> dataA, 
+			double dataB, 
+			double significanceThreshold, 
+			String nameA, 
+			String nameB) {		
 		return compareOneSampleImpl( Doubles.toArray( dataA ), dataB, 
 				significanceThreshold, nameA, nameB);
 	}
@@ -985,14 +1040,16 @@ public final class Layer1 {
 	 * 
 	 * @param dataA array of data
 	 * @param dataB single data point
-	 * @param significanceThreshold
+	 * @param significanceThreshold threshold above which data is considered to be significant
 	 * @param dataAName user given name for dataA
 	 * @param dataBName user given name for dataB
-	 * @return
+	 * @return object holding the effect size and significance results
 	 */
-	
-	private static Result compareOneSampleImpl( double[] dataA, double dataB, 
-			double significanceThreshold, String dataAName, String dataBName ) {
+	private static Result compareOneSampleImpl( double[] dataA, 
+			double dataB, 
+			double significanceThreshold, 
+			String dataAName, 
+			String dataBName ) {
 		LOGGER.info( "Statistical testing was carried out as follows: " );
 		LOGGER.info( LaTeXLogFormatter.itemizeFormat( describeOptions(significanceThreshold, false, false, dataA.length, 1, dataAName, dataBName,false, null ) ) );
 		
@@ -1006,7 +1063,52 @@ public final class Layer1 {
 
 		return res;
 	}
-
+	
+	/**
+	 * Called from Layer2 to compare lists of GeneratorOutputs.
+	 * 
+	 * @param dataA first data set, as a list of GeneratorOutput objects
+	 * @param dataB second data set, as a list of GeneratorOutput objects
+	 * @param significanceThreshold threshold above which data is considered to be significant
+	 * @param brunnerMunzel if the brunner munzel test is to be used
+	 * @param paired if the data is paired
+	 * @param gen1Name name of second data set for user output
+	 * @param gen2Name name of first data set for user output
+	 * @param random random number generator for use in calculating confidence intervals
+	 * @param vdmod allows modification of the comparison function used in Vargha Delaney
+	 * @return object holding the effect size and significance results
+	 */
+	public static<T extends GeneratorOutput> Result compare(
+			List<T> dataA, 
+			List<T> dataB, 
+			double significanceThreshold,
+			boolean brunnerMunzel, 
+			boolean paired, 
+			String gen1Name, 
+			String gen2Name, 
+			Random random,
+			ModifiedVarghaDelaney vdmod) {
+		
+		int size1 = dataA.size();
+		int size2 = dataB.size();
+		double[] dataAArr = new double[size1];
+		double[] dataBArr = new double[size2];
+		ListIterator<T> iter1 = dataA.listIterator();
+		ListIterator<T> iter2 = dataB.listIterator();
+		int i =0;
+		while(iter1.hasNext()){
+			dataAArr[i] = iter1.next().getValue();
+			i++;
+		}
+		i =0;
+		while(iter2.hasNext()){
+			dataBArr[i] = iter2.next().getValue();
+			i++;
+		}
+		
+		return compareImpl(dataA,dataB,dataAArr, dataBArr, significanceThreshold,brunnerMunzel,paired,gen1Name,
+				gen2Name,random,vdmod);
+	}	
 	
 	///////////////////////////////OUTPUT /////////////////////////////////////
 	
@@ -1066,52 +1168,6 @@ public final class Layer1 {
 		
 		return result;
 	}
-	
-	/**
-	 * FIXME Refactoring 27/11 - Called from Layer2 to compare lists of GeneratorOutputs.
-	 * 
-	 * @param dataA
-	 * @param dataB
-	 * @param significanceThreshold
-	 * @param brunnerMunzel
-	 * @param paired
-	 * @param gen1Name
-	 * @param gen2Name
-	 * @param random
-	 * @param vdmod
-	 * @return
-	 */
-	public static<T extends GeneratorOutput> Result compare(
-			List<T> dataA, 
-			List<T> dataB, 
-			double significanceThreshold,
-			boolean brunnerMunzel, 
-			boolean paired, 
-			String gen1Name, 
-			String gen2Name, 
-			Random random,
-			ModifiedVarghaDelaney vdmod) {
-		
-		int size1 = dataA.size();
-		int size2 = dataB.size();
-		double[] dataAArr = new double[size1];
-		double[] dataBArr = new double[size2];
-		ListIterator<T> iter1 = dataA.listIterator();
-		ListIterator<T> iter2 = dataB.listIterator();
-		int i =0;
-		while(iter1.hasNext()){
-			dataAArr[i] = iter1.next().getValue();
-			i++;
-		}
-		i =0;
-		while(iter2.hasNext()){
-			dataBArr[i] = iter2.next().getValue();
-			i++;
-		}
-		
-		return compareImpl(dataA,dataB,dataAArr, dataBArr, significanceThreshold,brunnerMunzel,paired,gen1Name,
-				gen2Name,random,vdmod);
-	}	
 }
 
 // End ///////////////////////////////////////////////////////////////

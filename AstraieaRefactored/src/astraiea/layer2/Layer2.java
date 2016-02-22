@@ -35,12 +35,12 @@ public final class Layer2 {
 	 * Running with censoring with datapoint generators without multiple artefacts.
 	 * See runAllImpl for an explanation of the parameters.
 	 * 
-	 * @param gens
-	 * @param significanceThreshold
-	 * @param paired
-	 * @param incr
-	 * @param random
-	 * @return
+	 * @param gens set of generators being compared
+	 * @param significanceThreshold value above which a p value is considered significant
+	 * @param paired if data is paired
+	 * @param incr how runs should be repeated, whether only for a fixed amount of runs or whether it should increment
+	 * @param random random number generator for running the generators
+	 * @return object holding p value, effect size etc. for every comparison for which results are required
 	 */
 	public static<T extends GeneratorOutput> List<Result> runCensored(
 			SetOfComparisons<T> gens,
@@ -53,16 +53,15 @@ public final class Layer2 {
 
 	/**
 	 * Running without censoring with datapoint or timeseries generators without multiple artefacts.
-	 * FIXME Refactoring 27/11 - (without censoring makes no difference if datapoint or timeseries)
 	 * See runAllImpl for an explanation of the parameters.
 	 * 
-	 * @param gens
-	 * @param significanceThreshold
-	 * @param brunnerMunzel
-	 * @param paired
-	 * @param incr
-	 * @param random
-	 * @return
+	 * @param gens set of generators being compared
+	 * @param significanceThreshold value above which a p value is considered significant
+	 * @param brunnerMunzel if brunner munzel test is to be used
+	 * @param paired if data is paired
+	 * @param incr how runs should be repeated, whether only for a fixed amount of runs or whether it should increment
+	 * @param random random number generator for running the generators
+	 * @return object holding p value, effect size etc. for every comparison for which results are required
 	 */
 	public static<T extends GeneratorOutput> List<Result> run(
 			SetOfComparisons<T> gens,
@@ -75,19 +74,18 @@ public final class Layer2 {
 	}
 	
 	/** Running with or without censoring with datapoint or timeseries generators with multiple artefacts.
-	 * FIXME Refactoring 27/11 - When using multiple artefacts paired tests are a requirement.
 	 * This means that options such as Brunnermunzel which would otherwise (and in the case of datapoint)
 	 * be optional with no censoring are now never allowed anyway. The same method call is therefore 
 	 * used for both datapoint and timeseries censoring and no censoring- no difference in options.
 	 * 
 	 * See runAllImpl for an explanation of the parameters.
 	 * 
-	 * @param gens
-	 * @param significanceThreshold
-	 * @param incr
-	 * @param artefactRepeats
-	 * @param random
-	 * @return
+	 * @param gens set of generators being compared
+	 * @param significanceThreshold value above which a p value is considered significant
+	 * @param incr how runs should be repeated, whether only for a fixed amount of runs or whether it should increment
+	 * @param artefactRepeats if using multiple artefacts then each run constitutes a single artefact and this specifies how many repeats should be done with that artefact
+	 * @param random random number generator for running the generators
+	 * @return object holding p value, effect size etc. for every comparison for which results are required
 	 */
 	public static<T extends GeneratorOutput> List<Result> runArtefacts(
 			SetOfComparisons<MultipleArtefactOutput<T>> gens,
@@ -103,14 +101,14 @@ public final class Layer2 {
 	 * Running with timeseries without multiple artefacts.
 	 * See runAllImpl for an explanation of the parameters.	 * 
 	 * 
-	 * @param gens
-	 * @param significanceThreshold
-	 * @param brunnerMunzel
-	 * @param paired
-	 * @param cens
-	 * @param incr
-	 * @param random
-	 * @return
+	 * @param gens set of generators being compared
+	 * @param significanceThreshold value above which a p value is considered significant
+	 * @param brunnerMunzel if brunner munzel test is to be used
+	 * @param paired if data is paired
+	 * @param cens how data should be censored, if at all
+	 * @param incr how runs should be repeated, whether only for a fixed amount of runs or whether it should increment
+	 * @param random random number generator for running the generators
+	 * @return object holding p value, effect size etc. for every comparison for which results are required
 	 */
 	public static<T extends GeneratorOutput> List<Result> run(
 			SetOfComparisons<TimeseriesGeneratorOutput<T>> gens,
@@ -131,12 +129,12 @@ public final class Layer2 {
 	 * Running with censoring with datapoint generators without multiple artefacts.
 	 * See runAllImpl for an explanation of the parameters.
 	 * 
-	 * @param gens
-	 * @param significanceThreshold
-	 * @param paired
-	 * @param incr
-	 * @param random
-	 * @return
+	 * @param gens set of generators being compared
+	 * @param significanceThreshold value above which a p value is considered significant
+	 * @param paired if data is paired
+	 * @param incr how runs should be repeated, whether only for a fixed amount of runs or whether it should increment
+	 * @param random random number generator for running the generators
+	 * @return object holding p value, effect size etc. for every comparison for which results are required
 	 */
 	public static<T extends GeneratorOutput> List<Result> runCensored(
 			SetOfComparisons<T> gens,
@@ -151,13 +149,13 @@ public final class Layer2 {
 	/** Running without censoring with datapoint generators with multiple artefacts.
 	 * See runAllImpl for an explanation of the parameters.
 	 * 
-	 * @param gens
-	 * @param significanceThreshold
-	 * @param brunnerMunzel
-	 * @param incr
-	 * @param artefactRepeats
-	 * @param random
-	 * @return
+	 * @param gens set of generators being compared
+	 * @param significanceThreshold value above which a p value is considered significant
+	 * @param brunnerMunzel if brunner munzel test is to be used
+	 * @param incr how runs should be repeated, whether only for a fixed amount of runs or whether it should increment
+	 * @param artefactRepeats if using multiple artefacts then each run constitutes a single artefact and this specifies how many repeats should be done with that artefact
+	 * @param random random number generator for running the generators
+	 * @return object holding p value, effect size etc. for every comparison for which results are required
 	 */
 	public static<T extends GeneratorOutput> List<Result> runArtefacts(
 			SetOfComparisons<MultipleArtefactOutput<T>> gens,
@@ -172,13 +170,13 @@ public final class Layer2 {
 	/** Running with or without censoring with datapoint generators with multiple artefacts.
 	 * See runAllImpl for an explanation of the parameters.
 	 * 
-	 * @param gens
-	 * @param significanceThreshold
-	 * @param brunnerMunzel
-	 * @param incr
-	 * @param artefactRepeats
-	 * @param random
-	 * @return
+	 * @param gens set of generators being compared
+	 * @param significanceThreshold value above which a p value is considered significant
+	 * @param brunnerMunzel if brunner munzel test is to be used
+	 * @param incr how runs should be repeated, whether only for a fixed amount of runs or whether it should increment
+	 * @param artefactRepeats if using multiple artefacts then each run constitutes a single artefact and this specifies how many repeats should be done with that artefact
+	 * @param random random number generator for running the generators
+	 * @return object holding p value, effect size etc. for every comparison for which results are required
 	 */
 	public static<T extends GeneratorOutput> List<Result> runArtefacts(
 			SetOfComparisons<MultipleArtefactOutput<T>> gens,
@@ -195,14 +193,14 @@ public final class Layer2 {
 	 * Running with timeseries without multiple artefacts.
 	 * See runAllImpl for an explanation of the parameters.
 	 * 
-	 * @param gens
-	 * @param significanceThreshold
-	 * @param brunnerMunzel
-	 * @param paired
-	 * @param cens
-	 * @param incr
-	 * @param random
-	 * @return
+	 * @param gens set of generators being compared
+	 * @param significanceThreshold value above which a p value is considered significant
+	 * @param brunnerMunzel if brunner munzel test is to be used
+	 * @param paired if data is paired
+	 * @param cens how data should be censored, if at all
+	 * @param incr how runs should be repeated, whether only for a fixed amount of runs or whether it should increment
+	 * @param random random number generator for running the generators
+	 * @return object holding p value, effect size etc. for every comparison for which results are required
 	 */
 	public static<T extends GeneratorOutput> List<Result> run(
 			SetOfComparisons<TimeseriesGeneratorOutput<T>> gens,
@@ -217,7 +215,7 @@ public final class Layer2 {
 	}
 
 	
-	/**FIXME Refactoring 27/11 - Performs main comparison in Layer2. Now just one method with some changes.
+	/**
 	 * @param <T>
 	 * 
 	 * @param gens set of generators being compared
@@ -344,7 +342,6 @@ public final class Layer2 {
 		return gens.multipleTestAdjustment(results);
 	}
 
-	//FIXME refactoring 9/12 - just extracted this from runAllImpl to avoid repeated code
 	/**Carries out the comparison between the two data sets.
 	 * This includes any additional censored comparisons.
 	 * 
