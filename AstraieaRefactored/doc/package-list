@@ -1,9 +1,14 @@
 astraiea
 astraiea.layer1
-astraiea.layer1.varghaDelaney
+astraiea.layer1.effectsize
+astraiea.layer1.pvalue
+astraiea.layer1.test
 astraiea.layer2
+astraiea.layer2.experiments
 astraiea.layer2.generators
+astraiea.layer2.generators.artefacts
+astraiea.layer2.generators.examples
+astraiea.layer2.generators.timeseries
 astraiea.layer2.strategies
-astraiea.test.layer1
-astraiea.test.layer2
+astraiea.layer2.test
 astraiea.util
