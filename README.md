@@ -3,7 +3,7 @@ A Java toolkit for fair comparison of experiments
 
 Geoffrey Neumann, Jerry Swan, Mark Harman and John A. Clark
 
-Astraiea performs principled statistical analysis of experimental results, in a form that can be added directly to research papers. 
+Astraiea performs principled statistical analysis of experimental results, producing output in a form that can be added directly to research papers. 
 
 It is applicable to the analysis of any experimental treatments, but contains additional functionality for assessing Search Based Software Engineering techniques, in accordance with the seminal paper on statistical methods for software engineering by Arcuri and Briand [1].
 
@@ -67,7 +67,7 @@ By default (following [1]), two datasets are compared using:
 
 Below is an example of calling layer1 with this default set up. For an explanation of these parameters see the documentation for astraiea.Layer1
 
-`Layer1.compare( dataA, dataB, double significanceThreshold, boolean brunnerMunzel, new Random() );`
+`Layer1.compare( dataA, dataB, double significanceThreshold, boolean brunnerMunzel, random );`
 
 where `dataA` and `dataB` can be either arrays of lists of doubles.
 
