@@ -3,9 +3,10 @@ A Java library for fair comparison of experimental results
 
 Geoffrey Neumann, Jerry Swan, Mark Harman and John A. Clark
 
-Astraiea is a tool kit for the fair comparison of experimental results. While applicable to the analysis of any experimental treatments, it contains additional functionality for assessing search based software engineering techniques.
+Astraiea is a tool kit for the fair comparison of experimental results. While applicable to the analysis of any experimental treatments, it contains additional functionality for assessing Search Based Software Engineering techniques, in accordance 
+with the seminal paper on statistical methods for software engineering by Arcuri and Briand [1].
 
-If you use Astraiea, please be kind enough to cite the associated papers:
+Astraiea development is funded by the [DAASE EPSRC grant](http://gow.epsrc.ac.uk/NGBOViewGrant.aspx?GrantRef=EP/J017515/1). If you use Astraiea, please be kind enough to cite the associated papers:
 
 ```
 @inproceedings{Neumann:2014:EET:2598394.2609850, 
@@ -33,9 +34,6 @@ If you use Astraiea, please be kind enough to cite the associated papers:
   doi = {10.1007/978-3-319-22183-0_29} 
 }
 ```
-
-Astraiea is designed to comply with the seminal paper on statistical methods for software engineering [1].
-
 Astraiea takes as input either:
 * Two sets of results
 * A collection of programs for producing results
