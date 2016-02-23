@@ -38,7 +38,8 @@ Astraiea is designed to comply with the seminal paper on statistical methods for
 
 Astraiea takes as input either:
 * Two sets of results
-* A collection of programs for producing results and performs a detailed statistical analysis.
+* A collection of programs for producing results
+and performs a detailed statistical analysis.
  
 It will print a LaTeX file giving the results of these comparisons which can then be added to research papers. 
 The location of this LaTeX file can be set by calling `astraiea.Layer1.setupLaTeXLoggers(String filename)`.
