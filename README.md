@@ -107,7 +107,4 @@ Comparisons of more than 2 generators: This is possible through an object of typ
 
 [1] Arcuri, Andrea, and Lionel Briand. "A hitchhiker's guide to statistical tests for assessing randomized algorithms in software engineering." Software Testing, Verification and Reliability 24.3, 2014. 219-250.
 
-[2] Neumann, Geoffrey, Mark Harman, and Simon Poulding. "Transformed Vargha-Delaney Effect Size." Search-Based Software Engineering. Springer International Publishing, 2015. 318-324. APA
-
-* It cannot parley with the mean, pure by impure is not seen. * 
-Ralph Waldo Emerson, "Astrea" (1847).
+[2] Neumann, Geoffrey, Mark Harman, and Simon Poulding. "Transformed Vargha-Delaney Effect Size." Search-Based Software Engineering. Springer International Publishing, 2015. 318-324. APA.
