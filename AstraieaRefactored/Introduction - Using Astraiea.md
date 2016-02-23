@@ -1,18 +1,56 @@
-=================ASTRAIEA 2015==========================
-By Geoffrey Neumann, Jerry Swan, Mark Harman and John Clark
+================= ASTRAIEA 2016 ==========================
+
+By Geoffrey Neumann, Jerry Swan, Mark Harman and John A. Clark
 
 Astraiea is a tool kit for the fair comparison of experimental results.
-It is primarily aimed at assessing search based software engineering techniques.
-It is designed to comply with the seminal paper on statistical methods for software engineering by 
-Andrea Arcuri and Lional Briand: 
-"A Hitchhiker’s guide to statistical tests for assessing randomized algorithms in software engineering" (Arcuri2014).
+While applicable to the analysis of any experimental treatments, it contains additional functionality for 
+assessing search based software engineering techniques.
 
-Astraiea takes as input two sets of results or a collection of programs for producing results and carries out a fair comparison.
+If you use Astraiea, please be kind enough to cite the associated papers:
+
+@inproceedings{Neumann:2014:EET:2598394.2609850,
+ author = {Neumann, Geoffrey and Swan, Jerry and Harman, Mark and Clark, John A.},
+ title = {The Executable Experimental Template Pattern for the Systematic Comparison of Metaheuristics},
+ booktitle = {Proceedings of the Companion Publication of the 2014 Annual Conference on Genetic and Evolutionary Computation},
+ series = {GECCO Comp '14},
+ year = {2014},
+ isbn = {978-1-4503-2881-4},
+ location = {Vancouver, BC, Canada},
+ pages = {1427--1430},
+ numpages = {4},
+ url = {http://doi.acm.org/10.1145/2598394.2609850},
+ doi = {10.1145/2598394.2609850},
+ acmid = {2609850},
+ publisher = {ACM},
+ address = {New York, NY, USA}
+} 
+
+@inproceedings{DBLP:conf/ssbse/NeumannHP15,
+  author    = {Geoffrey Neumann and
+               Mark Harman and
+               Simon M. Poulding},
+  title     = {Transformed Vargha-Delaney Effect Size},
+  booktitle = {Search-Based Software Engineering - 7th International Symposium, {SSBSE}
+               2015, Bergamo, Italy, September 5-7, 2015, Proceedings},
+  pages     = {318--324},
+  year      = {2015},
+  doi       = {10.1007/978-3-319-22183-0_29},
+}
+
+Astraiea is designed to comply with the seminal paper on statistical methods for software engineering by 
+Andrea Arcuri and Lional Briand: 
+"A Hitchhiker's guide to statistical tests for assessing randomized algorithms in software engineering" (Arcuri2014).
+
+Astraiea takes as input either:
+* Two sets of results 
+* A collection of programs for producing results 
+and performs a detailed statistical analysis.
 
 It will print a LaTeX file giving the results of these comparisons which can then be added to research papers.
-Below is explained how Astraiea may be used to carry out this comparison and how it may be configured to 
-carry out various different tests depending on the nature of the data. 
 The location of this LaTeX file can be set by calling astraiea.Layer1.setupLaTeXLoggers(String filename).
+
+Below is explained how Astraiea may be used to carry out this comparison and how it may be configured to 
+carry out various different tests depending on the nature of the data.
 
 ========================================================
 
