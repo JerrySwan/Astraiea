@@ -37,6 +37,17 @@ Astraiea development is funded by the [DAASE EPSRC grant](http://gow.epsrc.ac.uk
   doi = {10.1007/978-3-319-22183-0_29} 
 }
 ```
+
+## Installation instructions
+
+Astraiea can be used either as:
+
+1. An Eclipse project. Either check the project out directly using a git client or download the zipfile using the button towards the top right of the browser window. Within Eclipse, click on `Import/Existing projects into workspace', Browse to the checked-out directory/downloaded archive and then choose from the import options according to preference.
+
+2. A pre-compiled jarfile. Simply download astraiea-XX.jar (where XX is the current version) from the deploy directory and add it to your classpath, together with the required libraries from the lib3rd directory.
+
+## Usage
+
 Astraiea takes as input either:
 * Two sets of results.
 * A collection of *generators* for producing results.
@@ -55,17 +66,9 @@ Astraiea may be accessed through one of the two layers of which it is comprised:
 
 Layer 2 results are fed into Layer 1 for comparison.
 
-## Installation instructions
+### Layer 1
 
-Astraiea can be used either as:
-
-1. An Eclipse project. Either check the project out directly using a git client or download the zipfile using the button towards the top right of the browser window. Within Eclipse, click on `Import/Existing projects into workspace', Browse to the checked-out directory/downloaded archive and then choose from the import options according to preference.
-
-2. A pre-compiled jarfile. Simply download astraiea-XX.jar (where XX is the current version) from the deploy directory and add it to your classpath, together with the required libraries from the lib3rd directory.
-
-## Layer 1
-
-### DEFAULT
+#### Default comparisons
 
 By default (following [1]), two datasets are compared using:
 
@@ -79,33 +82,33 @@ Below is an example of calling layer1 with this default set up. For an explanati
 
 where `dataA` and `dataB` can be either arrays of lists of doubles.
 
-### OTHER COMPARISONS
+#### Other Comparisons
 
 In addition the following comparisons may be performed using Layer1:
 
-#### The Brunner Munzel test
+##### The Brunner Munzel test
 
 Although the Wilcoxon P Value test is the default as it is recommended in Lionel and Briand's paper, this test has the disadvantage that it assumes that the data is not heteroscedastic. The Brunner Munzel test does not make this assumption and so it is more robust.
 
-#### Comparing an array against a single data point
+##### Comparing an array against a single data point
 
 A set of results can be compared agaist a single result, i.e. when comparing the results of a stochastic algorithm with a deterministic one. For this, the Mann-Whitney one sample test is used. There is currently no effect size test implemented for this situation.
 
-#### Comparing paired data
+##### Comparing paired data
 
 This is for situations in which each sample in dataA is paired to a sample in dataB. This may be because the comparison is between two treatments carried out on one entity. For this the Wilcoxon Signed rank test of significance followed by the a paired version of the Vargha Delaney effect size test.
 
-#### Censored data
+##### Censored data
 
 This is for dichotomous tests where results can be cateogorized either as a pass or a fail at the point where the test finished. The fisher p value test followed by the odds ratio effect size test is used.
 
-#### Modified Vargha Delaney
+##### Modified Vargha Delaney
 
 This allows the application of a modified version of the Vargha Delaney effect size test which is customised to the problem so that only differences which can't be regarded as trivial or "noise" are taken into account [2]. To use this create a new class extending `astraiea.layer1.effectsize.ModifiedVarghaDelaney`. Objects of this type can then be passed in as a parameter in `Layer1.compare(...)` or `astraiea.layer2.Layer2.run(...)` methods.
 
-## Layer 2
+### Layer 2
 
-### DEFAULT
+#### Default Comparisons
 
 By default 2 or more generators are each invoked for a fixed number of times and the results compared through Layer 1. 
 
@@ -113,27 +116,27 @@ The method call is as follows:
 `Layer2.run(gens, double significanceThreshold, boolean brunnerMunzel, boolean paired, IncrementingStrategy incr, Random random);`
 `gens` is of type SetOfComparisons. This contains a collection of `SetOfExperiments` objects, each of which is responsible for running one generator. See the Javadoc for more information. `SetOfComparisons` objects are where options for how the comparison are to be carried out are applied (e.g. whether an all against all or an all against one comparison is needed and whether any adjustment for multiple comparisons, such as BonFerroni, is to be applied).
 
-### OTHER COMPARISONS
+#### Other Comparisons
 
-#### Censored data strategies
+##### Censored data strategies
 
 Censored data means that a result is classed as true or false based on an observation taken at whichever point the test finished. This is, in some sense, an arbitrary judgement. For this reason, Arcuri and Briand's paper suggests various alternative tests to be carried out after the initial censored test. Instructions for how censoring is to be carried out are passed as a parameter to Layer2 using an object of type `astraiea.layer2.strategies.CensoringStrategy`. 
 
 Call method `runCensored(...)` unless using timeseries generators, in which case a `CensoringStrategy` parameter is included in the default `run(...)` method. The reason for this is because when censoring is used for non timeseries generators only dichotomous tests will be carried out and this places limits on which options can be set (e.g. Brunner Munzel is no longer possible). When a timeseries is used there is an option for carrying out non dichotomous tests on the length of time that each algorithm took to reach a passing value and so all of these options are available. See the documentation for Layer2 for more details. Whatever strategy is used, all intermediate p values are printed out.
 
-#### Incrementing data
+##### Incrementing data
 
 It is possible to carry out additional invocations of each generator if the initial n invocations proved to be insufficient to demonstrate significance. This process must be carried out in a fair way and the data must be adjusted accordingly. Various alternative methods for doing this can be plugged into Astraiea. How Incrementing should be performed is encapsulated into an object of class `IncrementingStrategy` passed to Layer2. All intermediate p values are output if this is used on the recommendations of Arcuri and Briand.
 
-#### Multiple artefacts
+##### Multiple artefacts
 
 This is when one generator is invoked on multiple instances of a problem. This is dealt with in Astraiea in the manner recommended by Arcuri and Briand. For each set of runs on one artefact the median is taken, thus producing one value for each artefact. It is these values which are then used in statistical testing in the normal manner. To ensure that this process is carried out, any generator featuring multiple artefacts should be of a type implementing `astraiea.layer2.generators.artefact.ArtefactGenerator` or at least of type `astraiea.layer2.generators.Generator`. How the repeats of an artefact actually take place should be implemented in ArtefactGenerator's subclass.
 
-#### Comparisons of more than 2 generators
+##### Comparisons of more than 2 generators
 
 This is possible through an object of type `astraiea.layer2.experiments.SetOfComparisons`. The recommendation of Arcuri and Briand is that all p values should be printed instead of using adjustments such as Hochberg and Bonferroni. All p values from every comparison are output whether or not an adjustment is used but an adjustment can be used through a parameter of type `astraiea.layer2.MultiTestAdjustment` passed to the constructor of `SetOfComparisons`.
 
-## References
+### References
 
 [1] Arcuri, Andrea, and Lionel Briand. "A hitchhiker's guide to statistical tests for assessing randomized algorithms in software engineering." Software Testing, Verification and Reliability 24.3, 2014. 219-250.
 
