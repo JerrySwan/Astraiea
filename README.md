@@ -58,7 +58,9 @@ Layer 2 results are fed into Layer 1 for comparison.
 ## Installation instructions
 
 Astraiea can be used either as:
+
 1. An Eclipse project. Either check the project out directly using a git client or download the zipfile using the button towards the top right of the browser window. Within Eclipse, click on `Import/Existing projects into workspace', Browse to the checked-out directory/downloaded archive and then choose from the import options according to preference.
+
 2. A pre-compiled jarfile. Simply download astraiea-XX.jar (where XX is the current version) from the deploy directory and add it to your classpath, together with the required libraries from the lib3rd directory.
 
 ## Layer 1
